@@ -35,12 +35,12 @@ global $db;
             <?php include 'includes/liste_languages.php'; ?>
             <!-- Ajoutez d'autres langages de programmation ici -->
         </div>
-        <div class="notions-container">
-            <!-- Les notions pour chaque langage seront ajoutées ici via JavaScript -->
-        </div>
-        <div class="exercises-container">
-            <!-- Les exercices pour chaque notion seront ajoutés ici via JavaScript -->
-        </div>
+        <div class="notions-container"></div>
+        <!-- Les notions pour chaque langage seront ajoutées ici via JavaScript -->
+        
+        <div class="exercises-container"></div>
+        <!-- Les exercices pour chaque notion seront ajoutés ici via JavaScript -->
+        
     </section>
     
     <section id="concepts" class="content-section">
@@ -49,12 +49,12 @@ global $db;
             <?php include 'includes/liste_notions.php'; ?>
             <!-- Les notions seront affichées ici via JavaScript -->
         </div>
-        <div class="languages-container">
+        <div class="languages-container"></div>
             <!-- Les langages pour chaque notion seront ajoutés ici via JavaScript -->
-        </div>
-        <div class="exercises-container">
+        
+        <div class="exercises-container"></div>
             <!-- Les exercices pour chaque langage et notion seront ajoutés ici via JavaScript -->
-        </div>
+        
     </section>
 
     <section id="rankings" class="content-section">

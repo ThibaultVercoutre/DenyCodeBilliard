@@ -23,12 +23,12 @@ navLinks.forEach((link) => {
 // afficher Languages -> Notions -> Exercices
 // ================================================
 
-let notions = document.querySelector('#languages .notions-container');
-let exercices = document.querySelector('#languages .exercises-container');
+let notionsLang = document.querySelector('#languages .notions-container');
+let exercicesLang = document.querySelector('#languages .exercises-container');
 
 function affLanguagesToLanguages(e, sec){
     if(sec == 'languages'){
-        Blangages.forEach((langage) => {
+        BlanguagesLang.forEach((langage) => {
             if(e == 0){
                 langage.style.display = 'none';
             }else{
@@ -41,7 +41,7 @@ function affLanguagesToLanguages(e, sec){
 
 function affNotionsToLanguages(e, sec){
     if(sec == 'languages'){
-        Bnotions.forEach((notion) => {
+        BnotionsLang.forEach((notion) => {
             if(e == 0){
                 notion.style.display = 'none';
             }else{
@@ -66,11 +66,10 @@ function createNotionsToLanguages(e) {
         body: params
         }).then(response => response.json())
         .then(result => {
-            notions.innerHTML = '';
+            notionsLang.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                notions.innerHTML += '<div class="notion box" data-language="'+e+'" language='+e+'><span>'+result[i]["name"]+'</span></div>'
+                notionsLang.innerHTML += '<div class="notion box" data-language="'+e+'" data-notion="'+result[i]["name"]+'" language='+e+' onclick="FnotionsLang(\''+result[i]["name"]+'\')"><span>'+result[i]["name"]+'</span></div>'
             }
-            notions.click();
         })   
 }
 
@@ -88,111 +87,108 @@ function createExercicesToNotions(e1, e2) {
         body: params
         }).then(response => response.json())
         .then(result => {
-            exercices.innerHTML = '';
+            exercicesLang.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercices.innerHTML += '<div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
+                exercicesLang.innerHTML += '<div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
             }
-            exercices.click();
         })
         
 }
 
-const Blangages = document.querySelectorAll('#languages .language');
-var Bnotions = document.querySelectorAll('#languages .notion');
-var Bexercices = document.querySelectorAll('#languages .exercice');
+const BlanguagesLang = document.querySelectorAll('#languages .language');
+var BnotionsLang = document.querySelectorAll('#languages .notion');
+var BexercicesLang = document.querySelectorAll('#languages .exercice');
 
-Blangages.forEach((langage) => {
-    langage.addEventListener('click', () => {
+BlanguagesLang.forEach((language) => {
+    language.addEventListener('click', () => {
         affLanguagesToLanguages(0, 'languages');
-        langage.style.display = 'flex';
-        createNotionsToLanguages(langage.getAttribute('data-language'));
-        languagesNotionArbo();
+        language.style.display = 'flex';
+        createNotionsToLanguages(language.getAttribute('data-language'));
+        document.querySelectorAll('#languages .languages-container')[0].style.display = 'none'; 
+        BnotionsLang = document.querySelectorAll('#languages .notion');
     });
 });
 
-notions.addEventListener('click', () => {
-    Bnotions = document.querySelectorAll('#languages .notion');
-    Bnotions.forEach((notion) => {
-        notion.addEventListener('click', () => {
-            let exercices = document.querySelector('#languages .exercises-container');
-            if(exercices.innerHTML == ''){
-                affNotionsToLanguages(0, 'languages');
-                notion.style.display = 'flex';
-                createExercicesToNotions(notion.getAttribute('data-language'), notion.firstChild.textContent);
-            }
-        });
-    });
-});
+console.log(BnotionsLang);
+
+function FnotionsLang(notion){
+    notion = document.querySelector('#languages .notion[data-notion="'+notion+'"]');
+    BnotionsLang = document.querySelectorAll('#languages .notion');
+    let exercicesLang = document.querySelector('#languages .exercises-container');
+    console.log(exercicesLang.innerHTML);
+    if(exercicesLang.innerHTML == ''){
+        affNotionsToLanguages(0, 'languages');
+        notion.style.display = 'flex';
+        createExercicesToNotions(notion.getAttribute('data-language'), notion.firstChild.textContent);
+        document.querySelectorAll('#languages .notions-container')[0].style.display = 'none';
+    }
+}
 
 function languagesExerciceArbo(){
-    exercices.innerHTML = '';
+    exercicesLang.innerHTML = '';
 }
 
 function languagesNotionArbo(){
     languagesExerciceArbo();
-    Bnotions.forEach((notion) => {
+    BnotionsLang.forEach((notion) => {
         notion.style.display = 'flex';
     });
     if(document.querySelector('#arbo_lang').childNodes.length == 2)
         document.querySelector('#arbo_lang').removeChild(document.querySelector('#arbo_lang').childNodes[1]);
-    exercices.innerHTML = '';
+    document.querySelectorAll('#languages .notions-container')[0].style.display = 'flex';
 }
 
 function languagesLanguageArbo(){
     languagesNotionArbo();
-    Blangages.forEach((language) => {
+    BlanguagesLang.forEach((language) => {
         language.style.display = 'flex';
     });
     document.querySelector('#arbo_lang').removeChild(document.querySelector('#arbo_lang').childNodes[0]);
-    notions.innerHTML = '';
+    notionsLang.innerHTML = '';
+    document.querySelectorAll('#languages .languages-container')[0].style.display = 'flex';
 }
 
 // ================================================
 // afficher Notions -> Languages -> Exercices
 // ================================================
 
-let languages = document.querySelector('#concepts .notions-container');
-let exercices2 = document.querySelector('#concepts .exercises-container');
+let languagesNot = document.querySelector('#concepts .languages-container');
+let exercicesNot = document.querySelector('#concepts .exercises-container');
 
-// Cache les sections
-function cacheConceptsSections(){
-    contentSections.forEach((section) => {
-        section.style.display = 'none';
-    });
-}
-
-// Affiche les langages en fonction des notions
-function affLanguagesToConcepts(e, sec) {
-    if(sec == 'concepts'){
-        Blanguages2.forEach((language) => {
-            if(e == 0){
-                language.style.display = 'none';
-            }else{
-                language.style.display = 'flex';
-            }
-        });
-    }
-}
-
-// Affiche les notions en fonction des langages
-function affNotionsToConcepts(e, sec) {
-    if(sec == 'concepts'){
-        Bnotions2.forEach((notion) => {
+function affNotionsToNotions(e, sec){
+    if(sec == 'notions'){
+        BnotionsNot.forEach((notion) => {
             if(e == 0){
                 notion.style.display = 'none';
             }else{
                 notion.style.display = 'flex';
             }
+                
         });
     }
 }
 
-// Crée les langages pour chaque notion
-function createLanguagesToConcepts(e) {
+function affLanguagesToNotions(e, sec){
+    console.log("here");
+    if(sec == 'notions'){
+        BlanguagesNot.forEach((language) => {
+            if(e == 0){
+                language.style.display = 'none';
+            }else{
+                language.style.display = 'flex';
+            }
+                
+        });
+    }
+}
+
+function createLanguagesToNotions(e) {
     var arbo = document.querySelector('#arbo_concept');
     if(arbo.childNodes.length == 0){
-        arbo.innerHTML += '<span class="not arbo" data="' + e + '" onclick="conceptsNotionArbo()">Notion : ' + e + '</span>';
+        arbo.innerHTML += '<span class="not arbo" data="' + e + '" onclick="notionsNotionArbo()">Notion : ' + e + '</span>';
     }
+
+    console.log(e);
 
     var params = new URLSearchParams();
     params.append('notion', e);
@@ -200,87 +196,87 @@ function createLanguagesToConcepts(e) {
     fetch('fetch/liste_languages_notion.php', {
         method: 'POST',
         body: params
-    }).then(response => response.json())
+        }).then(response => response.json())
         .then(result => {
-            languages.innerHTML = '';
+            console.log(result);
+            languagesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                languages.innerHTML += '<div class="language box" data-notion="'+e+'" notion='+e+'><span>'+result[i]["name"]+'</span></div>'
+                languagesNot.innerHTML += '<div class="language box" data-notion="'+e+'" data-language="'+result[i]["name"]+'" language='+e+' onclick="FlanguagesNot(\''+result[i]["name"]+'\')"><span>'+result[i]["name"]+'</span></div>'
             }
-            languages.click();
-        })
+        })   
 }
 
-// Crée les exercices pour chaque langage et notion
-function createExercisesToConcepts(e1, e2) {
+function createExercicesToLanguages(e1, e2) {
     var arbo = document.querySelector('#arbo_concept');
     if(arbo.childNodes.length == 1){
-        arbo.innerHTML += '<span class="lang arbo" data="' + e2 + '" onclick="conceptsLanguageArbo()">Language : ' + e2 + '</span>';
+        arbo.innerHTML += '<span class="lang arbo" data="' + e2 + '" onclick="notionsLanguageArbo()">Language : ' + e2 + '</span>';
     }
+
+    console.log(e1, e2);
     var params = new URLSearchParams();
     params.append('notion', e1);
     params.append('language', e2);
 
-    fetch('fetch/liste_exercices_notion_language.php', {
+    fetch('fetch/liste_exercices_language.php', {
         method: 'POST',
         body: params
-    }).then(response => response.json())
+        }).then(response => response.json())
         .then(result => {
-            exercices.innerHTML = '';
+            console.log(result);
+            exercicesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercices.innerHTML += '<div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
+                exercicesNot.innerHTML += '<div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
             }
-            exercices.click();
         })
+        
 }
 
-var Blanguages2 = document.querySelectorAll('#concepts .language');
-const Bnotions2 = document.querySelectorAll('#concepts .notion');
-var Bexercices2 = document.querySelectorAll('#concepts .exercice');
+var BlanguagesNot = document.querySelectorAll('#concepts .language');
+const BnotionsNot = document.querySelectorAll('#concepts .notion');
+var BexercicesNot = document.querySelectorAll('#concepts .exercice');
 
-
-Bnotions2.forEach((notion) => {
+BnotionsNot.forEach((notion) => {
     notion.addEventListener('click', () => {
-        affNotionsToConcepts(0, 'concepts');
+        affNotionsToNotions(0, 'notions');
         notion.style.display = 'flex';
-        createLanguagesToConcepts(notion.getAttribute('data-notion'));
-        conceptsLanguageArbo();
+        createLanguagesToNotions(notion.getAttribute('data-notion'));
+        document.querySelectorAll('#concepts .notions-container')[0].style.display = 'none'; 
     });
 });
 
-languages.addEventListener('click', () => {
-    Blanguages2 = document.querySelectorAll('#concepts .language');
-    Blanguages2.forEach((language) => {
-        language.addEventListener('click', () => {
-            let exercices = document.querySelector('#concepts .exercises-container');
-            if(exercices.innerHTML == ''){
-                affLanguagesToConcepts(0, 'concepts');
-                language.style.display = 'flex';
-                createExercisesToConcepts(language.getAttribute('data-notion'), language.firstChild.textContent);
-            }
-        });
-    });
-});
-
-function conceptsExerciceArbo() {
-    exercices.innerHTML = '';
+function FlanguagesNot(language){
+    language = document.querySelector('#concepts .language[data-language="'+language+'"]');
+    BlanguagesNot = document.querySelectorAll('#concepts .language');
+    console.log(BlanguagesNot);
+    let exercicesNot = document.querySelector('#concepts .exercises-container');
+    if(exercicesNot.innerHTML == ''){
+        affLanguagesToNotions(0, 'notions');
+        language.style.display = 'flex';
+        createExercicesToLanguages(language.getAttribute('data-notion'), language.firstChild.textContent);
+        document.querySelectorAll('#concepts .languages-container')[0].style.display = 'none';
+    }
 }
 
-function conceptsLanguageArbo() {
-    conceptsExerciceArbo();
-    Blanguages2.forEach((language) => {
+function notionsExerciceArbo(){
+    exercicesNot.innerHTML = '';
+}
+
+function notionsLanguageArbo(){
+    notionsExerciceArbo()
+    BlanguagesNot.forEach((language) => {
         language.style.display = 'flex';
     });
     if(document.querySelector('#arbo_concept').childNodes.length == 2)
         document.querySelector('#arbo_concept').removeChild(document.querySelector('#arbo_concept').childNodes[1]);
-    exercices.innerHTML = '';
+    document.querySelectorAll('#concepts .languages-container')[0].style.display = 'flex';
 }
 
-function conceptsNotionArbo() {
-    conceptsLanguageArbo();
-    Bnotions2.forEach((notion) => {
+function notionsNotionArbo(){
+    notionsLanguageArbo()
+    BnotionsNot.forEach((notion) => {
         notion.style.display = 'flex';
     });
     document.querySelector('#arbo_concept').removeChild(document.querySelector('#arbo_concept').childNodes[0]);
-    languages.innerHTML = '';
+    languagesNot.innerHTML = '';
+    document.querySelectorAll('#concepts .notions-container')[0].style.display = 'flex';
 }
-
