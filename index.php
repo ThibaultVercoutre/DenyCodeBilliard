@@ -65,6 +65,21 @@ global $db;
     </section>
     <section id="user-account" class="content-section">
         <!-- Contenu du compte utilisateur -->
+        <form method="POST" id="form_ajout_exercice">
+            <p>Bienvenue</p>
+            <select id="ajout_language">
+                <option value="">--Please choose an option--</option>
+                <?php include 'includes/option_language.php'; ?>
+            </select>
+            <select id="ajout_notion">
+                <option value="">--Please choose an option--</option>
+                <?php include 'includes/option_notion.php'; ?>
+            </select>
+            <input type="text" name="email" id="email" placeholder="Entrez votre email">
+            <input type="password" name="password" id="password" placeholder="Entrez votre mot de passe">
+            <input type="password" name="cpassword" id="cpassword" placeholder="Confirmez votre mot de passe">
+            <input type="submit" name="inscription" id="inscription" value="Inscription">
+            </form>
     </section>
 </body>
 </html>

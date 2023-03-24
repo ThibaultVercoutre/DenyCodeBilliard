@@ -125,3 +125,7 @@ body{
     min-height: 100vh;
 }
 
+.button_exercice{
+    text-decoration: none;
+    color: black;
+}

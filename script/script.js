@@ -89,7 +89,7 @@ function createExercicesToNotions(e1, e2) {
         .then(result => {
             exercicesLang.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesLang.innerHTML += '<div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
+                exercicesLang.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/'+e2+'/'+e1+'/'+result[i]["name"].replace(/ /g, '_')+'/index.html"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
             }
         })
         
@@ -225,7 +225,7 @@ function createExercicesToLanguages(e1, e2) {
             console.log(result);
             exercicesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesNot.innerHTML += '<div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
+                exercicesNot.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/'+e1+'/'+e2+'/'+result[i]["name"].replace(/ /g, '_')+'/index.html"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
             }
         })
         
