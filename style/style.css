@@ -11,15 +11,29 @@ body{
 
 /* Section Hero */
 #hero {
-    background-image: url('chemin_vers_votre_image_generée.jpg');
-    background-size: cover;
+    /* background-image: url('chemin_vers_votre_image_generée.jpg'); */
+    /* background-size: cover; */
     background-position: center;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    background: linear-gradient(60deg, rgba(2,0,36,1) 0%, rgba(20,20,56,1) 25%, rgba(9,112,133,1) 100%);
+    background: linear-gradient(-45deg, #e7bc2f, #e86209, #52df57, #19aa0b, #1891bd, #2920e0);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
 }
 
 .hero-content {
@@ -28,9 +42,13 @@ body{
 
 .hero-title {
     font-size: 4rem;
-    font-family: 'Arial', sans-serif; /* Vous pouvez utiliser une autre police moderne */
-    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    color: white;
     margin-bottom: 2rem;
+    min-height: 55px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px #fff;
 }
 
 .hero-navigation {
