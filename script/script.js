@@ -89,7 +89,7 @@ function createExercicesToNotions(e1, e2) {
         .then(result => {
             exercicesLang.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesLang.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/'+e2+'/'+e1+'/'+result[i]["name"].replace(/ /g, '_')+'/index.html"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
+                exercicesLang.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/exercice.php?exercise_id=' + result[i]["id"] + '" data-id="' + result[i]["id"] + '"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
             }
         })
         
@@ -228,7 +228,7 @@ function createExercicesToLanguages(e1, e2) {
             console.log(result);
             exercicesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesNot.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/'+e1+'/'+e2+'/'+result[i]["name"].replace(/ /g, '_')+'/index.html"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
+                exercicesNot.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/exercice.php?exercise_id=' + result[i]["id"] + '" data-id="'+ result[i]["id"] +'"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
             }
         })
         
@@ -314,21 +314,22 @@ nb_etapes.addEventListener('change', () => {
     change_nb_parties();
 });
 
-// ================================================
-// Creer un exercice
-// ================================================
-
 let creer_exercice = document.getElementById('create_exo');
 
 creer_exercice.addEventListener('click', () => {
     let données = {
         "sujet" : document.getElementById('sujet_exercice').value,
-        "titre" : document.getElementById('title').value,
+        "titre" : document.getElementById('exo_title').value,
         "language" : document.getElementById('ajout_language').value,
         "notion" : document.getElementById('ajout_notion').value,
         "code" : document.getElementById('code_exercice').value,
         "nb_etapes" : document.getElementById('nb_etapes').value
     };
+
+    document.getElementById('sujet_exercice').value = '';
+    document.getElementById('exo_title').value = '';
+    document.getElementById('code_exercice').value = '';
+    document.getElementById('nb_etapes').value = '';
 
     let etapes = [];
 
@@ -337,8 +338,12 @@ creer_exercice.addEventListener('click', () => {
         etape["code"] = document.getElementById('code_exercice_' + i).value;
         etape["explication"] = document.getElementById('explication_exercice_' + i).value;
         etapes.push(etape);
+
+        document.getElementById('code_exercice_' + i).value = '';
+        document.getElementById('explication_exercice_' + i).value = '';
     }
 
+    console.log(document.getElementById('exo_title'));
     console.log(données, etapes);
 
     var params = new URLSearchParams();
@@ -353,6 +358,26 @@ creer_exercice.addEventListener('click', () => {
         console.log(result);
     })
 });
+
+// ================================================
+// Ouvrir exercice
+// ================================================
+
+function sendexercice(exerciceid) {
+    var Bexercice;
+    document.querySelectorAll('.button_exercice').forEach((exercice) => {
+        console.log(exercice.getAttribute('data-id'));
+        if(exercice.getAttribute('data-id') == exerciceid){
+            console.log('coucou');
+            Bexercice = exercice;
+        }
+    });
+    
+    console.log(Bexercice);
+    //var exerciceId = document.getElementsByClassName('exercice').getAttribute('data-id');
+    // document.getElementById('exercice_id').value = exerciceId;
+    // document.getElementById('hidden-form').submit();
+};
 
 // ================================================
 // CSS

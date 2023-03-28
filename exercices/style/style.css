@@ -1,0 +1,41 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(34, 72, 112);
+    font-family: 'Arial', sans-serif;
+}
+
+body > div{
+    width: auto;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 1rem;
+    margin: 5px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.accordion {
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.01s ease-out;
+    padding: 0 1rem;
+}
+
+.accordion-content.show {
+    max-height: 2000px;
+}
