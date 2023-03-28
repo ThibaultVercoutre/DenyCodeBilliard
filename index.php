@@ -85,7 +85,7 @@ global $db;
                 <input id="nb_etapes" type="number" name="step" id="step" min="0" max="10" placeholder="Entrez un nombre">
                 <div id="etapes"></div>
             </div>
-            <input type="submit" name="inscription" id="inscription" value="Inscription">
+            <input type="button" name="create_exo" id="create_exo" value="Créer un exercice">
             </form>
     </section>
 </body>

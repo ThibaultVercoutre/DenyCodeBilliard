@@ -1,0 +1,25 @@
+{
+  "name": "denycodebilliard",
+  "version": "1.0.0",
+  "description": "Créer une plateforme d'aide au développement",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThibaultVercoutre/DenyCodeBilliard.git"
+  },
+  "keywords": [
+    "aide",
+    "algorithme",
+    "languages",
+    "exercices"
+  ],
+  "author": "Konieczny - Vercoutre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThibaultVercoutre/DenyCodeBilliard/issues"
+  },
+  "homepage": "https://github.com/ThibaultVercoutre/DenyCodeBilliard#readme"
+}

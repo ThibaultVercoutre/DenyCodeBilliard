@@ -298,7 +298,9 @@ function change_nb_parties(){
     if(nb_etapes.value <= 10){
         etapes.innerHTML = '';
         for(let i = 0; i < nb_etapes.value; i++){
-            etapes.innerHTML += "<p>Partie " + (i+1) + '</p><textarea type="text" name="code_exercice" id="code_exercice" placeholder="Entrer le code de l\'exercice"></textarea>';
+            etapes.innerHTML += '<p>Partie ' + (i+1)
+                                + '</p><textarea type="text" name="code_exercice" id="code_exercice_' + i + '" placeholder="Entrer le code de l\'exercice"></textarea>'
+                                + '<textarea type="text" name="explication_exercice" id="explication_exercice_' + i + '" placeholder="Entrer l\'explication de l\'exercice"></textarea>';
         }
     }
     console.log(nb_etapes.value);
@@ -313,7 +315,48 @@ nb_etapes.addEventListener('change', () => {
 });
 
 // ================================================
+// Creer un exercice
+// ================================================
+
+let creer_exercice = document.getElementById('create_exo');
+
+creer_exercice.addEventListener('click', () => {
+    let données = {
+        "sujet" : document.getElementById('sujet_exercice').value,
+        "titre" : document.getElementById('title').value,
+        "language" : document.getElementById('ajout_language').value,
+        "notion" : document.getElementById('ajout_notion').value,
+        "code" : document.getElementById('code_exercice').value,
+        "nb_etapes" : document.getElementById('nb_etapes').value
+    };
+
+    let etapes = [];
+
+    for(let i = 0; i < données["nb_etapes"]; i++){
+        let etape = {};
+        etape["code"] = document.getElementById('code_exercice_' + i).value;
+        etape["explication"] = document.getElementById('explication_exercice_' + i).value;
+        etapes.push(etape);
+    }
+
+    console.log(données, etapes);
+
+    var params = new URLSearchParams();
+    params.append('données', JSON.stringify(données));
+    params.append('etapes', JSON.stringify(etapes));
+
+    fetch('fetch/envoie_new_exercice.php', {
+        method: 'POST',
+        body: params
+    }).then(response => response.text())
+    .then(result => {
+        console.log(result);
+    })
+});
+
+// ================================================
 // API ChatGPT
 // ================================================
 
 const API_KEY = "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";
+

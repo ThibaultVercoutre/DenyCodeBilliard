@@ -1,7 +1,7 @@
 <?php 
     
     define('HOST', 'localhost');
-    define('DB_NAME', 'denycodebilliard');
+    define('DB_NAME', 'denycodebillard');
     define('USER', 'root');
     define('PASSWORD', '');
 
