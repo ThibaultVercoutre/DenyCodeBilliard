@@ -55,7 +55,7 @@ function affNotionsToLanguages(e, sec){
 function createNotionsToLanguages(e) {
     var arbo = document.querySelector('#arbo_lang');
     if(arbo.childNodes.length == 0){
-        arbo.innerHTML += '<span class="lang arbo" data="' + e + '" onclick="languagesLanguageArbo()">Language : ' + e + '</span>';
+        arbo.innerHTML += '<span type="slash" class="arbo">/</span><span class="lang arbo" data="' + e + '" onclick="languagesLanguageArbo()">Language : ' + e + '</span>';
     }
 
     var params = new URLSearchParams();
@@ -75,8 +75,8 @@ function createNotionsToLanguages(e) {
 
 function createExercicesToNotions(e1, e2) {
     var arbo = document.querySelector('#arbo_lang');
-    if(arbo.childNodes.length == 1){
-        arbo.innerHTML += '<span class="not arbo" data="' + e2 + '" onclick="languagesNotionArbo()">Notion : ' + e2 + '</span>';
+    if(arbo.childNodes.length == 2){
+        arbo.innerHTML += '<span type="slash" class="arbo">/</span><span class="not arbo" data="' + e2 + '" onclick="languagesNotionArbo()">Notion : ' + e2 + '</span>';
     }
     var params = new URLSearchParams();
     params.append('language', e1);
@@ -133,8 +133,10 @@ function languagesNotionArbo(){
     BnotionsLang.forEach((notion) => {
         notion.style.display = 'flex';
     });
-    if(document.querySelector('#arbo_lang').childNodes.length == 2)
-        document.querySelector('#arbo_lang').removeChild(document.querySelector('#arbo_lang').childNodes[1]);
+    if(document.querySelector('#arbo_lang').childNodes.length == 4){
+        document.querySelector('#arbo_lang').removeChild(document.querySelector('#arbo_lang').childNodes[3]);
+        document.querySelector('#arbo_lang').removeChild(document.querySelector('#arbo_lang').childNodes[2]);
+    }
     document.querySelectorAll('#languages .notions-container')[0].style.display = 'flex';
 }
 
@@ -143,6 +145,7 @@ function languagesLanguageArbo(){
     BlanguagesLang.forEach((language) => {
         language.style.display = 'flex';
     });
+    document.querySelector('#arbo_lang').removeChild(document.querySelector('#arbo_lang').childNodes[1]);
     document.querySelector('#arbo_lang').removeChild(document.querySelector('#arbo_lang').childNodes[0]);
     notionsLang.innerHTML = '';
     document.querySelectorAll('#languages .languages-container')[0].style.display = 'flex';
@@ -185,7 +188,7 @@ function affLanguagesToNotions(e, sec){
 function createLanguagesToNotions(e) {
     var arbo = document.querySelector('#arbo_concept');
     if(arbo.childNodes.length == 0){
-        arbo.innerHTML += '<span class="not arbo" data="' + e + '" onclick="notionsNotionArbo()">Notion : ' + e + '</span>';
+        arbo.innerHTML += '<span type="slash" class="arbo">/</span><span class="not arbo" data="' + e + '" onclick="notionsNotionArbo()">Notion : ' + e + '</span>';
     }
 
     console.log(e);
@@ -208,8 +211,8 @@ function createLanguagesToNotions(e) {
 
 function createExercicesToLanguages(e1, e2) {
     var arbo = document.querySelector('#arbo_concept');
-    if(arbo.childNodes.length == 1){
-        arbo.innerHTML += '<span class="lang arbo" data="' + e2 + '" onclick="notionsLanguageArbo()">Language : ' + e2 + '</span>';
+    if(arbo.childNodes.length == 2){
+        arbo.innerHTML += '<span type="slash" class="arbo">/</span><span class="lang arbo" data="' + e2 + '" onclick="notionsLanguageArbo()">Language : ' + e2 + '</span>';
     }
 
     console.log(e1, e2);
@@ -266,8 +269,10 @@ function notionsLanguageArbo(){
     BlanguagesNot.forEach((language) => {
         language.style.display = 'flex';
     });
-    if(document.querySelector('#arbo_concept').childNodes.length == 2)
-        document.querySelector('#arbo_concept').removeChild(document.querySelector('#arbo_concept').childNodes[1]);
+    if(document.querySelector('#arbo_concept').childNodes.length == 4){
+        document.querySelector('#arbo_concept').removeChild(document.querySelector('#arbo_concept').childNodes[3]);
+        document.querySelector('#arbo_concept').removeChild(document.querySelector('#arbo_concept').childNodes[2]);
+    }
     document.querySelectorAll('#concepts .languages-container')[0].style.display = 'flex';
 }
 
@@ -276,7 +281,39 @@ function notionsNotionArbo(){
     BnotionsNot.forEach((notion) => {
         notion.style.display = 'flex';
     });
+    document.querySelector('#arbo_concept').removeChild(document.querySelector('#arbo_concept').childNodes[1]);
     document.querySelector('#arbo_concept').removeChild(document.querySelector('#arbo_concept').childNodes[0]);
     languagesNot.innerHTML = '';
     document.querySelectorAll('#concepts .notions-container')[0].style.display = 'flex';
 }
+
+// ================================================
+// Creation exercice
+// ================================================
+
+let nb_etapes = document.getElementById('nb_etapes');
+let etapes = document.getElementById('etapes');
+
+function change_nb_parties(){
+    if(nb_etapes.value <= 10){
+        etapes.innerHTML = '';
+        for(let i = 0; i < nb_etapes.value; i++){
+            etapes.innerHTML += "<p>Partie " + (i+1) + '</p><textarea type="text" name="code_exercice" id="code_exercice" placeholder="Entrer le code de l\'exercice"></textarea>';
+        }
+    }
+    console.log(nb_etapes.value);
+}
+
+nb_etapes.addEventListener('keyup', () => {
+    change_nb_parties()
+});
+
+nb_etapes.addEventListener('change', () => {
+    change_nb_parties();
+});
+
+// ================================================
+// API ChatGPT
+// ================================================
+
+const API_KEY = "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";

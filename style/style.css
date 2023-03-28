@@ -86,7 +86,7 @@ body{
     border-radius: 5px;
 }
 
-.arbo:hover{
+.arbo:hover:not(span[type="slash"]){
     background-color: rgba(255, 255, 255, 0.5);
     color: #000000;
     cursor: pointer;
@@ -128,4 +128,54 @@ body{
 .button_exercice{
     text-decoration: none;
     color: black;
+}
+
+#elements_bdd{
+    width: 50vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+#elements_bdd input, #elements_bdd select{
+}
+
+#elements_html{
+    width: 50vw;
+    margin: 0;
+    padding: 0;
+}
+
+#user-account select, #user-account input, #user-account textarea{
+    width: auto;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 1rem;
+    margin: 5px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#user-account textarea{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+}
+
+#user-account select:hover, #user-account input:hover, #user-account textarea:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #000000;
+}
+
+#user-account select:hover{
+    cursor: pointer;
+}
+
+input:hover{
+    cursor: pointer;
+}
+
+input[type='text']:hover, textarea[type='text']:hover{
+    cursor: text;
 }

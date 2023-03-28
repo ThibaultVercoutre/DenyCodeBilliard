@@ -10,14 +10,14 @@ global $db;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DenyCodeBilliard</title>
+    <title>Code Secret</title>
     <link rel="stylesheet" href="style/style.css">
     <script src="script/script.js" defer></script>
 </head>
 <body>
     <header id="hero">
         <div class="hero-content">
-            <h1 class="hero-title">DenyCodeBilliard</h1>
+            <h1 class="hero-title">Code Secret</h1>
             <div class="hero-navigation">
                 <a href="#" class="nav-link" data-target="languages">Langages</a>
                 <a href="#" class="nav-link" data-target="concepts">Notions</a>
@@ -66,18 +66,25 @@ global $db;
     <section id="user-account" class="content-section">
         <!-- Contenu du compte utilisateur -->
         <form method="POST" id="form_ajout_exercice">
-            <p>Bienvenue</p>
-            <select id="ajout_language">
-                <option value="">--Please choose an option--</option>
-                <?php include 'includes/option_language.php'; ?>
-            </select>
-            <select id="ajout_notion">
-                <option value="">--Please choose an option--</option>
-                <?php include 'includes/option_notion.php'; ?>
-            </select>
-            <input type="text" name="email" id="email" placeholder="Entrez votre email">
-            <input type="password" name="password" id="password" placeholder="Entrez votre mot de passe">
-            <input type="password" name="cpassword" id="cpassword" placeholder="Confirmez votre mot de passe">
+            <p>Ajouter un exercice</p>
+            <div id="elements_bdd">
+                <select id="ajout_language">
+                    <?php include 'includes/option_language.php'; ?>
+                </select>
+                <select id="ajout_notion">
+                    <?php include 'includes/option_notion.php'; ?>
+                </select>
+                <input type="text" name="title" id="title" placeholder="Entrez le nom de l'exercice">
+            </div>
+            <div id="elements_html">
+                <p>Sujet de l'exercice</p>
+                <textarea type='text' name="sujet_exercice" id="sujet_exercice" placeholder="Entrer le sujet de l'exercice"></textarea>
+                <p>Code de l'exercice</p>
+                <textarea type='text' name="code_exercice" id="code_exercice" placeholder="Entrer le code de l'exercice"></textarea>
+                <p>Nombre d'étapes pour y arriver</p>
+                <input id="nb_etapes" type="number" name="step" id="step" min="0" max="10" placeholder="Entrez un nombre">
+                <div id="etapes"></div>
+            </div>
             <input type="submit" name="inscription" id="inscription" value="Inscription">
             </form>
     </section>
