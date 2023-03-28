@@ -45,8 +45,8 @@ body{
     font-family: 'Arial', sans-serif;
     color: white;
     margin-bottom: 2rem;
-    min-height: 55px;
-    -webkit-background-clip: text;
+    min-height: 80px;
+    /* -webkit-background-clip: text; */
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 2px #fff;
 }
@@ -152,9 +152,6 @@ body{
     width: 50vw;
     display: flex;
     justify-content: space-between;
-}
-
-#elements_bdd input, #elements_bdd select{
 }
 
 #elements_html{

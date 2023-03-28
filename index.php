@@ -74,7 +74,7 @@ global $db;
                 <select id="ajout_notion">
                     <?php include 'includes/option_notion.php'; ?>
                 </select>
-                <input type="text" name="title" id="title" placeholder="Entrez le nom de l'exercice">
+                <input type="text" name="title" id="exo_title" placeholder="Entrez le nom de l'exercice">
             </div>
             <div id="elements_html">
                 <p>Sujet de l'exercice</p>

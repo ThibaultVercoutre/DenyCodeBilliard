@@ -3,7 +3,7 @@
 include '../includes/database.php';
 global $db;
 
-$q = $db->prepare(" SELECT exercices.name 
+$q = $db->prepare(" SELECT exercices.name, exercices.id
                     FROM `exercices` 
                         JOIN notions ON exercices.notion = notions.id
                         JOIN languages ON exercices.language = languages.id 
