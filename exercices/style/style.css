@@ -30,12 +30,15 @@ body > div{
 }
 
 .accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.01s ease-out;
     padding: 0 1rem;
+    display: none;
+    animation: appear 0.3s linear;
 }
 
-.accordion-content.show {
-    max-height: 2000px;
+.explication_text{
+    width: 100%;
+}
+
+p{
+    text-align: justify;
 }

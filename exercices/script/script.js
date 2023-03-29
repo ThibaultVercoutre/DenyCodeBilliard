@@ -4,7 +4,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for(let i = 0; i < accordionsHeader.length; i++) {
         accordionsHeader[i].addEventListener('click', function () {
-            accordionsContent[i].classList.toggle('show');
+            if(accordionsContent[i].style.display == 'block') {
+                accordionsContent[i].style.display = 'none';
+            }else {
+                accordionsContent[i].style.display = 'block';
+            }
         });
     };
 
