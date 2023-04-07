@@ -2,7 +2,6 @@ body{
     margin: 0;
     padding: 0;
     background-color: rgb(34, 72, 112);
-    font-family: 'Arial', sans-serif;
     font-family: 'Josefin Sans', sans-serif;
     background: linear-gradient(-45deg, rgb(25, 41, 124), rgb(0, 129, 167));
     background-size: 400% 400%;
