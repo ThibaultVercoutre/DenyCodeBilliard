@@ -19,7 +19,6 @@ header, section{
     /* background-size: cover; */
     background-position: center;
     height: 100vh;
-    display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
@@ -55,16 +54,46 @@ header, section{
     -webkit-text-stroke: 2px #fff;
 }
 
+#header-h {
+    position: relative;
+    text-align: right;
+    margin-bottom: 240px;
+}
+
 .hero-navigation {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
+#theme {
+    display: inline-block;
+    font-size: 1.2rem;
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+    background: linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, #ffffff, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000);
+    background-color: #000000;
+    border: 2px solid #ffffff;
+    -webkit-text-stroke: 1px #fff;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background-size: 400% 400%;
+    animation: gradient 10s linear infinite;
+}
+
+#theme:hover {
+    color: #000000;
+    background: #ffffff;
+    border: 2px solid #000000;
+    -webkit-text-stroke: 1px #000000;
+}
+
 .nav-link, .accueil {
     display: inline-block;
     font-size: 1.2rem;
-    font-family: 'Arial', sans-serif; /* Vous pouvez utiliser une autre police moderne */
+    font-family: 'Arial', sans-serif;
     color: #ffffff;
     border: 2px solid #ffffff;
     padding: 0.5rem 1rem;
