@@ -21,6 +21,7 @@ global $db;
         <div class="hero-content">
             <div id="header-h">
                 <a href="#" id="theme">Mode sombre</a>
+                <a href="#" id="sign">S'inscrire</a>
             </div>
             <h1 class="hero-title" id="title">> Code Secret</h1>
             <div class="hero-navigation">
