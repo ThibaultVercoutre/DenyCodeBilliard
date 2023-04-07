@@ -13,6 +13,8 @@ global $db;
     <title>Code Secret</title>
     <link rel="stylesheet" href="style/style.css">
     <script src="script/script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
     <header id="hero">

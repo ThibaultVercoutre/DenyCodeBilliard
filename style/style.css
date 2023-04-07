@@ -6,7 +6,9 @@ body{
     margin: 0;
     padding: 0;
     background-color: rgb(34, 72, 112);
-    font-family: 'Arial', sans-serif;
+    /* font-family: 'Arial', sans-serif; */
+    /* font-family: 'Josefin Sans', sans-serif; */
+    font-family: 'Lexend', sans-serif;
 }
 
 header, section{
@@ -69,31 +71,47 @@ header, section{
 #theme {
     display: inline-block;
     font-size: 1.2rem;
-    font-family: 'Arial', sans-serif;
+    /* font-family: 'Arial', sans-serif; */
     color: #ffffff;
     background: linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, #ffffff, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000);
-    background-color: #000000;
+    padding: 0.5rem 1rem;
     border: 2px solid #ffffff;
     -webkit-text-stroke: 1px #fff;
-    padding: 0.5rem 1rem;
     margin: 0.5rem;
     text-decoration: none;
     transition: all 0.3s ease;
     background-size: 400% 400%;
+}
+
+#theme:not(:hover){
     animation: gradient 10s linear infinite;
 }
 
-#theme:hover {
+#theme:hover{
     color: #000000;
-    background: #ffffff;
     border: 2px solid #000000;
     -webkit-text-stroke: 1px #000000;
+    backdrop-filter: invert(100%);
+    background: linear-gradient(-90deg, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff,#ffffff, #ffffff, #000000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff);
+    animation: gradient 10s linear infinite reverse;
+}
+
+@keyframes gradient-hover {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
 }
 
 .nav-link, .accueil {
     display: inline-block;
     font-size: 1.2rem;
-    font-family: 'Arial', sans-serif;
+    /* font-family: 'Arial', sans-serif; */
     color: #ffffff;
     border: 2px solid #ffffff;
     padding: 0.5rem 1rem;
