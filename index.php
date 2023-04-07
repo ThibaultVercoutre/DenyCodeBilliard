@@ -61,6 +61,9 @@ global $db;
 
     <section id="rankings" class="content-section">
         <div id="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
+        <p>Dans cette section vous allez pouvoir découvrir un classement général des notions, exercices ou même languages
+            de programmation les plus populaire sur notre plateforme. Ce sera un top qui sera présenté mensuellement et all time.
+        </p>
         <!-- Contenu des classements -->
     </section>
     <section id="exercise-of-the-week" class="content-section">
