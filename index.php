@@ -30,7 +30,7 @@ global $db;
 
     <!-- Vos sections ici -->
     <section id="languages" class="content-section">
-        <a href="#" class="accueil" data-target="accueil">Accueil</a>
+        <div id="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
         <div id='arbo_lang'></div>
         <div class="languages-container">
             <?php include 'includes/liste_languages.php'; ?>
@@ -45,7 +45,7 @@ global $db;
     </section>
     
     <section id="concepts" class="content-section">
-        <a href="#" class="accueil" data-target="accueil">Accueil</a>
+        <div id="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
         <div id='arbo_concept'></div>
         <div class="notions-container">
             <?php include 'includes/liste_notions.php'; ?>
@@ -60,15 +60,15 @@ global $db;
     </section>
 
     <section id="rankings" class="content-section">
-        <a href="#" class="accueil" data-target="accueil">Accueil</a>
+        <div id="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
         <!-- Contenu des classements -->
     </section>
     <section id="exercise-of-the-week" class="content-section">
-        <a href="#" class="accueil" data-target="accueil">Accueil</a>
+        <div id="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
         <!-- Contenu de l'exercice de la semaine -->
     </section>
     <section id="user-account" class="content-section">
-        <a href="#" class="accueil" data-target="accueil">Accueil</a>
+        <div id="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
         <!-- Contenu du compte utilisateur -->
         <div id="ajout_contenu">
             <div id="form_ajout_exercice">

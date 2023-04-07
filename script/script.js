@@ -107,7 +107,7 @@ function createExercicesToNotions(e1, e2) {
         .then(result => {
             exercicesLang.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesLang.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/exercice.php?exercise_id=' + result[i]["id"] + '" data-id="' + result[i]["id"] + '"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
+                exercicesLang.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/' + e2 + '/' + e1 + '/' + result[i]["name"] + '/exercice.php?exercice_id=' + result[i]["id"] + '" data-id="' + result[i]["id"] + '"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
             }
         })
         
@@ -245,7 +245,7 @@ function createExercicesToLanguages(e1, e2) {
             console.log(result);
             exercicesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesNot.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/exercice.php?exercise_id=' + result[i]["id"] + '" data-id="'+ result[i]["id"] +'"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
+                exercicesNot.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/' + e1 + '/' + e2 + '/exercice.php?exercice_id=' + result[i]["id"] + '" data-id="'+ result[i]["id"] +'"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
             }
         })
         
