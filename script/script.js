@@ -107,7 +107,7 @@ function createExercicesToNotions(e1, e2) {
         .then(result => {
             exercicesLang.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesLang.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/' + e2 + '/' + e1 + '/' + result[i]["name"] + '/exercice.php?exercice_id=' + result[i]["id"] + '" data-id="' + result[i]["id"] + '"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
+                exercicesLang.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e2 + '/' + e1 + '/' + result[i]["name"] + '/exercice.php?exercice_id=' + result[i]["id"] + '" data-id="' + result[i]["id"] + '"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
             }
         })
         
@@ -245,7 +245,7 @@ function createExercicesToLanguages(e1, e2) {
             console.log(result);
             exercicesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesNot.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/' + e1 + '/' + e2 + '/exercice.php?exercice_id=' + result[i]["id"] + '" data-id="'+ result[i]["id"] +'"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
+                exercicesNot.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e1 + '/' + e2 + '/' + result[i]["name"] + '/exercice.php?exercice_id=' + result[i]["id"] + '"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
             }
         })
         
@@ -462,20 +462,18 @@ textareas.forEach(textarea => {
 // Ouvrir exercice
 // ================================================
 
+
 function sendexercice(exerciceid) {
-    var Bexercice;
-    document.querySelectorAll('.button_exercice').forEach((exercice) => {
-        console.log(exercice.getAttribute('data-id'));
-        if(exercice.getAttribute('data-id') == exerciceid){
-            console.log('coucou');
-            Bexercice = exercice;
-        }
-    });
-    
-    console.log(Bexercice);
-    //var exerciceId = document.getElementsByClassName('exercice').getAttribute('data-id');
-    // document.getElementById('exercice_id').value = exerciceId;
-    // document.getElementById('hidden-form').submit();
+    var params = new URLSearchParams();
+    params.append('exerciceid', exerciceid);
+
+    fetch('fetch/add_visit.php', {
+        method: 'POST',
+        body: params
+    }).then(response => response.text())
+    .then(result => {
+        console.log(result);
+    })
 };
 
 // ================================================
