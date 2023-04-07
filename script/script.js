@@ -1,8 +1,11 @@
 
-// Nav bar
+// ================================================
+// Nav Bar
+// ================================================  
 
 const navLinks = document.querySelectorAll('.nav-link');
 const contentSections = document.querySelectorAll('.content-section');
+const accueils = document.querySelectorAll('.accueil');
 
 function cacheSections(){
     contentSections.forEach((section) => {
@@ -12,14 +15,21 @@ function cacheSections(){
 
 cacheSections();
 
+function scrollSection(windowHeight){
+    window.scrollBy({
+        top: windowHeight,
+        left: 0,
+        behavior: 'smooth'
+    });
+}
+
 navLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
         cacheSections();
         document.getElementById(e.target.getAttribute('data-target')).style.display = 'block';
+        scrollSection(window.innerHeight);
     });
 });
-
-// Bouton thème
 
 const Btheme = document.getElementById('theme');
 const CSShero = document.getElementById("hero");
@@ -57,6 +67,12 @@ Btheme.addEventListener("mouseover", function() {
         Btheme.style.webkitTextStroke = "1px #ffffff";
     };
   });
+
+accueils.forEach((accueil) => {
+    accueil.addEventListener('click', (e) => {
+        scrollSection(0);
+    }); 
+});
 
 // ================================================
 // afficher Languages -> Notions -> Exercices
@@ -128,7 +144,7 @@ function createExercicesToNotions(e1, e2) {
         .then(result => {
             exercicesLang.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesLang.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/'+e2+'/'+e1+'/'+result[i]["name"].replace(/ /g, '_')+'/index.html"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
+                exercicesLang.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e2 + '/' + e1 + '/' + result[i]["name"] + '/exercice.php?exercice_id=' + result[i]["id"] + '" data-id="' + result[i]["id"] + '"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
             }
         })
         
@@ -154,7 +170,6 @@ function FnotionsLang(notion){
     notion = document.querySelector('#languages .notion[data-notion="'+notion+'"]');
     BnotionsLang = document.querySelectorAll('#languages .notion');
     let exercicesLang = document.querySelector('#languages .exercises-container');
-    console.log(exercicesLang.innerHTML);
     if(exercicesLang.innerHTML == ''){
         affNotionsToLanguages(0, 'languages');
         notion.style.display = 'flex';
@@ -267,7 +282,7 @@ function createExercicesToLanguages(e1, e2) {
             console.log(result);
             exercicesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesNot.innerHTML += '<a target="_blank" class="button_exercice" href="exercices/'+e1+'/'+e2+'/'+result[i]["name"].replace(/ /g, '_')+'/index.html"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
+                exercicesNot.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e1 + '/' + e2 + '/' + result[i]["name"] + '/exercice.php?exercice_id=' + result[i]["id"] + '"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
             }
         })
         
@@ -353,21 +368,22 @@ nb_etapes.addEventListener('change', () => {
     change_nb_parties();
 });
 
-// ================================================
-// Creer un exercice
-// ================================================
-
 let creer_exercice = document.getElementById('create_exo');
 
 creer_exercice.addEventListener('click', () => {
     let données = {
         "sujet" : document.getElementById('sujet_exercice').value,
-        "titre" : document.getElementById('title').value,
+        "titre" : document.getElementById('exo_title').value,
         "language" : document.getElementById('ajout_language').value,
         "notion" : document.getElementById('ajout_notion').value,
         "code" : document.getElementById('code_exercice').value,
         "nb_etapes" : document.getElementById('nb_etapes').value
     };
+
+    document.getElementById('sujet_exercice').value = '';
+    document.getElementById('exo_title').value = '';
+    document.getElementById('code_exercice').value = '';
+    document.getElementById('nb_etapes').value = '';
 
     let etapes = [];
 
@@ -376,8 +392,12 @@ creer_exercice.addEventListener('click', () => {
         etape["code"] = document.getElementById('code_exercice_' + i).value;
         etape["explication"] = document.getElementById('explication_exercice_' + i).value;
         etapes.push(etape);
+
+        document.getElementById('code_exercice_' + i).value = '';
+        document.getElementById('explication_exercice_' + i).value = '';
     }
 
+    console.log(document.getElementById('exo_title'));
     console.log(données, etapes);
 
     var params = new URLSearchParams();
@@ -392,6 +412,106 @@ creer_exercice.addEventListener('click', () => {
         console.log(result);
     })
 });
+
+// ================================================
+// Ajout Notion / Exercice
+// ================================================
+
+let Addnot = document.getElementById('create_not');
+let AddLang = document.getElementById('create_lang');
+
+function sendNotOrLang(p){
+    fetch('fetch/envoie_new_not_lang.php', {
+        method: 'POST',
+        body: p
+    }).then(response => response.text())
+    .then(result => {
+        console.log(result);
+    })
+}
+
+Addnot.addEventListener('click', () => {
+    let newNot = document.getElementById('not_title').value;
+    let listeNot = document.querySelectorAll('#ajout_notion option');
+
+    var compteur = 0;
+    for(let i = 0; i < listeNot.length; i++){
+        if(listeNot[i].value.match(newNot) == null && newNot.match(listeNot[i].value) == null){
+            compteur++;
+        }
+    }
+
+    if(listeNot.length == compteur){
+        var params = new URLSearchParams();
+        params.append('type', 1);
+        params.append('name', newNot);
+
+        sendNotOrLang(params);
+        
+        document.getElementById('not_title').value = '';
+    }else {
+        alert('Cette notion existe déjà');
+    }
+});
+
+AddLang.addEventListener('click', () => {
+    let newLang = document.getElementById('lang_title').value;
+    let listelang = document.querySelectorAll('#ajout_language option');
+    console.log(newLang);
+
+    var params = new URLSearchParams();
+    params.append('type', 2);
+    params.append('name', newLang);
+
+    var compteur = 0;
+    for(let i = 0; i < listelang.length; i++){
+        console.log(listelang[i].value);
+        var lang = listelang[i].value;
+        if(lang.match(newLang) == null){
+            compteur++;
+        }
+    }
+
+    if(listelang.length == compteur){
+        var params = new URLSearchParams();
+        params.append('type', 2);
+        params.append('name', newLang);
+
+        sendNotOrLang(params);
+
+        document.getElementById('lang_title').value = '';
+    }else {
+        alert('Ce language existe déjà');
+    }
+});
+
+const textareas = document.querySelectorAll('textarea');
+
+textareas.forEach(textarea => {
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+});
+
+
+// ================================================
+// Ouvrir exercice
+// ================================================
+
+
+function sendexercice(exerciceid) {
+    var params = new URLSearchParams();
+    params.append('exerciceid', exerciceid);
+
+    fetch('fetch/add_visit.php', {
+        method: 'POST',
+        body: params
+    }).then(response => response.text())
+    .then(result => {
+        console.log(result);
+    })
+};
 
 // ================================================
 // CSS
