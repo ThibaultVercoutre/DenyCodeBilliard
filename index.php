@@ -17,6 +17,9 @@ global $db;
 <body>
     <header id="hero">
         <div class="hero-content">
+            <div id="header-h">
+                <a href="#" id="theme">Mode sombre</a>
+            </div>
             <h1 class="hero-title" id="title">> Code Secret</h1>
             <div class="hero-navigation">
                 <a href="#" class="nav-link" data-target="languages">Langages</a>
