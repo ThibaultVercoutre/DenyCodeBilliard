@@ -42,11 +42,23 @@ function scrollSection(windowHeight){
     });
 }
 
+let Ecriture;
+
 navLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
-        cacheSections();
-        document.getElementById(e.target.getAttribute('data-target')).style.display = 'block';
-        scrollSection(window.innerHeight);
+        clearInterval(IntervalleTitre);
+        clearTimeout(Ecriture);
+        setTimeout(function() {
+            eraseWriter(title, "> " + title.innerHTML.slice(4, title.innerHTML.length), 43);
+        }, 100);
+        setTimeout(function() {
+            typeWriter(title, link.innerHTML, 43);
+        }, 1300);
+        setTimeout(function() {
+            cacheSections();
+            document.getElementById(e.target.getAttribute('data-target')).style.display = 'block';
+            scrollSection(window.innerHeight);
+        }, 3000);
     });
 });
 
@@ -113,7 +125,23 @@ Btheme.addEventListener("mouseout", function() {
 
 accueils.forEach((accueil) => {
     accueil.addEventListener('click', (e) => {
+        index = 0;
+        title.innerHTML = "> Code Secret";
         scrollSection(0);
+        IntervalleTitre = setInterval(function() {
+            let index1 = (index) % messages.length;
+            let index2 = (index + 1) % messages.length;
+            const message = messages[index1];
+            const message2 = messages[index2];
+            title.innerHTML = "";
+            // setTimeout(function() {
+                eraseWriter(title, message, 43);
+            // }, 3000);
+            Ecriture = setTimeout(function() {
+                typeWriter(title, message2.slice(2, message2.length), 43);
+            }, 1300);
+            index++;
+        }, 5000);
     }); 
 });
 
@@ -592,7 +620,7 @@ const title = document.getElementById('title');
 const messages = ["> Code Secret", "> Votre superpuissance", "> Clément GOAT", "> Votre site de cul"];
 let index = 0;
   
-setInterval(function() {
+let IntervalleTitre = setInterval(function() {
     let index1 = (index) % messages.length;
     let index2 = (index + 1) % messages.length;
     const message = messages[index1];
@@ -601,7 +629,7 @@ setInterval(function() {
     // setTimeout(function() {
         eraseWriter(title, message, 43);
     // }, 3000);
-    setTimeout(function() {
+    Ecriture = setTimeout(function() {
         typeWriter(title, message2.slice(2, message2.length), 43);
     }, 1300);
     index++;

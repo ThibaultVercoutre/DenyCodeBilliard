@@ -23,6 +23,7 @@ global $db;
         <div class="hero-content">
             <div id="header-h">
                 <a href="#" id="theme"><span class="material-symbols-outlined">dark_mode</span></a>
+                <a href="#" id="sign">S'inscrire</a>
             </div>
             <!-- <span class="material-symbols-outlined">dark_mode</span> -->
             <h1 class="hero-title" id="title">> Code Secret</h1>
