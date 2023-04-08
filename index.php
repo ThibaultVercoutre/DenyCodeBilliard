@@ -15,13 +15,16 @@ global $db;
     <script src="script/script.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header id="hero">
         <div class="hero-content">
             <div id="header-h">
-                <a href="#" id="theme">Mode sombre</a>
+                <a href="#" id="theme"><span class="material-symbols-outlined">dark_mode</span></a>
             </div>
+            <!-- <span class="material-symbols-outlined">dark_mode</span> -->
             <h1 class="hero-title" id="title">> Code Secret</h1>
             <div class="hero-navigation">
                 <a href="#" class="nav-link" data-target="languages">Langages</a>
@@ -69,6 +72,11 @@ global $db;
         <p>Dans cette section vous allez pouvoir découvrir un classement général des notions, exercices ou même languages
             de programmation les plus populaire sur notre plateforme. Ce sera un top qui sera présenté mensuellement et all time.
         </p>
+        <div class="chart-container">
+            <canvas id="bar-chart-Exercices"></canvas>
+            <canvas id="bar-chart-Notions"></canvas>
+            <canvas id="bar-chart-Languages"></canvas>
+        </div>
         <!-- Contenu des classements -->
     </section>
     <section id="exercise-of-the-week" class="content-section">

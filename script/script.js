@@ -2,9 +2,21 @@
 // Scrolling desactively
 // ================================================  
 
-document.addEventListener('wheel', function (event) {
-    event.preventDefault();
-}, { passive: false });
+// document.addEventListener('wheel', function (event) {
+//     event.preventDefault();
+// }, { passive: false });
+
+// const minHeight = Math.round(document.getElementById('hero').offsetHeight);
+
+// console.log(minHeight);
+
+// window.addEventListener('wheel', function (event) {
+//     height = Math.round(window.pageYOffset);
+//     console.log(height, minHeight);
+//   if (height > minHeight) {
+//     event.preventDefault();
+//   }
+// }, { passive: false });
 
 // ================================================
 // Nav Bar
@@ -42,22 +54,23 @@ const Btheme = document.getElementById('theme');
 const CSShero = document.getElementById("hero");
 
 Btheme.addEventListener('click', (e) => {
-    console.log("coucou");
-    if (Btheme.innerHTML === "Mode sombre") {
-        Btheme.innerHTML = "Mode clair";
+    if (Btheme.innerHTML === '<span class="material-symbols-outlined">dark_mode</span>') {
+        Btheme.innerHTML = '<span class="material-symbols-outlined">light_mode</span>';
         CSShero.style.background = "linear-gradient(-45deg, #530808, #870505, #1e1b1b, #000000, #160265, #06025c)";
         CSShero.style.animation = "gradient 10s ease infinite";
+        CSShero.style.boxShadow = "inset 0px 0px 50px black"
         CSShero.style.backgroundSize = "400% 400%";
         Btheme.style.color = "#000000";
         Btheme.style.background = "linear-gradient(-90deg, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #000000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff)";
         Btheme.style.border = "2px solid #000000";
         Btheme.style.webkitTextStroke = "1px #000000";
         Btheme.style.backgroundSize = "400% 400%";
-    } else if (Btheme.innerHTML === "Mode clair") {
-        Btheme.innerHTML = "Mode sombre";
+    } else if (Btheme.innerHTML === '<span class="material-symbols-outlined">light_mode</span>') {
+        Btheme.innerHTML = '<span class="material-symbols-outlined">dark_mode</span>';
         CSShero.style.background = "linear-gradient(-45deg, #e7bc2f, #e86209, #52df57, #19aa0b, #1891bd, #2920e0)";
         CSShero.style.animation = "gradient 10s ease infinite";
         CSShero.style.backgroundSize = "400% 400%";
+        CSShero.style.boxShadow = "inset 0px 0px 50px white"
         Btheme.style.color = "#ffffff";
         Btheme.style.background = "linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, #ffffff, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000)";
         Btheme.style.border = "2px solid #ffffff";
@@ -67,13 +80,13 @@ Btheme.addEventListener('click', (e) => {
 });
 
 Btheme.addEventListener("mouseover", function() {
-    if (Btheme.innerHTML === "Mode sombre") {
+    if (Btheme.innerHTML === '<span class="material-symbols-outlined">dark_mode</span>') {
         Btheme.style.color = "#000000";
         Btheme.style.background = "linear-gradient(-90deg, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #000000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff)";
         Btheme.style.border = "2px solid #000000";
         Btheme.style.webkitTextStroke = "1px #000000";
         Btheme.style.backgroundSize = "400% 400%";
-    } else if (Btheme.innerHTML === "Mode clair") {
+    } else if (Btheme.innerHTML === '<span class="material-symbols-outlined">light_mode</span>') {
         Btheme.style.color = "#ffffff";
         Btheme.style.background = "linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, #ffffff, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000)";
         Btheme.style.border = "2px solid #ffffff";
@@ -83,13 +96,13 @@ Btheme.addEventListener("mouseover", function() {
 });
 
 Btheme.addEventListener("mouseout", function() {
-    if (Btheme.innerHTML === "Mode clair") {
+    if (Btheme.innerHTML === '<span class="material-symbols-outlined">light_mode</span>') {
         Btheme.style.color = "#000000";
         Btheme.style.background = "linear-gradient(-90deg, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #000000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff)";
         Btheme.style.border = "2px solid #000000";
         Btheme.style.webkitTextStroke = "1px #000000";
         Btheme.style.backgroundSize = "400% 400%";
-    } else if (Btheme.innerHTML === "Mode sombre") {
+    } else if (Btheme.innerHTML === '<span class="material-symbols-outlined">dark_mode</span>') {
         Btheme.style.color = "#ffffff";
         Btheme.style.background = "linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, #ffffff, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000)";
         Btheme.style.border = "2px solid #ffffff";
@@ -154,8 +167,8 @@ function createNotionsToLanguages(e) {
             notionsLang.innerHTML = '';
             for(let i = 0; i < result.length; i++){
                 notionsLang.innerHTML += '<div class="notion box" data-language="'+e+'" data-notion="'+result[i]["name"]+'" language='+e+' onclick="FnotionsLang(\''+result[i]["name"]+'\')"><span>'+result[i]["name"]+'</span></div>'
-            }
-        })   
+        }
+    })   
 }
 
 function createExercicesToNotions(e1, e2) {
@@ -193,8 +206,6 @@ BlanguagesLang.forEach((language) => {
         BnotionsLang = document.querySelectorAll('#languages .notion');
     });
 });
-
-console.log(BnotionsLang);
 
 function FnotionsLang(notion){
     notion = document.querySelector('#languages .notion[data-notion="'+notion+'"]');
@@ -595,6 +606,178 @@ setInterval(function() {
     }, 1300);
     index++;
 }, 5000);
+
+// ================================================
+// Diagramme ranked
+// ================================================
+
+function listNameExercices(elts) {
+    names = [];
+    for(let i = 0; i < elts.length; i++){
+        names.push(elts[i]['exercice'] + ' - ' + elts[i]['language']);
+    }
+    return names;
+}
+
+function listNameNotions(elts){
+    names = [];
+    for(let i = 0; i < elts.length; i++){
+        names.push(elts[i]['notion']);
+    }
+    return names;
+}
+
+function listNameLanguages(elts){
+    names = [];
+    for(let i = 0; i < elts.length; i++){
+        names.push(elts[i]['language']);
+    }
+    return names;
+}
+
+function listVisit(elts){
+    nb_visit = [];
+    for(let i = 0; i < elts.length; i++){
+        nb_visit.push(elts[i]['nb_visit']);
+    }
+    return nb_visit;
+}
+
+function listVisitMonth(elts){
+    nb_visit = [];
+    for(let i = 0; i < elts.length; i++){
+        nb_visit.push(elts[i]['nb_visit_month']);
+    }
+    return nb_visit;
+}
+
+function Diagramme(elts, titre){
+    const ctx = document.getElementById('bar-chart-' + titre).getContext('2d');
+
+    var nb_visit = listVisit(elts);
+    var nb_visit_month = listVisitMonth(elts);
+
+    console.log(nb_visit, nb_visit_month);
+
+    if(titre == "Exercices"){
+        var names = listNameExercices(elts);
+    }else if(titre == "Notions"){
+        var names = listNameNotions(elts);
+    }else if(titre == "Languages"){
+        var names = listNameLanguages(elts);
+    }
+
+    const data = {
+        labels: names,
+        datasets: [
+            {
+                label: 'all time',
+                data: nb_visit,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 2
+            },
+            {
+                label: 'monthly',
+                data: nb_visit_month,
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 2
+            }
+        ]
+    };
+
+    const barChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: titre,
+                    font: {
+                        size: 24
+                    },
+                    color: '#000',
+                    position: 'top'
+                },
+                legend: {
+                    labels: {
+                        color: 'rgba(0, 0, 0, 1)' // Couleur du texte de la légende
+                    },
+                    onHover: function (event, legendItem, legend) {
+                        document.getElementById('bar-chart-' + titre).style.cursor = 'pointer';
+                      },
+                    onLeave: function (event, legendItem, legend) {
+                        document.getElementById('bar-chart-' + titre).style.cursor = 'default';
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'rgba(0, 0, 0, 1)' // Couleur des unités de l'axe Y
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.2)' // Couleur de la grille de l'axe Y
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: 'rgba(0, 0, 0, 1)' // Couleur des étiquettes de l'axe X
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.2)' // Couleur de la grille de l'axe X
+                    }
+                }
+            }
+        }
+    });
+
+    return barChart;
+}
+
+function CreateDiagrammeRanked() {
+    var params = new URLSearchParams();
+
+    fetch('fetch/liste_ranked_exercices.php', {
+        method: 'POST',
+        body: params
+        }).then(response => response.json())
+        .then(result => {
+            Diagramme(result, 'Exercices');
+        })
+
+    fetch('fetch/liste_ranked_notions.php', {
+        method: 'POST',
+        body: params
+        }).then(response => response.json())
+        .then(result => {
+            Diagramme(result, 'Notions');
+        })
+
+    fetch('fetch/liste_ranked_languages.php', {
+        method: 'POST',
+        body: params
+        }).then(response => response.json())
+        .then(result => {
+            console.log(result);
+            Diagramme(result, 'Languages');
+        })
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    CreateDiagrammeRanked();
+});
 
 // ================================================
 // API ChatGPT
