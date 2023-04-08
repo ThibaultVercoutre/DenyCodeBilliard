@@ -15,6 +15,13 @@ header, section{
     margin: 0px;
 }
 
+section{
+    background: linear-gradient(270deg, #1891bd, #2766c5);
+    background-size: 200% 200%;
+    /* animation: gradient 15s ease infinite; */
+    /* box-shadow: inset 0px 0px 15px white; */
+}
+
 /* Section Hero */
 #hero {
     /* background-image: url('chemin_vers_votre_image_generée.jpg'); */
@@ -27,6 +34,7 @@ header, section{
     background: linear-gradient(-45deg, #e7bc2f, #e86209, #52df57, #19aa0b, #1891bd, #2920e0);
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
+    box-shadow: inset 0px 0px 50px white;
 }
 
 @keyframes gradient {
@@ -74,7 +82,6 @@ header, section{
     /* font-family: 'Arial', sans-serif; */
     color: #ffffff;
     background: linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, #ffffff, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000);
-    padding: 0.5rem 1rem;
     border: 2px solid #ffffff;
     -webkit-text-stroke: 1px #fff;
     margin: 0.5rem;
@@ -282,4 +289,18 @@ input[type='text']:hover, textarea[type='text']:hover{
 
 #form_ajout_notion_language div{
     margin: 10px;
+}
+
+#rankings p{
+    padding: 0.5rem 1rem;
+    font-size: large;
+    text-align: justify;
+}
+
+.material-symbols-outlined{
+   margin: 0.5rem;
+}
+
+canvas{
+    padding: 0.5rem;
 }
