@@ -99,15 +99,6 @@ global $db;
                     </select>
                     <input type="text" name="title" id="exo_title" placeholder="Entrez le nom de l'exercice">
                 </div>
-                <div id="elements_html">
-                    <p>Sujet de l'exercice</p>
-                    <textarea type='text' name="sujet_exercice" id="sujet_exercice" placeholder="Entrer le sujet de l'exercice"></textarea>
-                    <p>Code de l'exercice</p>
-                    <textarea type='text' name="code_exercice" id="code_exercice" placeholder="Entrer le code de l'exercice"></textarea>
-                    <p>Nombre d'étapes pour y arriver</p>
-                    <input id="nb_etapes" type="number" name="step" id="step" min="0" max="10" placeholder="Entrez un nombre">
-                    <div id="etapes"></div>
-                </div>
                 <input type="button" name="create_exo" id="create_exo" value="Créer un exercice">
             </div>
             <div id="form_ajout_notion_language">

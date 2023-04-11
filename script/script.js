@@ -62,6 +62,17 @@ navLinks.forEach((link) => {
     });
 });
 
+// navLinks.forEach((link) => {
+//     link.addEventListener('click', (e) => {
+//         cacheSections();
+//         document.getElementById(e.target.getAttribute('data-target')).style.display = 'block';
+//         
+//         setTimeout(function() {
+//             document.querySelector('body').style.transform = 'translateY(-100vh)';
+//         }, 300);
+//     });
+// });
+
 const Btheme = document.getElementById('theme');
 const CSShero = document.getElementById("hero");
 
@@ -215,7 +226,7 @@ function createExercicesToNotions(e1, e2) {
         .then(result => {
             exercicesLang.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesLang.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e2 + '/' + e1 + '/' + result[i]["name"] + '/exercice.php?exercice_id=' + result[i]["id"] + '" data-id="' + result[i]["id"] + '"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
+                exercicesLang.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e2 + '/' + e1 + '/' + result[i]["name"].replaceAll(" ","_") + '/exercice.php?exercice_id=' + result[i]["id"] + '" data-id="' + result[i]["id"] + '"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
             }
         })
         
@@ -351,7 +362,7 @@ function createExercicesToLanguages(e1, e2) {
             console.log(result);
             exercicesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesNot.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e1 + '/' + e2 + '/' + result[i]["name"] + '/exercice.php?exercice_id=' + result[i]["id"] + '"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
+                exercicesNot.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e1 + '/' + e2 + '/' + result[i]["name"].replaceAll(" ","_") + '/exercice.php?exercice_id=' + result[i]["id"] + '"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
             }
         })
         
@@ -414,64 +425,19 @@ function notionsNotionArbo(){
 // Creation exercice
 // ================================================
 
-let nb_etapes = document.getElementById('nb_etapes');
-let etapes = document.getElementById('etapes');
-
-function change_nb_parties(){
-    if(nb_etapes.value <= 10){
-        etapes.innerHTML = '';
-        for(let i = 0; i < nb_etapes.value; i++){
-            etapes.innerHTML += '<p>Partie ' + (i+1)
-                                + '</p><textarea type="text" name="code_exercice" id="code_exercice_' + i + '" placeholder="Entrer le code de l\'exercice"></textarea>'
-                                + '<textarea type="text" name="explication_exercice" id="explication_exercice_' + i + '" placeholder="Entrer l\'explication de l\'exercice"></textarea>';
-        }
-    }
-    console.log(nb_etapes.value);
-}
-
-nb_etapes.addEventListener('keyup', () => {
-    change_nb_parties()
-});
-
-nb_etapes.addEventListener('change', () => {
-    change_nb_parties();
-});
-
 let creer_exercice = document.getElementById('create_exo');
 
 creer_exercice.addEventListener('click', () => {
     let données = {
-        "sujet" : document.getElementById('sujet_exercice').value,
         "titre" : document.getElementById('exo_title').value,
         "language" : document.getElementById('ajout_language').value,
-        "notion" : document.getElementById('ajout_notion').value,
-        "code" : document.getElementById('code_exercice').value,
-        "nb_etapes" : document.getElementById('nb_etapes').value
+        "notion" : document.getElementById('ajout_notion').value
     };
 
-    document.getElementById('sujet_exercice').value = '';
     document.getElementById('exo_title').value = '';
-    document.getElementById('code_exercice').value = '';
-    document.getElementById('nb_etapes').value = '';
-
-    let etapes = [];
-
-    for(let i = 0; i < données["nb_etapes"]; i++){
-        let etape = {};
-        etape["code"] = document.getElementById('code_exercice_' + i).value;
-        etape["explication"] = document.getElementById('explication_exercice_' + i).value;
-        etapes.push(etape);
-
-        document.getElementById('code_exercice_' + i).value = '';
-        document.getElementById('explication_exercice_' + i).value = '';
-    }
-
-    console.log(document.getElementById('exo_title'));
-    console.log(données, etapes);
 
     var params = new URLSearchParams();
     params.append('données', JSON.stringify(données));
-    params.append('etapes', JSON.stringify(etapes));
 
     fetch('fetch/envoie_new_exercice.php', {
         method: 'POST',
@@ -713,10 +679,10 @@ function Diagramme(elts, titre){
                 label: 'monthly',
                 data: nb_visit_month,
                 backgroundColor: [
-                    'rgba(54, 162, 235, 0.2)'
+                    'rgba(75, 192, 192, 0.2)'
                 ],
                 borderColor: [
-                    'rgba(54, 162, 235, 1)'
+                    'rgba(75, 192, 192, 1)'
                 ],
                 borderWidth: 2
             }
