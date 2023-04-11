@@ -102,3 +102,17 @@ ul > li{
 #sujet, p{
     font-family: 'Lexend', sans-serif;
 }
+
+/* Python */
+
+.code_def{
+    color: rgb(255, 153, 0);
+}
+
+.code_function_p{
+    color: violet;
+}
+
+.code_function_u{
+    color: rgb(255, 217, 0);
+}
