@@ -81,7 +81,6 @@ Btheme.addEventListener('click', (e) => {
         Btheme.innerHTML = '<span class="material-symbols-outlined">light_mode</span>';
         CSShero.style.background = "linear-gradient(-45deg, #530808, #870505, #1e1b1b, #000000, #160265, #06025c)";
         CSShero.style.animation = "gradient 10s ease infinite";
-        CSShero.style.boxShadow = "inset 0px 0px 50px black"
         CSShero.style.backgroundSize = "400% 400%";
         Btheme.style.color = "#000000";
         Btheme.style.background = "linear-gradient(-90deg, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #000000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff)";
@@ -93,7 +92,6 @@ Btheme.addEventListener('click', (e) => {
         CSShero.style.background = "linear-gradient(-45deg, #e7bc2f, #e86209, #52df57, #19aa0b, #1891bd, #2920e0)";
         CSShero.style.animation = "gradient 10s ease infinite";
         CSShero.style.backgroundSize = "400% 400%";
-        CSShero.style.boxShadow = "inset 0px 0px 50px white"
         Btheme.style.color = "#ffffff";
         Btheme.style.background = "linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, #ffffff, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000)";
         Btheme.style.border = "2px solid #ffffff";
@@ -427,6 +425,7 @@ function notionsNotionArbo(){
 
 let creer_exercice = document.getElementById('create_exo');
 
+if(creer_exercice != null){
 creer_exercice.addEventListener('click', () => {
     let données = {
         "titre" : document.getElementById('exo_title').value,
@@ -447,6 +446,7 @@ creer_exercice.addEventListener('click', () => {
         console.log(result);
     })
 });
+};
 
 // ================================================
 // Ajout Notion / Exercice
@@ -465,6 +465,7 @@ function sendNotOrLang(p){
     })
 }
 
+if(Addnot != null){
 Addnot.addEventListener('click', () => {
     let newNot = document.getElementById('not_title').value;
     let listeNot = document.querySelectorAll('#ajout_notion option');
@@ -488,7 +489,9 @@ Addnot.addEventListener('click', () => {
         alert('Cette notion existe déjà');
     }
 });
+}
 
+if(AddLang != null){
 AddLang.addEventListener('click', () => {
     let newLang = document.getElementById('lang_title').value;
     let listelang = document.querySelectorAll('#ajout_language option');
@@ -519,6 +522,7 @@ AddLang.addEventListener('click', () => {
         alert('Ce language existe déjà');
     }
 });
+}
 
 const textareas = document.querySelectorAll('textarea');
 

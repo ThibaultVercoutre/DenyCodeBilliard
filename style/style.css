@@ -9,7 +9,6 @@ body{
     /* font-family: 'Arial', sans-serif; */
     /* font-family: 'Josefin Sans', sans-serif; */
     font-family: 'Lexend', sans-serif;
-    transition-duration: 1.3s;
 }
 
 header, section{
@@ -74,6 +73,37 @@ section{
     align-items: center;
 }
 
+#deconnexion{
+    position: relative;
+}
+
+#deconnexion span{
+    transform-origin: right;
+    transition: all 0.3s ease;
+    opacity: 1;
+}
+
+
+#deconnexion:hover span{
+    opacity: 0;
+}
+
+#deconnexion::before{
+    content: 'Deconnexion';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 2;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: all 0.3s ease;
+}
+
+#deconnexion:hover::before{
+    transform: scaleX(1);
+}
+
 .hero-navigation {
     display: flex;
     justify-content: center;
@@ -107,7 +137,7 @@ section{
     animation: gradient 10s linear infinite reverse;
 }
 
-.nav-link, .accueil, #sign {
+.nav-link, .accueil, #sign, #deconnexion {
     display: inline-block;
     font-size: 1.2rem;
     /* font-family: 'Arial', sans-serif; */
@@ -119,13 +149,13 @@ section{
     transition: all 0.3s ease;
 }
 
-#div_accueil{
+.div_accueil{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.nav-link:hover, .accueil:hover, #sign:hover {
+.nav-link:hover, .accueil:hover, #sign:hover, #deconnexion:hover {
     background-color: rgba(255, 255, 255, 0.5);
     color: #000000;
     cursor: pointer;
@@ -295,4 +325,12 @@ input[type='text']:hover, textarea[type='text']:hover{
 
 canvas{
     padding: 0.5rem;
+}
+
+#rankings .div_accueil, #rankings p{
+    height: 10vh;
+}
+
+#bar-chart-Exercices{
+    height: 80vh;
 }
