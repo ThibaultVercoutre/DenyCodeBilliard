@@ -192,6 +192,7 @@ section{
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
+    border: 3px solid black;
 }
   
 .box span {
@@ -209,8 +210,11 @@ section{
     transform: scale(1.05);
 }
 
-.content-section{
+.content-section {
     min-height: 100vh;
+    background: linear-gradient(225deg, #e7bc2f, #e86209, #52df57, #19aa0b, #1891bd, #2920e0);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
 }
 
 .button_exercice{
@@ -296,3 +300,90 @@ input[type='text']:hover, textarea[type='text']:hover{
 canvas{
     padding: 0.5rem;
 }
+
+#python {
+    background-image: url("images/python.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#java {
+    background-image: url("images/java.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#C {
+    background-image: url("images/c.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#C\+\+ {
+    background-image: url("images/c++.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#R {
+    background-image: url("images/r.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#JS {
+    background-image: url("images/js.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#CSS {
+    background-image: url("images/css.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#HTML {
+    background-image: url("images/html.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#PHP {
+    background-image: url("images/php.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#Matlab {
+    background-image: url("images/matlab.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.language span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+}
+
+
+
+
