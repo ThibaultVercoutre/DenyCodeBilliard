@@ -75,6 +75,8 @@ navLinks.forEach((link) => {
 
 const Btheme = document.getElementById('theme');
 const CSShero = document.getElementById("hero");
+const Langages = document.querySelectorAll(".box");
+const SpanLangages = document.querySelectorAll(".language span");
 
 Btheme.addEventListener('click', (e) => {
     if (Btheme.innerHTML === '<span class="material-symbols-outlined">dark_mode</span>') {
@@ -87,6 +89,12 @@ Btheme.addEventListener('click', (e) => {
         Btheme.style.border = "2px solid #000000";
         Btheme.style.webkitTextStroke = "1px #000000";
         Btheme.style.backgroundSize = "400% 400%";
+        for (let i = 0; i < SpanLangages.length; i++) {
+            Langages[i].style.backgroundColor = "black";
+            Langages[i].style.border = '3px solid white';
+            SpanLangages[i].style.color = 'white';
+            SpanLangages[i].style.background = "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))";
+        }
     } else if (Btheme.innerHTML === '<span class="material-symbols-outlined">light_mode</span>') {
         Btheme.innerHTML = '<span class="material-symbols-outlined">dark_mode</span>';
         CSShero.style.background = "linear-gradient(-45deg, #e7bc2f, #e86209, #52df57, #19aa0b, #1891bd, #2920e0)";
@@ -97,6 +105,12 @@ Btheme.addEventListener('click', (e) => {
         Btheme.style.border = "2px solid #ffffff";
         Btheme.style.webkitTextStroke = "1px #ffffff";
         Btheme.style.backgroundSize = "400% 400%";
+        for (let i = 0; i < SpanLangages.length; i++) {
+            Langages[i].style.backgroundColor = "white";
+            Langages[i].style.border = '3px solid black';
+            SpanLangages[i].style.color = 'black';
+            SpanLangages[i].style.background = "linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0))";
+        }
     };
 });
 
