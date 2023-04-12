@@ -3,6 +3,15 @@
 include 'includes/database.php';
 global $db;
 
+$_SESSION['id'] = 0;
+$_SESSION['email'] = "";
+$_SESSION['name'] = "";
+$_SESSION['firstname'] = "";
+$_SESSION['pseudo'] = "";
+$_SESSION['birthday'] = "";
+
+session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +32,11 @@ global $db;
         <div class="hero-content">
             <div id="header-h">
                 <a href="#" id="theme"><span class="material-symbols-outlined">dark_mode</span></a>
-                <a href="#" id="sign">S'inscrire</a>
+                <?php if(empty($_SESSION['id'])){ ?>
+                    <a href="login\login.php" id="sign">S'inscrire</a>
+                <?php }else{ ?>
+                    <a href="login\logout.php" id="deconnexion"><span><?php echo $_SESSION['pseudo'] ?></span></a>
+                <?php } ?>
             </div>
             <!-- <span class="material-symbols-outlined">dark_mode</span> -->
             <h1 class="hero-title" id="title">> Code Secret</h1>
@@ -32,14 +45,14 @@ global $db;
                 <a href="#" class="nav-link" data-target="concepts">Notions</a>
                 <a href="#" class="nav-link" data-target="rankings">Classements</a>
                 <a href="#" class="nav-link" data-target="exercise-of-the-week">Exercice de la semaine</a>
-                <a href="#" class="nav-link" data-target="user-account">Compte utilisateur</a>
+                <?php if(!empty($_SESSION['id'])){?><a href="#" class="nav-link" data-target="user-account">Compte utilisateur</a><?php } ?>
             </div>
         </div>
     </header>
 
     <!-- Vos sections ici -->
     <section id="languages" class="content-section">
-        <div id="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
+        <div class="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
         <div id='arbo_lang'></div>
         <div class="languages-container">
             <?php include 'includes/liste_languages.php'; ?>
@@ -54,7 +67,7 @@ global $db;
     </section>
     
     <section id="concepts" class="content-section">
-        <div id="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
+        <div class="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
         <div id='arbo_concept'></div>
         <div class="notions-container">
             <?php include 'includes/liste_notions.php'; ?>
@@ -69,7 +82,7 @@ global $db;
     </section>
 
     <section id="rankings" class="content-section">
-        <div id="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
+        <div class="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
         <p>Dans cette section vous allez pouvoir découvrir un classement général des notions, exercices ou même languages
             de programmation les plus populaire sur notre plateforme. Ce sera un top qui sera présenté mensuellement et all time.
         </p>
@@ -81,11 +94,14 @@ global $db;
         <!-- Contenu des classements -->
     </section>
     <section id="exercise-of-the-week" class="content-section">
-        <div id="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
+        <div class="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
         <!-- Contenu de l'exercice de la semaine -->
     </section>
+
+    <?php if($_SESSION['id'] != 0){?>
+
     <section id="user-account" class="content-section">
-        <div id="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
+        <div class="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
         <!-- Contenu du compte utilisateur -->
         <div id="ajout_contenu">
             <div id="form_ajout_exercice">
@@ -115,5 +131,6 @@ global $db;
             </div>
         </div>
     </section>
+    <?php } ?>
 </body>
 </html>

@@ -1,0 +1,100 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+
+#sections{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+section{
+    backdrop-filter: invert(80%);
+    margin: 10px;
+    padding: 10px;
+    width: 40vw;
+    border: 1px solid #ccc;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input{
+    margin: 5px;
+    font-size: 1.2rem;
+    color: #000000;
+    border: 2px solid #000000;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #000000;
+    cursor: pointer;
+}
+
+#header-h {
+    position: absolute;
+    text-align: right;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    position: sticky;
+}
+
+#theme {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #ffffff;
+    background: linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, #ffffff, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000);
+    border: 2px solid #ffffff;
+    margin: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background-size: 400% 400%;
+}
+
+#theme:not(:hover){
+    animation: gradient 10s linear infinite;
+}
+
+#theme:hover{
+    color: #000000;
+    border: 2px solid #000000;
+    -webkit-text-stroke: 1px #000000;
+    background: linear-gradient(-90deg, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff,#ffffff, #ffffff, #000000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff);
+    animation: gradient 10s linear infinite reverse;
+}
+
+.material-symbols-outlined{
+    margin: 0.5rem;
+}
+
+#hero {
+    background-position: center;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: linear-gradient(-45deg, #e7bc2f, #e86209, #52df57, #19aa0b, #1891bd, #2920e0);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+}
