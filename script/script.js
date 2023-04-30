@@ -601,7 +601,7 @@ function typeWriter(element, message, speed) {
 }
   
 const title = document.getElementById('title');
-const messages = ["> Code Secret", "> Votre superpuissance", "> Clément GOAT", "> Votre site de cul"];
+const messages = ["> Deny Code Billard", "> Apprenez avec Deny", "> Codez avec envie", "> Un billard comme ami"];
 let index = 0;
   
 let IntervalleTitre = setInterval(function() {

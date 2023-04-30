@@ -9,6 +9,7 @@ body{
     /* font-family: 'Arial', sans-serif; */
     /* font-family: 'Josefin Sans', sans-serif; */
     font-family: 'Lexend', sans-serif;
+    position: relative;
 }
 
 header, section{
@@ -18,7 +19,7 @@ header, section{
 section{
     background: linear-gradient(270deg, #1891bd, #2766c5);
     background: linear-gradient(45deg, #1891bd, #2920e0);
-    /* box-shadow: inset 0px 0px 50px white; */
+    box-shadow: inset 0px 0px 50px white;
     background-size: 200% 200%;
 }
 
@@ -34,7 +35,7 @@ section{
     background: linear-gradient(-45deg, #e7bc2f, #e86209, #52df57, #19aa0b, #1891bd, #2920e0);
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
-    /* box-shadow: inset 0px 0px 50px white; */
+    box-shadow: inset 0px 0px 50px black;
 }
 
 @keyframes gradient {
@@ -65,12 +66,16 @@ section{
 }
 
 #header-h {
-    position: relative;
+    /* position: relative; */
+    /* position: sticky; */
+    top: 0;
+    z-index: 1000;
     text-align: right;
     margin-bottom: 240px;
     display: flex;
     justify-content: right;
     align-items: center;
+    
 }
 
 #deconnexion{
@@ -90,11 +95,14 @@ section{
 
 #deconnexion::before{
     content: 'Deconnexion';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    z-index: 2;
     transform-origin: left;
     transform: scaleX(0);
     transition: all 0.3s ease;
@@ -155,8 +163,14 @@ section{
     justify-content: center;
 }
 
-.nav-link:hover, .accueil:hover, #sign:hover, #deconnexion:hover {
+.nav-link:hover, .accueil:hover, #sign:hover {
     background-color: rgba(255, 255, 255, 0.5);
+    color: #000000;
+    cursor: pointer;
+}
+
+#deconnexion:hover {
+    background-color: rgba(255, 0, 0, 0.5);
     color: #000000;
     cursor: pointer;
 }
@@ -264,7 +278,7 @@ section{
     padding: 0;
 }
 
-#user-account select, #user-account input, #user-account textarea{
+#admin-account select, #admin-account input, #admin-account textarea{
     width: auto;
     border: 2px solid #ffffff;
     color: #ffffff;
@@ -275,19 +289,19 @@ section{
     transition: 0.3s;
 }
 
-#user-account textarea{
+#admin-account textarea{
     box-sizing: border-box;
     width: 100%;
     height: 46px;
     resize: vertical;
 }
 
-#user-account select:hover, #user-account input:hover, #user-account textarea:hover{
+#admin-account select:hover, #admin-account input:hover, #admin-account textarea:hover{
     background-color: rgba(255, 255, 255, 0.5);
     color: #000000;
 }
 
-#user-account select:hover{
+#admin-account select:hover{
     cursor: pointer;
 }
 
@@ -420,4 +434,55 @@ canvas{
     font-weight: bold;
     text-align: center;
     background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+}
+
+/*=================================================================================================================================*/
+/* Exo de la semaine */
+/*=================================================================================================================================*/
+
+#titre_exo_week{
+    padding: 5px;
+}
+
+#titre_exo_week h1{
+    text-align: center;
+}
+
+#titre_exo_week legend{
+    font-weight: bold;
+}
+
+#titre_exo_week p{
+    text-align: justify;
+}
+
+#titre_exo_week td,
+#titre_exo_week th {
+    border: 1px solid rgb(190, 190, 190);
+    padding: 10px;
+}
+
+#titre_exo_week td {
+    text-align: center;
+}
+
+#titre_exo_week th[scope='col'] {
+    background-color: rgba(105, 105, 105, 0.5);
+    color: #fff;
+}
+
+#titre_exo_week th[scope='row'] {
+    background-color: rgba(215, 217, 242, 0.5);
+}
+
+#titre_exo_week caption {
+    padding: 10px;
+    caption-side: bottom;
+}
+
+#titre_exo_week table {
+    border-collapse: collapse;
+    border: 2px solid rgb(200, 200, 200);
+    letter-spacing: 1px;
+    font-size: 0.8rem;
 }

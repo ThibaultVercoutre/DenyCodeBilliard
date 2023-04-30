@@ -7,10 +7,11 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    height: 90vh;
 }
 
 section{
-    backdrop-filter: invert(80%);
+    background-color: rgba(255, 255, 255, 0.2);
     margin: 10px;
     padding: 10px;
     width: 40vw;
@@ -40,6 +41,7 @@ input[type="submit"]:hover{
 }
 
 #header-h {
+    height: 10vh;
     position: absolute;
     text-align: right;
     display: flex;
