@@ -27,7 +27,7 @@ global $db;
             <section id="login">
                 <form method="post">
                     <input type="text" name="Cemail" id="Cemail" placeholder="Entrez votre email"/>
-                    <input type="text" name="Cpassword" id="Cpassword" placeholder="Entrez votre mot de passe"/>
+                    <input type="password" name="Cpassword" id="Cpassword" placeholder="Entrez votre mot de passe"/>
                     <input type="submit" name="send_login" id="send_login" value="Connexion">
                 </form>
                 <?php
@@ -46,6 +46,7 @@ global $db;
                                     $_SESSION['firstname'] = $user['firstname'];
                                     $_SESSION['pseudo'] = $user['pseudo'];
                                     $_SESSION['birthday'] = $user['birthday'];
+                                    $_SESSION['admin'] = $user['admin'];
                                     header('Location: ../index.php');
                                 }else{
                                     echo "Mot de passe incorrect";
@@ -62,8 +63,8 @@ global $db;
             <section id="signin">
                 <form method="post">
                     <input type="text" name="Iemail" id="email" placeholder="Entrez votre email"/>
-                    <input type="text" name="Ipassword" id="password" placeholder="Entrez votre mot de passe"/>
-                    <input type="text" name="IpasswordC" id="passwordC" placeholder="Confirmez votre mot de passe"/>
+                    <input type="password" name="Ipassword" id="password" placeholder="Entrez votre mot de passe"/>
+                    <input type="password" name="IpasswordC" id="passwordC" placeholder="Confirmez votre mot de passe"/>
                     <input type="text" name="Iname" id="name" placeholder="Entrez votre nom">
                     <input type="text" name="Ifirstname" id="firstname" placeholder="Entrez votre prenom">
                     <input type="text" name="Ipseudo" id="pseudo" placeholder="Entrez votre pseudo">
