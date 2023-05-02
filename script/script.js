@@ -44,8 +44,26 @@ function scrollSection(windowHeight){
 
 let Ecriture;
 
+function handleClick(event) {
+    event.preventDefault();
+
+    // Désactive temporairement les événements de clic sur les éléments de la navbar
+    navLinks.forEach(function (item) {
+        item.style.pointerEvents = "none";
+    });
+
+    // Simule l'animation avec une durée de 1 seconde (1000 ms)
+    setTimeout(function () {
+        // Réactive les événements de clic sur les éléments de la navbar après l'animation
+        navLinks.forEach(function (item) {
+            item.style.pointerEvents = "auto";
+        });
+    }, 3000);
+}
+
 navLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
+        handleClick(e);
         clearInterval(IntervalleTitre);
         clearTimeout(Ecriture);
         setTimeout(function() {
@@ -58,7 +76,7 @@ navLinks.forEach((link) => {
             cacheSections();
             document.getElementById(e.target.getAttribute('data-target')).style.display = 'block';
             scrollSection(window.innerHeight);
-        }, 3000);
+        }, 2000);
     });
 });
 
@@ -77,13 +95,24 @@ const Btheme = document.getElementById('theme');
 const CSShero = document.getElementById("hero");
 const Langages = document.querySelectorAll(".box");
 const SpanLangages = document.querySelectorAll(".language span");
+const Sections = document.querySelectorAll(".content-section");
 
 Btheme.addEventListener('click', (e) => {
     if (Btheme.innerHTML === '<span class="material-symbols-outlined">dark_mode</span>') {
         Btheme.innerHTML = '<span class="material-symbols-outlined">light_mode</span>';
+
         CSShero.style.background = "linear-gradient(-45deg, #530808, #870505, #1e1b1b, #000000, #160265, #06025c)";
         CSShero.style.animation = "gradient 10s ease infinite";
         CSShero.style.backgroundSize = "400% 400%";
+        CSShero.style.color = "rgb(244,237,222)";
+        
+        Sections.forEach(section => {
+            section.style.background = "linear-gradient(-45deg, #530808, #870505, #1e1b1b, #000000, #160265, #06025c)";
+            section.style.animation = "gradient 10s ease infinite";
+            section.style.backgroundSize = "400% 400%";
+            section.style.color = "rgb(244,237,222)";
+        });
+
         Btheme.style.color = "#000000";
         Btheme.style.background = "linear-gradient(-90deg, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #000000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff)";
         Btheme.style.border = "2px solid #000000";
@@ -97,9 +126,19 @@ Btheme.addEventListener('click', (e) => {
         }
     } else if (Btheme.innerHTML === '<span class="material-symbols-outlined">light_mode</span>') {
         Btheme.innerHTML = '<span class="material-symbols-outlined">dark_mode</span>';
+
         CSShero.style.background = "linear-gradient(-45deg, #e7bc2f, #e86209, #52df57, #19aa0b, #1891bd, #2920e0)";
         CSShero.style.animation = "gradient 10s ease infinite";
         CSShero.style.backgroundSize = "400% 400%";
+        CSShero.style.color = "#000000";
+
+        Sections.forEach(section => {
+            section.style.background = "linear-gradient(-45deg, #e7bc2f, #e86209, #52df57, #19aa0b, #1891bd, #2920e0)";
+            section.style.animation = "gradient 10s ease infinite";
+            section.style.backgroundSize = "400% 400%";
+            section.style.color = "#000000";
+        });
+
         Btheme.style.color = "#ffffff";
         Btheme.style.background = "linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, #ffffff, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000)";
         Btheme.style.border = "2px solid #ffffff";
@@ -149,7 +188,7 @@ Btheme.addEventListener("mouseout", function() {
 accueils.forEach((accueil) => {
     accueil.addEventListener('click', (e) => {
         index = 0;
-        title.innerHTML = "> Code Secret";
+        title.innerHTML = "> Deny Code Billard";
         scrollSection(0);
         IntervalleTitre = setInterval(function() {
             let index1 = (index) % messages.length;
@@ -318,7 +357,6 @@ function affNotionsToNotions(e, sec){
 }
 
 function affLanguagesToNotions(e, sec){
-    console.log("here");
     if(sec == 'notions'){
         BlanguagesNot.forEach((language) => {
             if(e == 0){
@@ -337,8 +375,6 @@ function createLanguagesToNotions(e) {
         arbo.innerHTML += '<span type="slash" class="arbo">/</span><span class="not arbo" data="' + e + '" onclick="notionsNotionArbo()">Notion : ' + e + '</span>';
     }
 
-    console.log(e);
-
     var params = new URLSearchParams();
     params.append('notion', e);
 
@@ -347,7 +383,6 @@ function createLanguagesToNotions(e) {
         body: params
         }).then(response => response.json())
         .then(result => {
-            console.log(result);
             languagesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
                 languagesNot.innerHTML += '<div class="language box" data-notion="'+e+'" data-language="'+result[i]["name"]+'" language='+e+' onclick="FlanguagesNot(\''+result[i]["name"]+'\')"><span>'+result[i]["name"]+'</span></div>'
@@ -361,7 +396,6 @@ function createExercicesToLanguages(e1, e2) {
         arbo.innerHTML += '<span type="slash" class="arbo">/</span><span class="lang arbo" data="' + e2 + '" onclick="notionsLanguageArbo()">Language : ' + e2 + '</span>';
     }
 
-    console.log(e1, e2);
     var params = new URLSearchParams();
     params.append('notion', e1);
     params.append('language', e2);
@@ -371,7 +405,6 @@ function createExercicesToLanguages(e1, e2) {
         body: params
         }).then(response => response.json())
         .then(result => {
-            console.log(result);
             exercicesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
                 exercicesNot.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e1 + '/' + e2 + '/' + result[i]["name"].replaceAll(" ","_") + '/exercice.php?exercice_id=' + result[i]["id"] + '"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
@@ -396,7 +429,6 @@ BnotionsNot.forEach((notion) => {
 function FlanguagesNot(language){
     language = document.querySelector('#concepts .language[data-language="'+language+'"]');
     BlanguagesNot = document.querySelectorAll('#concepts .language');
-    console.log(BlanguagesNot);
     let exercicesNot = document.querySelector('#concepts .exercises-container');
     if(exercicesNot.innerHTML == ''){
         affLanguagesToNotions(0, 'notions');
@@ -456,9 +488,6 @@ creer_exercice.addEventListener('click', () => {
         method: 'POST',
         body: params
     }).then(response => response.text())
-    .then(result => {
-        console.log(result);
-    })
 });
 };
 
@@ -474,9 +503,6 @@ function sendNotOrLang(p){
         method: 'POST',
         body: p
     }).then(response => response.text())
-    .then(result => {
-        console.log(result);
-    })
 }
 
 if(Addnot != null){
@@ -509,7 +535,6 @@ if(AddLang != null){
 AddLang.addEventListener('click', () => {
     let newLang = document.getElementById('lang_title').value;
     let listelang = document.querySelectorAll('#ajout_language option');
-    console.log(newLang);
 
     var params = new URLSearchParams();
     params.append('type', 2);
@@ -517,7 +542,6 @@ AddLang.addEventListener('click', () => {
 
     var compteur = 0;
     for(let i = 0; i < listelang.length; i++){
-        console.log(listelang[i].value);
         var lang = listelang[i].value;
         if(lang.match(newLang) == null){
             compteur++;
@@ -560,9 +584,6 @@ function sendexercice(exerciceid) {
     fetch('fetch/add_visit.php', {
         method: 'POST',
         body: params
-    }).then(response => response.text())
-    .then(result => {
-        console.log(result);
     })
 };
 
@@ -668,8 +689,6 @@ function Diagramme(elts, titre){
 
     var nb_visit = listVisit(elts);
     var nb_visit_month = listVisitMonth(elts);
-
-    console.log(nb_visit, nb_visit_month);
 
     if(titre == "Exercices"){
         var names = listNameExercices(elts);
@@ -782,7 +801,6 @@ function CreateDiagrammeRanked() {
         body: params
         }).then(response => response.json())
         .then(result => {
-            console.log(result);
             Diagramme(result, 'Languages');
         })
 }
@@ -790,6 +808,51 @@ function CreateDiagrammeRanked() {
 document.addEventListener('DOMContentLoaded', function () {
     CreateDiagrammeRanked();
 });
+
+// ================================================
+// Changer infos profil
+// ================================================
+
+let change_name = document.getElementById('change_name');
+let change_firstname = document.getElementById('change_firstname');
+let change_email = document.getElementById('change_email');
+let change_mdp = document.getElementById('change_mdp');
+
+let modif_name = document.getElementById('modif_name');
+let modif_firstname = document.getElementById('modif_firstname');
+let modif_email = document.getElementById('modif_email');
+let modif_mdp = document.getElementById('modif_mdp');
+
+function hidden_modif(){
+    modif_name.style.display = 'none';
+    modif_firstname.style.display = 'none';
+    modif_email.style.display = 'none';
+    modif_mdp.style.display = 'none';
+}
+
+hidden_modif();
+
+change_name.addEventListener('click', function() {
+    hidden_modif();
+    modif_name.style.display = 'block';
+});
+
+change_firstname.addEventListener('click', function() {
+    hidden_modif();
+    modif_firstname.style.display = 'block';
+});
+
+change_email.addEventListener('click', function() {
+    hidden_modif();
+    modif_email.style.display = 'block';
+});
+
+change_mdp.addEventListener('click', function() {
+    hidden_modif();
+    modif_mdp.style.display = 'block';
+});
+
+
 
 // ================================================
 // API ChatGPT

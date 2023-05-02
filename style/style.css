@@ -19,7 +19,7 @@ header, section{
 section{
     background: linear-gradient(270deg, #1891bd, #2766c5);
     background: linear-gradient(45deg, #1891bd, #2920e0);
-    box-shadow: inset 0px 0px 50px white;
+    box-shadow: inset 0px 0px 50px black;
     background-size: 200% 200%;
 }
 
@@ -55,7 +55,7 @@ section{
 }
 
 .hero-title {
-    font-size: 4rem;
+    font-size: 7vw;
     font-family: 'Arial', sans-serif;
     color: white;
     margin-bottom: 2rem;
@@ -71,7 +71,7 @@ section{
     top: 0;
     z-index: 1000;
     text-align: right;
-    margin-bottom: 240px;
+    margin-bottom: 20vw;
     display: flex;
     justify-content: right;
     align-items: center;
@@ -122,9 +122,9 @@ section{
     display: inline-block;
     font-size: 1.2rem;
     /* font-family: 'Arial', sans-serif; */
-    color: #ffffff;
-    background: linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, #ffffff, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000);
-    border: 2px solid #ffffff;
+    color: rgb(244,237,222);
+    background: linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, rgb(244,237,222), #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000);
+    border: 2px solid rgb(244,237,222);
     /* -webkit-text-stroke: 1px #fff; */
     /* margin: 0.5rem 0 0.5rem 0.5rem; */
     margin: 8px;
@@ -141,7 +141,7 @@ section{
     color: #000000;
     border: 2px solid #000000;
     -webkit-text-stroke: 1px #000000;
-    background: linear-gradient(-90deg, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff,#ffffff, #ffffff, #000000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff);
+    background: linear-gradient(-90deg, rgb(244,237,222), rgb(244,237,222), rgb(244,237,222), rgb(244,237,222), rgb(244,237,222), rgb(244,237,222), rgb(244,237,222),rgb(244,237,222), rgb(244,237,222), #000000, rgb(244,237,222), rgb(244,237,222), rgb(244,237,222), rgb(244,237,222), rgb(244,237,222), rgb(244,237,222), rgb(244,237,222), rgb(244,237,222), rgb(244,237,222));
     animation: gradient 10s linear infinite reverse;
 }
 
@@ -149,8 +149,8 @@ section{
     display: inline-block;
     font-size: 1.2rem;
     /* font-family: 'Arial', sans-serif; */
-    color: #ffffff;
-    border: 2px solid #ffffff;
+    color: rgb(244,237,222);
+    border: 2px solid rgb(244,237,222);
     padding: 0.5rem 1rem;
     margin: 0.5rem;
     text-decoration: none;
@@ -197,8 +197,9 @@ section{
 .notions-container,
 .exercises-container  {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 4vw;
     padding: 30px;
 }
 
@@ -210,8 +211,8 @@ section{
 
 .arbo{
     width: auto;
-    border: 2px solid #ffffff;
-    color: #ffffff;
+    border: 2px solid rgb(244,237,222);
+    color: rgb(244,237,222);
     background-color: rgba(0, 0, 0, 0.5);
     padding: 0.5rem 1rem;
     margin: 5px;
@@ -280,8 +281,8 @@ section{
 
 #admin-account select, #admin-account input, #admin-account textarea{
     width: auto;
-    border: 2px solid #ffffff;
-    color: #ffffff;
+    border: 2px solid rgb(244,237,222);
+    color: rgb(244,237,222);
     background-color: rgba(0, 0, 0, 0.5);
     padding: 0.5rem 1rem;
     margin: 5px;
@@ -388,7 +389,7 @@ canvas{
     background-size: cover;
 }
 
-#JS {
+#JavaScript {
     background-image: url("images/js.png");
     background-repeat: no-repeat;
     background-position: center center;
@@ -429,7 +430,7 @@ canvas{
     left: 50%;
     width: 100%;
     transform: translate(-50%, -50%);
-    font-size: 24px;
+    font-size: 100%;
     color: black;
     font-weight: bold;
     text-align: center;
@@ -485,4 +486,112 @@ canvas{
     border: 2px solid rgb(200, 200, 200);
     letter-spacing: 1px;
     font-size: 0.8rem;
+}
+
+/*=================================================================================================================================*/
+/* Actualités */
+/*=================================================================================================================================*/
+
+#actualites{
+    padding: 10px;
+}
+
+#actualites table{
+    margin: 40px auto 40px auto;
+    border-spacing: 0px;
+}	
+
+#actualites td,
+#actualites th {
+    border: 2px solid rgb(244,237,222);
+    padding: 10px;
+}
+
+#actualites td {
+    text-align: center;
+}
+
+#actualites th[scope='col'] {
+    background-color: rgba(105, 105, 105, 0.5);
+    color: #fff;
+}
+
+/*=================================================================================================================================*/
+/* Profil */
+/*=================================================================================================================================*/
+
+.profile-container, .profile-change {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.3);
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.profile-image img {
+    width: 100%;
+    height: auto;
+}
+
+.profile-info {
+    text-align: center;
+    width: 100%;
+}
+
+.profile-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.profile-info > *{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit_profil{
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.edit_profil:hover{
+    background-color: rgba(13, 255, 0, 0.5);
+    transition: 0.3s;
+}
+
+#change_mdp{
+    margin-top: 30px;
+    padding: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#change_mdp:hover{
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 600px) {
+    .arbo {
+        font-size: 12px;
+        padding: 0.25rem 0.5rem;
+        margin: 3px
+    }
 }
