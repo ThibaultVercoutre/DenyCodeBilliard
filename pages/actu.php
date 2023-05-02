@@ -2,4 +2,7 @@
 
 ?>
 
-<div>Il n'y a rien ici pour l'instant</div>
+<div class="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
+
+<?php include "versions/v1.1.php"; ?>
+<?php include "versions/v1.php"; ?>

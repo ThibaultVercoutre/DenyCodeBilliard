@@ -10,8 +10,9 @@ global $db;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Secret</title>
+    <title>Deny Code Billard - Connexion</title>
     <link rel="stylesheet" href="style_login.css">
+    <link rel="icon" href="../style/logo/DCB.png" />
     <script src="script_login.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap" rel="stylesheet">
@@ -26,8 +27,14 @@ global $db;
         <div id="sections">
             <section id="login">
                 <form method="post">
-                    <input type="text" name="Cemail" id="Cemail" placeholder="Entrez votre email"/>
-                    <input type="password" name="Cpassword" id="Cpassword" placeholder="Entrez votre mot de passe"/>
+                    <div>
+                        <span class="material-symbols-outlined">alternate_email</span>
+                        <input type="text" name="Cemail" id="Cemail" placeholder="Entrez votre email"/>
+                    </div>
+                    <div>
+                        <span class="material-symbols-outlined">key</span>
+                        <input type="password" name="Cpassword" id="Cpassword" placeholder="Entrez votre mot de passe"/>
+                    </div>
                     <input type="submit" name="send_login" id="send_login" value="Connexion">
                 </form>
                 <?php
@@ -62,13 +69,34 @@ global $db;
             </section>
             <section id="signin">
                 <form method="post">
-                    <input type="text" name="Iemail" id="email" placeholder="Entrez votre email"/>
-                    <input type="password" name="Ipassword" id="password" placeholder="Entrez votre mot de passe"/>
-                    <input type="password" name="IpasswordC" id="passwordC" placeholder="Confirmez votre mot de passe"/>
-                    <input type="text" name="Iname" id="name" placeholder="Entrez votre nom">
-                    <input type="text" name="Ifirstname" id="firstname" placeholder="Entrez votre prenom">
-                    <input type="text" name="Ipseudo" id="pseudo" placeholder="Entrez votre pseudo">
-                    <input type="date" name="Ibirthday" id="birthday" placeholder="Entrez votre date de naissance">
+                    <div>
+                        <span class="material-symbols-outlined">alternate_email</span>
+                        <input type="text" name="Iemail" id="email" placeholder="Entrez votre email"/>
+                    </div>
+                    <div>
+                        <span class="material-symbols-outlined">key</span>
+                        <input type="password" name="Ipassword" id="password" placeholder="Entrez votre mot de passe"/>
+                    </div>
+                    <div>
+                        <span class="material-symbols-outlined">key</span>
+                        <input type="password" name="IpasswordC" id="passwordC" placeholder="Confirmez votre mot de passe"/>
+                    </div>
+                    <div>
+                        <span class="material-symbols-outlined">abc</span>
+                        <input type="text" name="Iname" id="name" placeholder="Entrez votre nom">
+                    </div>
+                    <div>
+                        <span class="material-symbols-outlined">abc</span>
+                        <input type="text" name="Ifirstname" id="firstname" placeholder="Entrez votre prenom">
+                    </div>
+                    <div>
+                        <span class="material-symbols-outlined">abc</span>
+                        <input type="text" name="Ipseudo" id="pseudo" placeholder="Entrez votre pseudo">
+                    </div>
+                    <div>
+                        <span class="material-symbols-outlined">cake</span>
+                        <input type="date" name="Ibirthday" id="birthday" placeholder="Entrez votre date de naissance">
+                    </div>
                     <input type="submit" name="send_signin" id="send_signin" value="Inscription">
                 </form>
                 <?php
