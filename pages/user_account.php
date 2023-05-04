@@ -1,5 +1,12 @@
 <?php
 
+// function get_xp_percentage() {
+//     $xp = isset($_SESSION['xpfin']) ? $_SESSION['xpfin'] : 0;
+//     $xp_max = isset($_SESSION['xpmax']) ? $_SESSION['xpmax'] : 1;
+    
+//     return ($xp / $xp_max) * 100;
+// }
+
 ?>
 
 <div class="div_accueil"><a href="#" class="accueil" data-target="accueil">Accueil</a></div>
@@ -10,9 +17,15 @@
     </div>
     <div class="profile-info">
         <h2><span id="change_name" class="edit_profil material-symbols-outlined">edit</span><?php echo $_SESSION['name'] . " " . $_SESSION['firstname']; ?><span id="change_firstname" class="edit_profil material-symbols-outlined">edit</span></h2>
-        <p><strong>Email : </strong> <?php echo $_SESSION['email']; ?><span id="change_email" class="edit_profil material-symbols-outlined">edit</span></p>
-        <p><strong>Pseudo : </strong> <?php echo $_SESSION['pseudo']; ?></p>
-        <p><strong>Date de naissance : </strong> <?php echo $_SESSION['birthday']; ?></p>
+        
+        <p><strong>Niveau :&nbsp</strong> <?php echo $_SESSION['niveau']; ?></p>
+        <div class="xp-bar-container">
+            <div class="xp-bar" style="width: <?php echo get_xp_percentage(); ?>%;"></div>
+        </div>
+        
+        <p><strong>Email :&nbsp</strong> <?php echo $_SESSION['email']; ?><span id="change_email" class="edit_profil material-symbols-outlined">edit</span></p>
+        <p><strong>Pseudo :&nbsp</strong> <?php echo $_SESSION['pseudo']; ?></p>
+        <p><strong>Date de naissance :&nbsp</strong> <?php echo $_SESSION['birthday']; ?></p>
         <div id="change_mdp">Modifier le mot de passe</div>
     </div>
 </div>

@@ -10,8 +10,20 @@ $_SESSION['firstname'] = "";
 $_SESSION['pseudo'] = "";
 $_SESSION['birthday'] = "";
 $_SESSION['admin'] = 0;
+$_SESSION['xp'] = 0;
+$_SESSION['niveau'] = 0;
+$_SESSION['xpfin'] = 0; 
+$_SESSION['xpmax'] = 500;
+$_SESSION['theme'] = 0;
 
 session_start();
+
+function get_xp_percentage() {
+    $xp = isset($_SESSION['xpfin']) ? $_SESSION['xpfin'] : 0;
+    $xp_max = isset($_SESSION['xpmax']) ? $_SESSION['xpmax'] : 1;
+    
+    return ($xp / $xp_max) * 100;
+}
 
 ?>
 
@@ -21,6 +33,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deny Code Billard</title>
+    <meta name="description" content="La meta description de la page."/>
     <link rel="stylesheet" href="style/style.css">
     <link rel="icon" href="style/logo/DCB.png" />
     <script src="script/script.js" defer></script>
@@ -29,7 +42,7 @@ session_start();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body <?php if (isset($_SESSION['theme']) && $_SESSION['theme'] == 1): echo "onload='changeTheme();'"; endif;?>>
     <!-- <div id="header-h">
         <a href="#" id="theme"><span class="material-symbols-outlined">dark_mode</span></a>
         <?php if(empty($_SESSION['id'])){ ?>
@@ -41,7 +54,13 @@ session_start();
     <header id="hero">
         <div class="hero-content">
             <div id="header-h">
-                <a href="#" id="theme"><span class="material-symbols-outlined">dark_mode</span></a>
+                <?php if(!empty($_SESSION['id'])){ ?>
+                    <p><?php echo $_SESSION['niveau']; ?><strong>&nbsplvl</strong></p>
+                    <div class="xp-bar-container">
+                        <div class="xp-bar" style="width: <?php echo get_xp_percentage(); ?>%;"></div>
+                    </div>
+                <?php } ?>
+                <a href="#" id="theme" data="<?php if (isset($_SESSION['theme'])): echo $_SESSION['theme']; else: echo 0; endif; ?>" onclick="miseajourBDDtheme(<?php if (isset($_SESSION['id'])): echo $_SESSION['id']; else: echo 0; endif; ?>)"><span class="material-symbols-outlined">dark_mode</span></a>
                 <?php if(empty($_SESSION['id'])){ ?>
                     <a href="login\login.php" id="sign">S'inscrire</a>
                 <?php }else{ ?>
@@ -55,6 +74,7 @@ session_start();
                 <a href="#" class="nav-link" data-target="languages">Langages</a>
                 <a href="#" class="nav-link" data-target="concepts">Notions</a>
                 <a href="#" class="nav-link" data-target="rankings">Classements</a>
+                <a href="#" class="nav-link" data-target="leaderboard">LeaderBoard</a>
                 <a href="#" class="nav-link" data-target="exercise-of-the-week">Exercice de la semaine</a>
                 <?php if(!empty($_SESSION['id'])){?><a href="#" class="nav-link" data-target="user-account">Compte utilisateur</a><?php } ?>
                 <?php if(!empty($_SESSION['id']) && $_SESSION['admin'] == 1){?><a href="#" class="nav-link" data-target="admin-account">Compte admin</a><?php } ?>
@@ -82,6 +102,10 @@ session_start();
     <section id="exercise-of-the-week" class="content-section">
         <?php include "pages/week_ex.php"; ?>
     </section>
+
+    <section id="leaderboard" class="content-section">
+        <?php include "pages/leaderboard.php"; ?>
+    </section>
     
     <?php if(!empty($_SESSION['id'])){?>
 
@@ -97,4 +121,5 @@ session_start();
     </section>
     <?php } ?>
 </body>
+
 </html>

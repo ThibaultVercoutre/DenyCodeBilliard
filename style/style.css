@@ -71,7 +71,7 @@ section{
     top: 0;
     z-index: 1000;
     text-align: right;
-    margin-bottom: 20vw;
+    margin-bottom: 15vw;
     display: flex;
     justify-content: right;
     align-items: center;
@@ -80,6 +80,8 @@ section{
 
 #deconnexion{
     position: relative;
+    min-width: 100px;
+    text-align: center;
 }
 
 #deconnexion span{
@@ -533,8 +535,8 @@ canvas{
 }
 
 .profile-image {
-    width: 150px;
-    height: 150px;
+    width: 80px;
+    height: 80px;
     margin-bottom: 20px;
     overflow: hidden;
     border-radius: 50%;
@@ -588,10 +590,152 @@ canvas{
     background-color: rgba(255, 0, 0, 0.5);
 }
 
+.xp-bar-container {
+    width: 100%;
+    height: 5px;
+    background-color: #eee;
+    border: 1px solid #000;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+}
+
+.xp-bar {
+    height: 100%;
+    background-color: #4caf50;
+}
+
+#header-h .xp-bar-container{
+    width: 50%;
+    margin: 10px;
+}
+
+#header-h p{
+    margin: 1rem;
+}
+
+@media screen and (max-width: 750px) {
+    #header-h {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    #header-h:nth-child(){
+        flex-basis: calc(50% - 1rem);
+    }
+}
+
 @media screen and (max-width: 600px) {
     .arbo {
         font-size: 12px;
         padding: 0.25rem 0.5rem;
         margin: 3px
     }
+}
+
+/*=================================================================================================================================*/
+/* LeaderBoard */
+/*=================================================================================================================================*/
+
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+  
+.podium {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+  
+.podium .user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.podium .user .rank {
+    font-size: 2rem;
+    font-weight: bold;
+}
+  
+.podium .user .pseudo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+  
+.podium .user .xp {
+    font-size: 1.2rem;
+}
+  
+.list {
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-start; */
+    width: 100%;
+}
+  
+.list .user {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+  
+.list .user .rank{
+    flex: 1;
+    text-align: right;
+}
+
+.list .user .pseudo{
+    flex: 6;
+}
+
+.list .user .lvl {
+    flex: 2;
+}
+
+.list .user .xp {
+    flex: 2;
+}
+
+.list .user .rank,
+.list .user .pseudo,
+.list .user .lvl,
+.list .user .xp {
+    font-size: 1.2rem;
+    border: 2px solid black;
+    padding: 0.5rem;
+}
+
+.posX{
+    margin: 0px 10px; 
+}
+
+.carre_lead{
+    padding: 15px;
+    height: 104px;
+}
+
+.pos11{
+    background-image: url('images_leaderboard/Medaille_Or.png');
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.pos22{
+    background-image: url('images_leaderboard/Medaille_Argent.png');
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.pos33{
+    background-image: url('images_leaderboard/Medaille_Bronze.png');
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
