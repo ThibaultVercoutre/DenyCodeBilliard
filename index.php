@@ -54,6 +54,7 @@ function get_xp_percentage() {
     <header id="hero">
         <div class="hero-content">
             <div id="header-h">
+                <h1 href="#" id="version">V1.2</h1>
                 <?php if(!empty($_SESSION['id'])){ ?>
                     <p><?php echo $_SESSION['niveau']; ?><strong>&nbsplvl</strong></p>
                     <div class="xp-bar-container">
@@ -61,7 +62,6 @@ function get_xp_percentage() {
                     </div>
                 <?php } ?>
                 <a href="#" id="theme" data="<?php if (isset($_SESSION['theme'])): echo $_SESSION['theme']; else: echo 0; endif; ?>" onclick="miseajourBDDtheme(<?php if (isset($_SESSION['id'])): echo $_SESSION['id']; else: echo 0; endif; ?>)"><span class="material-symbols-outlined">dark_mode</span></a>
-                <?php if(empty($_SESSION['id'])){ ?>
                     <a href="login\login.php" id="sign">S'inscrire</a>
                 <?php }else{ ?>
                     <a href="login\logout.php" id="deconnexion"><span><?php echo $_SESSION['pseudo'] ?></span></a>
@@ -80,6 +80,20 @@ function get_xp_percentage() {
                 <?php if(!empty($_SESSION['id']) && $_SESSION['admin'] == 1){?><a href="#" class="nav-link" data-target="admin-account">Compte admin</a><?php } ?>
             </div>
         </div>
+        <button id="code-button">CODE</button>
+        <div id="code">
+            
+        </div>
+        <script>
+        const sidebarToggle = document.getElementById('code-button');
+        const mainContent = document.querySelector('body');
+        const mainContent2 = document.getElementById('hero');
+        
+        sidebarToggle.addEventListener('click', () => {
+            mainContent.classList.toggle('visible');
+            mainContent2.classList.toggle('visible');
+        });
+        </script>
     </header>
     
     <!-- Vos sections ici -->

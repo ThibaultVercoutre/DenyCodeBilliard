@@ -216,6 +216,21 @@ Btheme.addEventListener("mouseout", function() {
     };
 });
 
+const Bcode = document.getElementById('code-button');
+
+function centerButtonVertically() {
+  const windowHeight = window.innerHeight;
+  const buttonHeight = Bcode.offsetHeight;
+  const offset = (windowHeight - buttonHeight) / 2;
+  Bcode.style.top = `${offset}px`;
+}
+
+// Centre le bouton verticalement au chargement de la page
+centerButtonVertically();
+
+// Centre le bouton verticalement lors du redimensionnement de la fenêtre
+window.addEventListener('resize', centerButtonVertically);
+
 accueils.forEach((accueil) => {
     accueil.addEventListener('click', (e) => {
         index = 0;
