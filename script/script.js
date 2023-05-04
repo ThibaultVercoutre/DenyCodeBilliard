@@ -216,42 +216,46 @@ Btheme.addEventListener("mouseout", function() {
     };
 });
 
-const Bcode = document.getElementById('code-button');
+// ================================================
+// Bouton code
+// ================================================
 
-function centerButtonVertically() {
-  const windowHeight = window.innerHeight;
-  const buttonHeight = Bcode.offsetHeight;
-  const offset = (windowHeight - buttonHeight) / 2;
-  Bcode.style.top = `${offset}px`;
-}
+// const Bcode = document.getElementById('code-button');
 
-// Centre le bouton verticalement au chargement de la page
-centerButtonVertically();
+// function centerButtonVertically() {
+//   const windowHeight = window.innerHeight;
+//   const buttonHeight = Bcode.offsetHeight;
+//   const offset = (windowHeight - buttonHeight) / 2;
+//   Bcode.style.top = `${offset}px`;
+// }
 
-// Centre le bouton verticalement lors du redimensionnement de la fenêtre
-window.addEventListener('resize', centerButtonVertically);
+// // Centre le bouton verticalement au chargement de la page
+// centerButtonVertically();
 
-accueils.forEach((accueil) => {
-    accueil.addEventListener('click', (e) => {
-        index = 0;
-        title.innerHTML = "> Deny Code Billard";
-        scrollSection(0);
-        IntervalleTitre = setInterval(function() {
-            let index1 = (index) % messages.length;
-            let index2 = (index + 1) % messages.length;
-            const message = messages[index1];
-            const message2 = messages[index2];
-            title.innerHTML = "";
-            // setTimeout(function() {
-                eraseWriter(title, message, 43);
-            // }, 3000);
-            Ecriture = setTimeout(function() {
-                typeWriter(title, message2.slice(2, message2.length), 43);
-            }, 1300);
-            index++;
-        }, 5000);
-    }); 
-});
+// // Centre le bouton verticalement lors du redimensionnement de la fenêtre
+// window.addEventListener('resize', centerButtonVertically);
+
+// accueils.forEach((accueil) => {
+//     accueil.addEventListener('click', (e) => {
+//         index = 0;
+//         title.innerHTML = "> Deny Code Billard";
+//         scrollSection(0);
+//         IntervalleTitre = setInterval(function() {
+//             let index1 = (index) % messages.length;
+//             let index2 = (index + 1) % messages.length;
+//             const message = messages[index1];
+//             const message2 = messages[index2];
+//             title.innerHTML = "";
+//             // setTimeout(function() {
+//                 eraseWriter(title, message, 43);
+//             // }, 3000);
+//             Ecriture = setTimeout(function() {
+//                 typeWriter(title, message2.slice(2, message2.length), 43);
+//             }, 1300);
+//             index++;
+//         }, 5000);
+//     }); 
+// });
 
 // ================================================
 // afficher Languages -> Notions -> Exercices

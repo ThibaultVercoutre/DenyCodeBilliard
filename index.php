@@ -81,7 +81,7 @@ function get_xp_percentage() {
                 <?php if(!empty($_SESSION['id']) && $_SESSION['admin'] == 1){?><a href="#" class="nav-link" data-target="admin-account">Compte admin</a><?php } ?>
             </div>
         </div>
-        <button id="code-button">CODE</button>
+        <!-- <button id="code-button">CODE</button>
         <div id="code">
             
         </div>
@@ -94,7 +94,7 @@ function get_xp_percentage() {
             mainContent.classList.toggle('visible');
             mainContent2.classList.toggle('visible');
         });
-        </script>
+        </script> -->
     </header>
     
     <!-- Vos sections ici -->
