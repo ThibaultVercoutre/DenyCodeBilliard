@@ -3,6 +3,45 @@
 include '../includes/database.php';
 global $db;
 
+function send_verification_email($email, $token) {
+    $subject = "Vérification de votre adresse e-mail";
+    $verification_url = "https://denycodebillard.com/login/verify_email.php?token=" . urlencode($token);
+    $message = "Cliquez sur le lien suivant pour vérifier votre adresse e-mail : " . $verification_url;
+    $headers = "From: noreply@denycodebillard.com";
+
+    mail($email, $subject, $message, $headers);
+}
+
+function division_entiere($xp, $xplvl){
+    $niveau = 0;
+    while($xp >= $xplvl){
+        $xp = $xp - $xplvl;
+        $niveau++;
+        $xplvl = round($xplvl * 1.1);
+    }
+    return $niveau;
+}
+
+function reste_division_entiere($xp, $xplvl){
+    $niveau = 0;
+    while($xp >= $xplvl){
+        $xp = $xp - $xplvl;
+        $niveau++;
+        $xplvl = round($xplvl * 1.1);
+    }
+    return $xp;
+}
+
+function xpmax_final($xp, $xplvl){
+    $niveau = 0;
+    while($xp >= $xplvl){
+        $xp = $xp - $xplvl;
+        $niveau++;
+        $xplvl = round($xplvl * 1.1);
+    }
+    return $xplvl;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -46,15 +85,24 @@ global $db;
                             $user = $req->fetch();
                             if($user){
                                 if(password_verify($Cpassword, $user['password'])){
-                                    session_start();
-                                    $_SESSION['id'] = $user['id'];
-                                    $_SESSION['email'] = $user['email'];
-                                    $_SESSION['name'] = $user['name'];
-                                    $_SESSION['firstname'] = $user['firstname'];
-                                    $_SESSION['pseudo'] = $user['pseudo'];
-                                    $_SESSION['birthday'] = $user['birthday'];
-                                    $_SESSION['admin'] = $user['admin'];
-                                    header('Location: ../index.php');
+                                    if($user['is_verified'] == 0){
+                                        echo "Veuillez vérifier votre adresse e-mail";
+                                    }else{
+                                        session_start();
+                                        $_SESSION['id'] = $user['id'];
+                                        $_SESSION['email'] = $user['email'];
+                                        $_SESSION['name'] = $user['name'];
+                                        $_SESSION['firstname'] = $user['firstname'];
+                                        $_SESSION['pseudo'] = $user['pseudo'];
+                                        $_SESSION['birthday'] = $user['birthday'];
+                                        $_SESSION['admin'] = $user['admin'];
+                                        $_SESSION['xp'] = $user['xp'];
+                                        $_SESSION['niveau'] = division_entiere($_SESSION['xp'], 500);
+                                        $_SESSION['xpfin'] = reste_division_entiere($_SESSION['xp'], 500);
+                                        $_SESSION['xpmax'] = xpmax_final($_SESSION['xp'], 500);
+                                        $_SESSION['theme'] = $user['theme'];
+                                        header('Location: ../index.php');
+                                    }
                                 }else{
                                     echo "Mot de passe incorrect";
                                 }
@@ -103,19 +151,39 @@ global $db;
                     extract($_POST);
                     if(isset($_POST['send_signin'])){
                         extract($_POST);
-                        if(!empty($Iemail) && !empty($Ipassword) && !empty($Iname) && !empty($Ifirstname) && !empty($Ipseudo) && !empty($Ibirthday)){
-                            if($Ipassword == $IpasswordC){
-                                $option = [
-                                    'cost' => 12,
-                                ];
-                                
-                                $Ihashpass = password_hash($Ipassword, PASSWORD_BCRYPT, $option);
-                                $req = $db->prepare('INSERT INTO users(email, password, name, firstname, pseudo, birthday) VALUES(?, ?, ?, ?, ?, ?)');
-                                $req->execute(array($Iemail, $Ihashpass, $Iname, $Ifirstname, $Ipseudo, $Ibirthday));
-                                // header('Location: ../index.php');
-                            }
+
+                        $req = $db->prepare('SELECT * FROM users WHERE pseudo = ?');
+                        $req->execute(array($Ipseudo));
+                        $user = $req->fetch();
+                        if($user){
+                            echo "Pseudo déjà utilisé";
                         }else{
-                            echo "Veuillez remplir tous les champs";
+                            $req = $db->prepare('SELECT * FROM users WHERE email = ?');
+                            $req->execute(array($Iemail));
+                            $user = $req->fetch();
+                            if($user){
+                                echo "Email déjà utilisé";
+                            }else{
+                                if(!empty($Iemail) && !empty($Ipassword) && !empty($Iname) && !empty($Ifirstname) && !empty($Ipseudo) && !empty($Ibirthday)){
+                                    if($Ipassword == $IpasswordC){
+                                        $option = [
+                                            'cost' => 12,
+                                        ];
+                                        
+                                        $verification_token = bin2hex(random_bytes(16));
+                                        $verification_url = "https://denycodebillard.com/login/verify_email.php?token=" . $verification_token;
+                                            // . urlencode($verification_token)
+                                        $Ihashpass = password_hash($Ipassword, PASSWORD_BCRYPT, $option);
+                                        $req = $db->prepare('INSERT INTO users(email, password, name, firstname, pseudo, birthday, verification_token, is_verified) VALUES(?, ?, ?, ?, ?, ?, ?, ?)');
+                                        $req->execute(array($Iemail, $Ihashpass, $Iname, $Ifirstname, $Ipseudo, $Ibirthday, $verification_token, 0));
+                                        
+                                        include ('../includes/sendmail.php');
+                                        //send_verification_email($Iemail, $verification_token);
+                                    }
+                                }else{
+                                    echo "Veuillez remplir tous les champs";
+                                }
+                            }
                         }
                     }
                 ?>

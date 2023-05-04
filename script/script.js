@@ -96,9 +96,12 @@ const CSShero = document.getElementById("hero");
 const Langages = document.querySelectorAll(".box");
 const SpanLangages = document.querySelectorAll(".language span");
 const Sections = document.querySelectorAll(".content-section");
+const TableLeaderBoard = document.querySelectorAll(".user.posX div");
 
-Btheme.addEventListener('click', (e) => {
+function changeTheme(){
     if (Btheme.innerHTML === '<span class="material-symbols-outlined">dark_mode</span>') {
+        Btheme.setAttribute("data", 1);
+
         Btheme.innerHTML = '<span class="material-symbols-outlined">light_mode</span>';
 
         CSShero.style.background = "linear-gradient(-45deg, #530808, #870505, #1e1b1b, #000000, #160265, #06025c)";
@@ -113,6 +116,10 @@ Btheme.addEventListener('click', (e) => {
             section.style.color = "rgb(244,237,222)";
         });
 
+        TableLeaderBoard.forEach(section => {
+            section.style.borderColor = "rgb(244,237,222)";
+        });
+
         Btheme.style.color = "#000000";
         Btheme.style.background = "linear-gradient(-90deg, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #000000, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff)";
         Btheme.style.border = "2px solid #000000";
@@ -125,6 +132,8 @@ Btheme.addEventListener('click', (e) => {
             SpanLangages[i].style.background = "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))";
         }
     } else if (Btheme.innerHTML === '<span class="material-symbols-outlined">light_mode</span>') {
+        Btheme.setAttribute("data", 0);
+
         Btheme.innerHTML = '<span class="material-symbols-outlined">dark_mode</span>';
 
         CSShero.style.background = "linear-gradient(-45deg, #e7bc2f, #e86209, #52df57, #19aa0b, #1891bd, #2920e0)";
@@ -139,6 +148,10 @@ Btheme.addEventListener('click', (e) => {
             section.style.color = "#000000";
         });
 
+        TableLeaderBoard.forEach(section => {
+            section.style.borderColor = "#000000";
+        });
+
         Btheme.style.color = "#ffffff";
         Btheme.style.background = "linear-gradient(-90deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000,#000000, #000000, #ffffff, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000)";
         Btheme.style.border = "2px solid #ffffff";
@@ -151,6 +164,24 @@ Btheme.addEventListener('click', (e) => {
             SpanLangages[i].style.background = "linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0))";
         }
     };
+}
+
+function miseajourBDDtheme(user) {
+    console.log(user);
+    console.log(Number(Btheme.getAttribute("data")));
+
+    var params = new URLSearchParams();
+    params.append('user', user);
+    params.append('theme', (Number(Btheme.getAttribute("data")) + 1) %2);
+
+    fetch('fetch/maj_theme.php', {
+        method: 'POST',
+        body: params
+    });
+}
+
+Btheme.addEventListener('click', (e) => {
+    changeTheme();
 });
 
 Btheme.addEventListener("mouseover", function() {
