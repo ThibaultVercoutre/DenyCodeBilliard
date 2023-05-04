@@ -41,6 +41,7 @@ session_start();
     <header id="hero">
         <div class="hero-content">
             <div id="header-h">
+                <h1 href="#" id="version">V1.2</h1>
                 <a href="#" id="theme"><span class="material-symbols-outlined">dark_mode</span></a>
                 <?php if(empty($_SESSION['id'])){ ?>
                     <a href="login\login.php" id="sign">S'inscrire</a>
@@ -60,6 +61,20 @@ session_start();
                 <?php if(!empty($_SESSION['id']) && $_SESSION['admin'] == 1){?><a href="#" class="nav-link" data-target="admin-account">Compte admin</a><?php } ?>
             </div>
         </div>
+        <button id="code-button">CODE</button>
+        <div id="code">
+            
+        </div>
+        <script>
+        const sidebarToggle = document.getElementById('code-button');
+        const mainContent = document.querySelector('body');
+        const mainContent2 = document.getElementById('hero');
+        
+        sidebarToggle.addEventListener('click', () => {
+            mainContent.classList.toggle('visible');
+            mainContent2.classList.toggle('visible');
+        });
+        </script>
     </header>
     
     <!-- Vos sections ici -->
