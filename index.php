@@ -62,6 +62,7 @@ function get_xp_percentage() {
                     </div>
                 <?php } ?>
                 <a href="#" id="theme" data="<?php if (isset($_SESSION['theme'])): echo $_SESSION['theme']; else: echo 0; endif; ?>" onclick="miseajourBDDtheme(<?php if (isset($_SESSION['id'])): echo $_SESSION['id']; else: echo 0; endif; ?>)"><span class="material-symbols-outlined">dark_mode</span></a>
+                <?php if(empty($_SESSION['id'])){ ?>
                     <a href="login\login.php" id="sign">S'inscrire</a>
                 <?php }else{ ?>
                     <a href="login\logout.php" id="deconnexion"><span><?php echo $_SESSION['pseudo'] ?></span></a>
