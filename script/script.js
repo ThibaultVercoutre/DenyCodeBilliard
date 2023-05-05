@@ -76,7 +76,7 @@ navLinks.forEach((link) => {
             cacheSections();
             document.getElementById(e.target.getAttribute('data-target')).style.display = 'block';
             scrollSection(window.innerHeight);
-        }, 2000);
+        }, 0);
     });
 });
 
@@ -93,10 +93,68 @@ navLinks.forEach((link) => {
 
 const Btheme = document.getElementById('theme');
 const CSShero = document.getElementById("hero");
-const Langages = document.querySelectorAll(".box");
-const SpanLangages = document.querySelectorAll(".language span");
 const Sections = document.querySelectorAll(".content-section");
 const TableLeaderBoard = document.querySelectorAll(".user.posX div");
+
+function box2black(){
+
+    
+    let box = document.querySelectorAll(".box");
+    let SpanLangages = document.querySelectorAll(".language span");
+    let SpanNotions = document.querySelectorAll(".notion span");
+    console.log(box);
+
+    for (let i = 0; i < box.length; i++) {
+        box[i].style.backgroundColor = "black";
+        box[i].style.border = '3px solid white';        
+    }
+
+    for (let i = 0; i < SpanLangages.length; i++) {
+        SpanLangages[i].style.color = 'white';
+        SpanLangages[i].style.background = "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))";
+    }
+
+    for (let i = 0; i < SpanNotions.length; i++) {
+        SpanNotions[i].style.color = 'white';
+        SpanNotions[i].style.background = "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))";
+    }
+}
+
+console.log(document.querySelectorAll('.sombre.language'));
+
+function box2white(){
+
+    let box = document.querySelectorAll(".box");
+    let SpanLangages = document.querySelectorAll(".language span");
+    let SpanNotions = document.querySelectorAll(".notion span");
+    console.log(box);
+
+    for (let i = 0; i < box.length; i++) {
+        box[i].style.backgroundColor = "white";
+        box[i].style.border = '3px solid black';        
+    }
+
+    for (let i = 0; i < SpanLangages.length; i++) {
+        SpanLangages[i].style.color = 'black';
+        SpanLangages[i].style.background = "linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0))";
+    }
+
+    for (let i = 0; i < SpanNotions.length; i++) {
+        SpanNotions[i].style.color = 'black';
+        SpanNotions[i].style.background = "linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0))";
+    }
+}
+
+function appliqueTheme(){
+    console.log("coucou");
+    if (Btheme.innerHTML === '<span class="material-symbols-outlined">light_mode</span>') {
+        // box2black();
+        return 'sombre';
+    } else {
+        // box2white();
+        return 1;
+    }
+}
 
 function changeTheme(){
     if (Btheme.innerHTML === '<span class="material-symbols-outlined">dark_mode</span>') {
@@ -109,6 +167,7 @@ function changeTheme(){
         CSShero.style.backgroundSize = "400% 400%";
         CSShero.style.color = "rgb(244,237,222)";
         
+
         Sections.forEach(section => {
             section.style.background = "linear-gradient(-45deg, #530808, #870505, #1e1b1b, #000000, #160265, #06025c)";
             section.style.animation = "gradient 10s ease infinite";
@@ -125,12 +184,9 @@ function changeTheme(){
         Btheme.style.border = "2px solid #000000";
         Btheme.style.webkitTextStroke = "1px #000000";
         Btheme.style.backgroundSize = "400% 400%";
-        for (let i = 0; i < SpanLangages.length; i++) {
-            Langages[i].style.backgroundColor = "black";
-            Langages[i].style.border = '3px solid white';
-            SpanLangages[i].style.color = 'white';
-            SpanLangages[i].style.background = "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))";
-        }
+
+        box2black();
+
     } else if (Btheme.innerHTML === '<span class="material-symbols-outlined">light_mode</span>') {
         Btheme.setAttribute("data", 0);
 
@@ -157,19 +213,12 @@ function changeTheme(){
         Btheme.style.border = "2px solid #ffffff";
         Btheme.style.webkitTextStroke = "1px #ffffff";
         Btheme.style.backgroundSize = "400% 400%";
-        for (let i = 0; i < SpanLangages.length; i++) {
-            Langages[i].style.backgroundColor = "white";
-            Langages[i].style.border = '3px solid black';
-            SpanLangages[i].style.color = 'black';
-            SpanLangages[i].style.background = "linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0))";
-        }
+
+        box2white();
     };
 }
 
 function miseajourBDDtheme(user) {
-    console.log(user);
-    console.log(Number(Btheme.getAttribute("data")));
-
     var params = new URLSearchParams();
     params.append('user', user);
     params.append('theme', (Number(Btheme.getAttribute("data")) + 1) %2);
@@ -306,7 +355,7 @@ function createNotionsToLanguages(e) {
         .then(result => {
             notionsLang.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                notionsLang.innerHTML += '<div class="notion box" data-language="'+e+'" data-notion="'+result[i]["name"]+'" language='+e+' onclick="FnotionsLang(\''+result[i]["name"]+'\')"><span>'+result[i]["name"]+'</span></div>'
+                notionsLang.innerHTML += '<div class="notion box ' +appliqueTheme() + '" data-language="'+e+'" data-notion="'+result[i]["name"]+'" language='+e+' onclick="FnotionsLang(\''+result[i]["name"]+'\')"><span>'+result[i]["name"]+'</span></div>'
         }
     })   
 }
@@ -327,7 +376,7 @@ function createExercicesToNotions(e1, e2) {
         .then(result => {
             exercicesLang.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesLang.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e2 + '/' + e1 + '/' + result[i]["name"].replaceAll(" ","_") + '/exercice.php?exercice_id=' + result[i]["id"] + '" data-id="' + result[i]["id"] + '"><div class="exercice box" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
+                exercicesLang.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e2 + '/' + e1 + '/' + result[i]["name"].replaceAll(" ","_") + '/exercice.php?exercice_id=' + result[i]["id"] + '" data-id="' + result[i]["id"] + '"><div class="exercice box ' +appliqueTheme() + '" data-language="'+e1+'"><span>'+result[i]["name"]+'</span></div>'
             }
         })
         
@@ -344,6 +393,7 @@ BlanguagesLang.forEach((language) => {
         createNotionsToLanguages(language.getAttribute('data-language'));
         document.querySelectorAll('#languages .languages-container')[0].style.display = 'none'; 
         BnotionsLang = document.querySelectorAll('#languages .notion');
+        appliqueTheme();
     });
 });
 
@@ -435,7 +485,7 @@ function createLanguagesToNotions(e) {
         .then(result => {
             languagesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                languagesNot.innerHTML += '<div class="language box" data-notion="'+e+'" data-language="'+result[i]["name"]+'" language='+e+' onclick="FlanguagesNot(\''+result[i]["name"]+'\')"><span>'+result[i]["name"]+'</span></div>'
+                languagesNot.innerHTML += '<div id="'+result[i]["name"]+'" class="language box ' +appliqueTheme() + '" data-notion="'+e+'" data-language="'+result[i]["name"]+'" language='+e+' onclick="FlanguagesNot(\''+result[i]["name"]+'\')"><span>'+result[i]["name"]+'</span></div>'
             }
         })   
 }
@@ -457,7 +507,7 @@ function createExercicesToLanguages(e1, e2) {
         .then(result => {
             exercicesNot.innerHTML = '';
             for(let i = 0; i < result.length; i++){
-                exercicesNot.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e1 + '/' + e2 + '/' + result[i]["name"].replaceAll(" ","_") + '/exercice.php?exercice_id=' + result[i]["id"] + '"><div class="exercice box" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
+                exercicesNot.innerHTML += '<a onclick="sendexercice(' + result[i]["id"] + ')" target="_blank" class="button_exercice" href="exercices/' + e1 + '/' + e2 + '/' + result[i]["name"].replaceAll(" ","_") + '/exercice.php?exercice_id=' + result[i]["id"] + '"><div class="exercice box ' +appliqueTheme() + '" data-notion="'+e1+'"><span>'+result[i]["name"]+'</span></div></a>'
             }
         })
         
@@ -473,6 +523,7 @@ BnotionsNot.forEach((notion) => {
         notion.style.display = 'flex';
         createLanguagesToNotions(notion.getAttribute('data-notion'));
         document.querySelectorAll('#concepts .notions-container')[0].style.display = 'none'; 
+        appliqueTheme();
     });
 });
 
@@ -884,25 +935,206 @@ hidden_modif();
 
 change_name.addEventListener('click', function() {
     hidden_modif();
-    modif_name.style.display = 'block';
+    modif_name.style.display = 'flex';
 });
 
 change_firstname.addEventListener('click', function() {
     hidden_modif();
-    modif_firstname.style.display = 'block';
+    modif_firstname.style.display = 'flex';
 });
 
 change_email.addEventListener('click', function() {
     hidden_modif();
-    modif_email.style.display = 'block';
+    modif_email.style.display = 'flex';
 });
 
 change_mdp.addEventListener('click', function() {
     hidden_modif();
-    modif_mdp.style.display = 'block';
+    modif_mdp.style.display = 'flex ';
 });
 
 
+let send_mdp = document.getElementById('send_mdp');
+let send_name = document.getElementById('send_name');
+let send_firstname = document.getElementById('send_firstname');
+let send_mail = document.getElementById('send_mail');
+
+function envoie_mdp(user) {
+    var params = new URLSearchParams();
+    params.append('user', user);
+    params.append('password', document.getElementById('old_mdp').value);
+
+    fetch('fetch/new_mdp.php', {
+        method: 'POST',
+        body: params
+    }).then(reponse => reponse.text())
+    .then(reponse => {
+        alert(reponse);
+    });
+};
+
+function envoie_name(user) {
+    var params = new URLSearchParams();
+    params.append('user', user);
+    params.append('name', document.getElementById('new_name').value);
+
+    fetch('fetch/new_name.php', {
+        method: 'POST',
+        body: params
+    }).then(response => response.text())
+    .then(response => {
+        document.getElementById('name').textContent = response;
+        document.getElementById('new_name').value = '';
+    });
+};
+
+function envoie_firstname(user) {
+    var params = new URLSearchParams();
+    params.append('user', user);
+    params.append('firstname', document.getElementById('new_firstname').value);
+
+    fetch('fetch/new_firstname.php', {
+        method: 'POST',
+        body: params
+    }).then(response => response.text())
+    .then(response => {
+        document.getElementById('firstname').textContent = response;
+        document.getElementById('new_firstname').value = '';
+    });
+};
+
+function envoie_mail(user) {
+
+    var params = new URLSearchParams();
+    params.append('user', user);
+    params.append('mail', document.getElementById('new_mail').value);
+
+    fetch('fetch/new_mail.php', {
+        method: 'POST',
+        body: params
+    }).then(response => response.text())
+    .then(response => {
+        document.getElementById('mail').textContent = response;
+        document.getElementById('new_mail').value = '';
+    });
+};
+
+// ================================================
+// Barre Xp Animée
+// ================================================
+
+/* ---- particles.js config ---- */
+
+particlesJS("particules", {
+    "particles": {
+      "number": {
+        "value": 150,
+        "density": {
+          "enable": true,
+          "value_area": 1
+        }
+      },
+      "color": {
+        "value": "#4cdd50"
+      },
+      "shape": {
+        "type": "circle",
+        "stroke": {
+          "width": 0,
+          "color": "#000000"
+        },
+        "polygon": {
+          "nb_sides": 5
+        },
+        "image": {
+          "src": "img/github.svg",
+          "width": 100,
+          "height": 100
+        }
+      },
+      "opacity": {
+        "value": 0.5,
+        "random": false,
+        "anim": {
+          "enable": false,
+          "speed": 1,
+          "opacity_min": 0.1,
+          "sync": false
+        }
+      },
+      "size": {
+        "value": 1,
+        "random": true,
+        "anim": {
+          "enable": false,
+          "speed": 5,
+          "size_min": 0.1,
+          "sync": false
+        }
+      },
+      "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#4caf50",
+        "opacity": 0.0,
+        "width": 1
+      },
+      "move": {
+        "enable": true,
+        "speed": 1,
+        "direction": "top-right",
+        "random": false,
+        "straight": false,
+        "out_mode": "wrap",
+        "bounce": false,
+        "attract": {
+          "enable": false,
+          "rotateX": 600,
+          "rotateY": 1200
+        }
+      }
+    },
+    "interactivity": {
+      "detect_on": "canvas",
+      "events": {
+        "onhover": {
+          "enable": true,
+          "mode": "grab"
+        },
+        "onclick": {
+          "enable": true,
+          "mode": "push"
+        },
+        "resize": true
+      },
+      "modes": {
+        "grab": {
+          "distance": 140,
+          "line_linked": {
+            "opacity": 1
+          }
+        },
+        "bubble": {
+          "distance": 400,
+          "size": 40,
+          "duration": 2,
+          "opacity": 8,
+          "speed": 3
+        },
+        "repulse": {
+          "distance": 200,
+          "duration": 0.4
+        },
+        "push": {
+          "particles_nb": 4
+        },
+        "remove": {
+          "particles_nb": 2
+        }
+      }
+    },
+    "retina_detect": true
+  });
 
 // ================================================
 // API ChatGPT

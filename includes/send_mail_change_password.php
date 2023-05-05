@@ -19,16 +19,17 @@ try {
 
     // Configurer l'e-mail
     $mail->setFrom('denycodebillard@gmail.om', 'DenyCodeBillard&Company');
-    $mail->addAddress('sirhyus.jeux@gmail.com');
+    $mail->addAddress($utilisateur['email']);
+    // 
     $mail->isHTML(true);
     $mail->Subject = 'Verification';
-    $mail->Body = "Cliquez sur le lien suivant pour vérifier votre adresse e-mail : ". $verification_url;
+    $mail->Body = "Cliquez sur le lien suivant pour changer votre mot de passe : " . $verification_url;
     
     // Envoyer l'e-mail
     $mail->send();
-    echo "E-mail envoyé avec succès";
+    // echo "E-mail envoyé avec succès";
 } catch (Exception $e) {
-    echo "Echec de l'envoi de l'e-mail. Erreur Mailer: {$mail->ErrorInfo}";
+    // echo "Echec de l'envoi de l'e-mail. Erreur Mailer: {$mail->ErrorInfo}";
 }
 
 ?>

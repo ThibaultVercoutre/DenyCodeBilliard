@@ -41,6 +41,8 @@ function get_xp_percentage() {
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
 </head>
 <body <?php if (isset($_SESSION['theme']) && $_SESSION['theme'] == 1): echo "onload='changeTheme();'"; endif;?>>
     <!-- <div id="header-h">
@@ -56,9 +58,11 @@ function get_xp_percentage() {
             <div id="header-h">
                 <h1 href="#" id="version">V1.2</h1>
                 <?php if(!empty($_SESSION['id'])){ ?>
-                    <p><?php echo $_SESSION['niveau']; ?><strong>&nbsplvl</strong></p>
+                    <p class="hexagon-text"><?php echo $_SESSION['niveau']; ?></p>
                     <div class="xp-bar-container">
-                        <div class="xp-bar" style="width: <?php echo get_xp_percentage(); ?>%;"></div>
+                        <div class="xp-bar" style="width: <?php echo get_xp_percentage(); ?>%;">
+                            <div id="particules"></div>
+                        </div>
                     </div>
                 <?php } ?>
                 <a href="#" id="theme" data="<?php if (isset($_SESSION['theme'])): echo $_SESSION['theme']; else: echo 0; endif; ?>" onclick="miseajourBDDtheme(<?php if (isset($_SESSION['id'])): echo $_SESSION['id']; else: echo 0; endif; ?>)"><span class="material-symbols-outlined">dark_mode</span></a>

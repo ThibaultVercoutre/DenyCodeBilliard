@@ -1,22 +1,31 @@
 body{
     margin: 0px;
     padding: 0px;
+    font-family: 'Lexend', sans-serif;
+    /* font-weight: bold; */
 }
 
 #sections{
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
     align-items: center;
-    height: 90vh;
+    min-height: 90vh;
 }
 
 section{
     background-color: rgba(255, 255, 255, 0.2);
-    margin: 10px;
+    text-align: center;
+    margin: auto;
     padding: 10px;
     width: 40vw;
+    border-radius: 5px;
     border: 1px solid #ccc;
-    box-shadow: 5px 5px 10px rgba(103, 102, 102, 0.5);
+    box-shadow: 5px 5px 10px rgba(103, 102, 102, 0.5)
+}
+
+.title{
+    font-size: 5vw;
 }
 
 form{
@@ -33,7 +42,7 @@ form div{
     align-items: center;
 }
 
-input{
+input:not([type="button"]){
     margin: 5px;
     font-size: 1.2rem;
     color: #000000;
@@ -43,14 +52,14 @@ input{
     transition: all 0.3s ease;
 }
 
-input:not([type="submit"]){
+input[type="text"], input[type="password"], input[type="date"]{
     background-color: rgba(255,255,255,0);
     border-bottom: 2px solid #000000;
     outline: none;
     transition-duration: 0.3s;
 }
 
-input:not([type="submit"]):focus{
+input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus{
     background-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -66,7 +75,7 @@ input[type="submit"]:hover{
 }
 
 #header-h {
-    height: 10vh;
+    height: 10%;
     position: absolute;
     text-align: right;
     display: flex;
@@ -105,7 +114,7 @@ input[type="submit"]:hover{
 
 #hero {
     background-position: center;
-    height: 100vh;
+    min-height: 100vh;
     justify-content: center;
     align-items: center;
     position: relative;
@@ -128,14 +137,38 @@ input[type="submit"]:hover{
 
 @media screen and (max-width: 900px) {
     #sections {
-      flex-direction: column;
+      grid-template-columns: 1fr;
+    }
+
+    #title1{
+        grid-row-start: 0;
+        grid-row-end: 1;
+    }
+
+    #title2{
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    #login{
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    #signin{
+        grid-row-start: 3;
+        grid-row-end: 4;
     }
 
     section{
         width: 80vw;
     }
 
-    input{
+    section:not([id="title"]){
         font-size: 1rem;
     }
+
+    /* input{
+        font-size: 1rem;
+    } */
 }

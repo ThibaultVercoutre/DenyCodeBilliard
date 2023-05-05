@@ -2,6 +2,10 @@
     width: 0px;
 }
 
+canvas{
+    padding: 0;
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -52,6 +56,7 @@ section{
 
 .hero-content {
     text-align: center;
+    z-index: 2;
 }
 
 .hero-title {
@@ -193,6 +198,7 @@ body.visible {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    z-index: 1;
 }
 
 #theme {
@@ -228,6 +234,7 @@ body.visible {
     /* font-family: 'Arial', sans-serif; */
     color: rgb(244,237,222);
     border: 2px solid rgb(244,237,222);
+    box-shadow: 5px 5px 10px rgba(103, 102, 102, 0.5);
     padding: 0.5rem 1rem;
     margin: 0.5rem;
     text-decoration: none;
@@ -238,6 +245,12 @@ body.visible {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: sticky;
+    top: 0px;
+}
+
+.accueil{
+    backdrop-filter: blur(10px);
 }
 
 .nav-link:hover, .accueil:hover, #sign:hover {
@@ -316,7 +329,28 @@ body.visible {
     transition: all 0.3s ease;
     border: 3px solid black;
 }
-  
+
+.sombre {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid white;
+    color: white;
+}
+
+.sombre.language span{
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+    
+}
+
 .box span {
     max-width: 100%;
     max-height: 100%;
@@ -327,8 +361,12 @@ body.visible {
     text-align: center;
 }
   
-.box:hover {
+.box:hover:not(.sombre) {
     background-color: #e0e0e0;
+    transform: scale(1.05);
+}
+
+.sombre:hover{
     transform: scale(1.05);
 }
 
@@ -419,7 +457,7 @@ input[type='text']:hover, textarea[type='text']:hover{
    margin: 0.5rem;
 }
 
-canvas{
+#rankings canvas{
     padding: 0.5rem;
 }
 
@@ -597,16 +635,58 @@ canvas{
 /* Profil */
 /*=================================================================================================================================*/
 
+.profile-change input[type="text"], .profile-change input[type="password"]{
+    margin: 5px;
+    font-size: 1.1rem;
+    color: #000000;
+    border: none;
+    /* border: 2px solid #000000; */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.profile-change input[type="text"], .profile-change input[type="password"]{
+    background-color: rgba(255,255,255,0);
+    border-bottom: 2px solid #000000;
+    outline: none;
+    transition-duration: 0.3s;
+}
+
+.profile-change input[type="text"]:focus, .profile-change input[type="password"]:focus{
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.profile-change input[type="button"]{
+    border: none;
+    background-color: rgba(215, 240, 255, 0.8);
+    padding: 15px 20px 15px 20px;
+}
+
+.profile-change input[type="button"]:hover{
+    background-color: rgba(255, 255, 255, 1);
+    color: #000000;
+    cursor: pointer;
+}
+
 .profile-container, .profile-change {
     display: flex;
-    flex-direction: column;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.3);
     max-width: 600px;
     margin: 30px auto;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    box-shadow: 5px 5px 10px rgba(103, 102, 102, 0.5)
+}
+
+.profile-container{
+    flex-direction: column;
+}
+
+.profile-change{
+    align-items: center;
+    justify-content: space-between;
 }
 
 .profile-image {
@@ -680,14 +760,28 @@ canvas{
     background-color: #4caf50;
 }
 
+
+#header-h .xp-bar-container{
+    height: 25px;
+}
+
+#particules {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+  }
+
 #header-h .xp-bar-container{
     width: 50%;
     margin: 10px;
 }
 
-#header-h p{
+/* #header-h p{
     margin: 1rem;
-}
+} */
 
 @media screen and (max-width: 750px) {
     #header-h {
@@ -697,6 +791,12 @@ canvas{
     }
     #header-h:nth-child(){
         flex-basis: calc(50% - 1rem);
+    }
+}
+
+@media screen and (max-width: 850px) {
+    #version{
+        display: none;
     }
 }
 
@@ -814,3 +914,25 @@ canvas{
     background-position: center center;
     background-repeat: no-repeat;
 }
+
+/*=================================================================================================================================*/
+/* Hexagone */
+/*=================================================================================================================================*/
+
+.hexagon-text {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    margin: 5px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 2;
+    border: 10px inset #4caf50;
+    border-radius: 50%;
+  }

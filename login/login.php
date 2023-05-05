@@ -50,9 +50,9 @@ function xpmax_final($xp, $xplvl){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deny Code Billard - Connexion</title>
-    <link rel="stylesheet" href="style_login.css">
+    <link rel="stylesheet" href="style/style_login.css">
     <link rel="icon" href="../style/logo/DCB.png" />
-    <script src="script_login.js" defer></script>
+    <script src="script/script_login.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -64,16 +64,19 @@ function xpmax_final($xp, $xplvl){
             <a href="#" id="theme"><span class="material-symbols-outlined">dark_mode</span></a>
         </div>
         <div id="sections">
+            <section class="title" id="title1">Connexion</section>
+            <section class="title" id="title2">Inscription</section>
             <section id="login">
                 <form method="post">
                     <div>
                         <span class="material-symbols-outlined">alternate_email</span>
-                        <input type="text" name="Cemail" id="Cemail" placeholder="Entrez votre email"/>
+                        <input type="text" name="Cemail" id="Cemail" placeholder="Entrez votre email ou pseudo"/>
                     </div>
                     <div>
                         <span class="material-symbols-outlined">key</span>
                         <input type="password" name="Cpassword" id="Cpassword" placeholder="Entrez votre mot de passe"/>
                     </div>
+                    <a href="forgot_password.php" name="forgot_password" id="forgot_password" value="Mot de passe oublié">Mot de passe oublié</a>
                     <input type="submit" name="send_login" id="send_login" value="Connexion">
                 </form>
                 <?php
@@ -83,7 +86,15 @@ function xpmax_final($xp, $xplvl){
                             $req = $db->prepare('SELECT * FROM users WHERE email = ?');
                             $req->execute(array($Cemail));
                             $user = $req->fetch();
-                            if($user){
+
+                            $req = $db->prepare('SELECT * FROM users WHERE pseudo = ?');
+                            $req->execute(array($Cemail));
+                            $user2 = $req->fetch();
+
+                            if($user || $user2){
+                                if($user2){
+                                    $user = $user2;
+                                }
                                 if(password_verify($Cpassword, $user['password'])){
                                     if($user['is_verified'] == 0){
                                         echo "Veuillez vérifier votre adresse e-mail";
@@ -177,7 +188,7 @@ function xpmax_final($xp, $xplvl){
                                         $req = $db->prepare('INSERT INTO users(email, password, name, firstname, pseudo, birthday, verification_token, is_verified) VALUES(?, ?, ?, ?, ?, ?, ?, ?)');
                                         $req->execute(array($Iemail, $Ihashpass, $Iname, $Ifirstname, $Ipseudo, $Ibirthday, $verification_token, 0));
                                         
-                                        include ('../includes/sendmail.php');
+                                        include ('../includes/send_mail_verif.php');
                                         //send_verification_email($Iemail, $verification_token);
                                     }
                                 }else{
