@@ -19,8 +19,7 @@ try {
 
     // Configurer l'e-mail
     $mail->setFrom('denycodebillard@gmail.om', 'DenyCodeBillard&Company');
-    $mail->addAddress("sirhyus.jeux@gmail.com");
-    // $email
+    $mail->addAddress($email);
     $mail->isHTML(true);
     $mail->Subject = 'Verification';
     $mail->Body = "Cliquez sur le lien suivant pour réinitialiser votre mot de passe : ". $verification_url;
