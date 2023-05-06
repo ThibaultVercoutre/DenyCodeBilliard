@@ -146,7 +146,7 @@ function xpmax_final($xp, $xplvl){
                     </div>
                     <div>
                         <span class="material-symbols-outlined">abc</span>
-                        <input type="text" name="Ifirstname" id="firstname" placeholder="Entrez votre prenom">
+                        <input type="text" name="Ifirstname" id="firstname" placeholder="Entrez votre prénom">
                     </div>
                     <div>
                         <span class="material-symbols-outlined">abc</span>

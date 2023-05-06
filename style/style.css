@@ -469,14 +469,14 @@ input[type='text']:hover, textarea[type='text']:hover{
     height: 80vh;
 }
 
-#python {
+#Python {
     background-image: url("images/python.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
 }
 
-#java {
+#Java {
     background-image: url("images/java.png");
     background-repeat: no-repeat;
     background-position: center center;
