@@ -8,8 +8,8 @@
     <h1>Rentabilité de boisson</h1>
     <fieldset>
         <legend>Niveau 1</legend>
-        <p>Deny se rend dans un bar pour jouer contre ses amis.
-            Pour pouvoir s'abrever, il dispose d'un billet de 20€, il ne prend jamais de carte bancaire, par peur de se la faire voler.
+        <p>Deny se rend dans un bar pour jouer avec ses amis.
+            Pour pouvoir s'abrever, il dispose d'un billet de 20€. Il ne prend jamais de carte bancaire, par peur de se la faire voler.
             Il voudrait savoir quelle quantité de boisson au maximum (rentabilité maximum de quantité) il peut avoir avec son argent.
             Il souhaite aussi savoir la quantité minimum qu'il pourrait avoir (rentabilité minimum de quantité).
             Pour cela, il se renseigne auprès du barman pour avoir la liste des boissons :</p>
@@ -82,14 +82,14 @@
                 <td>6€</td>
             </tr>
         </table>
-        <p>Une partie de billard est evidemment payante, à hauteur d'un euro la partie, et chaques joueurs paient une seule et unique partie</p>
+        <p>Une partie de billard est évidemment payante, à hauteur d'un euro la partie, et chaque joueur paye une seule et unique partie.</p>
     </fieldset>
     
     <fieldset>
         <legend>Niveau 2</legend>
         <p>
-            Il ne faut pas oublier que Deny est un joueur, il ne veut pas avoir de boisson en double, et gouter toutes les saveurs qu'on lui propose.
-            Il veut donc avoir le maximum de boisson différente.
+            Il ne faut pas oublier que Deny est un joueur, il ne veut pas avoir de boisson en double, et goûter toutes les saveurs qu'on lui propose.
+            Il veut donc avoir le maximum de boissons différentes.
         </p>
     </fieldset>
 
@@ -103,21 +103,21 @@
     <fieldset>
         <legend>Niveau 4</legend>
         <p>
-            Deny a ses habitudes, et il boit ses boissons dans un ordre bien définit :
+            Deny a ses habitudes, et il boit ses boissons dans un ordre bien défini :
         </p>
         <ul>
-            <li>Il ne bois jamais de bières après un alcool différent d'une bière</li>
-            <li>S'il bois 1 soft, il continuera de boire des softs</li>
-            <li>S'il bois un verre de Jagger Bomb, ce sera son seul verre d'alcool de la soirée</li>
-            <li>Après une Karmeliet, il bois toujours un soft</li>
-            <li>Avant une Triple, il bois toujours un coca</li>
+            <li>Il ne boit jamais de bières après un alcool différent d'une bière</li>
+            <li>S'il boit 1 soft, il continuera de boire des softs</li>
+            <li>S'il boit un verre de Jagger Bomb, ce sera son dernier verre d'alcool de la soirée</li>
+            <li>Après une Karmeliet, il boit toujours un soft</li>
+            <li>Avant une Triple, il boit toujours un coca</li>
         </ul>
     </fieldset>
 
     <fieldset>
         <legend>Niveau 5</legend>
         <p>
-            Deny a certes ses habitudes, mais il lui arrive toujours d'oublier l'une d'elle.
+            Deny a certes ses habitudes, mais il lui arrive toujours d'oublier l'une d'entre elles.
             Il faut donc différencier ces 5 cas.
         </p>
     </fieldset>
