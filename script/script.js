@@ -18,6 +18,16 @@
 //   }
 // }, { passive: false });
 
+var barChart;
+
+function changeAlpha(color, newAlpha) {
+    if(color == 'rgba(0, 0, 0, 1)'){
+        return 'rgba(0, 0, 0, ' + newAlpha + ')';
+    }else{
+        return 'rgba(255, 255, 255, ' + newAlpha + ')';
+    }
+}
+
 // ================================================
 // Nav Bar
 // ================================================  
@@ -157,6 +167,7 @@ function appliqueTheme(){
 }
 
 function changeTheme(){
+    console.log(barChart);
     if (Btheme.innerHTML === '<span class="material-symbols-outlined">dark_mode</span>') {
         Btheme.setAttribute("data", 1);
 
@@ -187,6 +198,20 @@ function changeTheme(){
 
         box2black();
 
+        // barChart.options.plugins.legend.labels.color = 'rgba(255, 255, 255, 1)'; // Couleur du texte de la légende
+        // barChart.options.plugins.title.color = 'rgba(255, 255, 255, 1)'; // Couleur du texte du titre
+        // barChart.options.scales.y.ticks.color = 'rgba(255, 255, 255, 1)'; // Couleur des unités de l'axe Y
+        // barChart.options.scales.x.ticks.color = 'rgba(255, 255, 255, 1)'; // Couleur des étiquettes de l'axe X
+        // barChart.options.scales.y.grid.color = 'rgba(255, 255, 255, 1)';
+        // barChart.options.scales.x.grid.color = 'rgba(255, 255, 255, 1)';
+        // // barChart.data.datasets[0].borderColor = 'rgba(255, 255, 255, 1)'; // Couleur des bordures
+        // // barChart.data.datasets[1].borderColor = 'rgba(255, 255, 255, 1)'; // Couleur des bordures
+        // setTimeout(function () {
+        //     barChart.update();
+        //   }, 100);
+
+        CreateDiagrammeRanked('rgba(255, 255, 255, 1)');
+
     } else if (Btheme.innerHTML === '<span class="material-symbols-outlined">light_mode</span>') {
         Btheme.setAttribute("data", 0);
 
@@ -213,6 +238,20 @@ function changeTheme(){
         Btheme.style.border = "2px solid #ffffff";
         Btheme.style.webkitTextStroke = "1px #ffffff";
         Btheme.style.backgroundSize = "400% 400%";
+
+        // barChart.options.plugins.legend.labels.color = 'rgba(0, 0, 0, 1)'; // Couleur du texte de la légende
+        // barChart.options.plugins.title.color = 'rgba(0, 0, 0, 1)'; // Couleur du texte du titre
+        // barChart.options.scales.y.ticks.color = 'rgba(0, 0, 0, 1)'; // Couleur des unités de l'axe Y
+        // barChart.options.scales.x.ticks.color = 'rgba(0, 0, 0, 1)'; // Couleur des étiquettes de l'axe X
+        // barChart.options.scales.y.grid.color = 'rgba(0, 0, 0, 1)';
+        // barChart.options.scales.x.grid.color = 'rgba(0, 0, 0, 1)';
+        // // barChart.data.datasets[0].borderColor = 'rgba(0, 0, 0, 1)'; // Couleur des bordures
+        // // barChart.data.datasets[1].borderColor = 'rgba(0, 0, 0, 1)'; // Couleur des bordures
+        // setTimeout(function () {
+        //     barChart.update();
+        //   }, 100);
+
+        CreateDiagrammeRanked('rgba(0, 0, 0, 1)');
 
         box2white();
     };
@@ -785,8 +824,22 @@ function listVisitMonth(elts){
     return nb_visit;
 }
 
-function Diagramme(elts, titre){
+var diagramInstances = {
+    Exercices: null,
+    Notions: null,
+    Languages: null
+  };
+
+function Diagramme(elts, titre, color){
     const ctx = document.getElementById('bar-chart-' + titre).getContext('2d');
+
+    // Détruire l'instance précédente du diagramme (s'il en existe une)
+    if (diagramInstances[titre]) {
+        diagramInstances[titre].destroy();
+    }
+
+    var newColor = changeAlpha(color, 0.4);
+    console.log(newColor);
 
     var nb_visit = listVisit(elts);
     var nb_visit_month = listVisitMonth(elts);
@@ -799,7 +852,7 @@ function Diagramme(elts, titre){
         var names = listNameLanguages(elts);
     }
 
-    const data = {
+    var data = {
         labels: names,
         datasets: [
             {
@@ -810,6 +863,9 @@ function Diagramme(elts, titre){
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)'
+                ],
+                color: [
+                    color
                 ],
                 borderWidth: 2
             },
@@ -822,12 +878,15 @@ function Diagramme(elts, titre){
                 borderColor: [
                     'rgba(75, 192, 192, 1)'
                 ],
+                color: [
+                    color
+                ],
                 borderWidth: 2
             }
         ]
     };
 
-    const barChart = new Chart(ctx, {
+    barChart = new Chart(ctx, {
         type: 'bar',
         data: data,
         options: {
@@ -838,12 +897,12 @@ function Diagramme(elts, titre){
                     font: {
                         size: 24
                     },
-                    color: '#000',
+                    color: color,
                     position: 'top'
                 },
                 legend: {
                     labels: {
-                        color: 'rgba(0, 0, 0, 1)' // Couleur du texte de la légende
+                        color: color // Couleur du texte de la légende
                     },
                     onHover: function (event, legendItem, legend) {
                         document.getElementById('bar-chart-' + titre).style.cursor = 'pointer';
@@ -857,28 +916,36 @@ function Diagramme(elts, titre){
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        color: 'rgba(0, 0, 0, 1)' // Couleur des unités de l'axe Y
+                        color: color // Couleur des unités de l'axe Y
                     },
                     grid: {
-                        color: 'rgba(0, 0, 0, 0.2)' // Couleur de la grille de l'axe Y
+                        color: newColor // Couleur de la grille de l'axe Y
                     }
                 },
                 x: {
                     ticks: {
-                        color: 'rgba(0, 0, 0, 1)' // Couleur des étiquettes de l'axe X
+                        color: color // Couleur des étiquettes de l'axe X
                     },
                     grid: {
-                        color: 'rgba(0, 0, 0, 0.2)' // Couleur de la grille de l'axe X
+                        color: newColor // Couleur de la grille de l'axe X
                     }
                 }
             }
         }
     });
 
+    // Enregistrer la nouvelle instance du diagramme
+    diagramInstances[titre] = barChart;
+
     return barChart;
 }
 
-function CreateDiagrammeRanked() {
+function CreateDiagrammeRanked(color) {
+
+    document.getElementsByClassName('chart-container')[0].innerHTML = '<canvas id="bar-chart-Exercices"></canvas>'
+                                                         + '<canvas id="bar-chart-Notions"></canvas>'
+                                                         + '<canvas id="bar-chart-Languages"></canvas>';
+
     var params = new URLSearchParams();
 
     fetch('fetch/liste_ranked_exercices.php', {
@@ -886,7 +953,7 @@ function CreateDiagrammeRanked() {
         body: params
         }).then(response => response.json())
         .then(result => {
-            Diagramme(result, 'Exercices');
+            Diagramme(result, 'Exercices', color);
         })
 
     fetch('fetch/liste_ranked_notions.php', {
@@ -894,7 +961,7 @@ function CreateDiagrammeRanked() {
         body: params
         }).then(response => response.json())
         .then(result => {
-            Diagramme(result, 'Notions');
+            Diagramme(result, 'Notions', color);
         })
 
     fetch('fetch/liste_ranked_languages.php', {
@@ -902,22 +969,22 @@ function CreateDiagrammeRanked() {
         body: params
         }).then(response => response.json())
         .then(result => {
-            Diagramme(result, 'Languages');
+            Diagramme(result, 'Languages', color);
         })
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    CreateDiagrammeRanked();
+    CreateDiagrammeRanked('rgba(0, 0, 0, 1)');
 });
 
 // ================================================
 // Changer infos profil
 // ================================================
 
-let change_name = document.getElementById('change_name');
-let change_firstname = document.getElementById('change_firstname');
-let change_email = document.getElementById('change_email');
-let change_mdp = document.getElementById('change_mdp');
+// let change_name = document.getElementById('change_name');
+// let change_firstname = document.getElementById('change_firstname');
+// let change_email = document.getElementById('change_email');
+// let change_mdp = document.getElementById('change_mdp');
 
 let modif_name = document.getElementById('modif_name');
 let modif_firstname = document.getElementById('modif_firstname');
@@ -931,27 +998,25 @@ function hidden_modif(){
     modif_mdp.style.display = 'none';
 }
 
-hidden_modif();
-
-change_name.addEventListener('click', function() {
+function chage_name() {
     hidden_modif();
     modif_name.style.display = 'flex';
-});
+};
 
-change_firstname.addEventListener('click', function() {
+function change_firstname() {
     hidden_modif();
     modif_firstname.style.display = 'flex';
-});
+};
 
-change_email.addEventListener('click', function() {
+function change_email() {
     hidden_modif();
     modif_email.style.display = 'flex';
-});
+};
 
-change_mdp.addEventListener('click', function() {
+function change_mdp() {
     hidden_modif();
     modif_mdp.style.display = 'flex ';
-});
+};
 
 
 let send_mdp = document.getElementById('send_mdp');
@@ -1025,116 +1090,118 @@ function envoie_mail(user) {
 
 /* ---- particles.js config ---- */
 
-particlesJS("particules", {
-    "particles": {
-      "number": {
-        "value": 150,
-        "density": {
-          "enable": true,
-          "value_area": 1
+if(document.getElementById("particules")){
+    particlesJS("particules", {
+        "particles": {
+        "number": {
+            "value": 150,
+            "density": {
+            "enable": true,
+            "value_area": 1
+            }
+        },
+        "color": {
+            "value": "#4cdd50"
+        },
+        "shape": {
+            "type": "circle",
+            "stroke": {
+            "width": 0,
+            "color": "#000000"
+            },
+            "polygon": {
+            "nb_sides": 5
+            },
+            "image": {
+            "src": "img/github.svg",
+            "width": 100,
+            "height": 100
+            }
+        },
+        "opacity": {
+            "value": 0.5,
+            "random": false,
+            "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+            }
+        },
+        "size": {
+            "value": 1,
+            "random": true,
+            "anim": {
+            "enable": false,
+            "speed": 5,
+            "size_min": 0.1,
+            "sync": false
+            }
+        },
+        "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#4caf50",
+            "opacity": 0.0,
+            "width": 1
+        },
+        "move": {
+            "enable": true,
+            "speed": 1,
+            "direction": "top-right",
+            "random": false,
+            "straight": false,
+            "out_mode": "wrap",
+            "bounce": false,
+            "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+            }
         }
-      },
-      "color": {
-        "value": "#4cdd50"
-      },
-      "shape": {
-        "type": "circle",
-        "stroke": {
-          "width": 0,
-          "color": "#000000"
         },
-        "polygon": {
-          "nb_sides": 5
+        "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+            "onhover": {
+            "enable": true,
+            "mode": "grab"
+            },
+            "onclick": {
+            "enable": true,
+            "mode": "push"
+            },
+            "resize": true
         },
-        "image": {
-          "src": "img/github.svg",
-          "width": 100,
-          "height": 100
+        "modes": {
+            "grab": {
+            "distance": 140,
+            "line_linked": {
+                "opacity": 1
+            }
+            },
+            "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+            },
+            "repulse": {
+            "distance": 200,
+            "duration": 0.4
+            },
+            "push": {
+            "particles_nb": 4
+            },
+            "remove": {
+            "particles_nb": 2
+            }
         }
-      },
-      "opacity": {
-        "value": 0.5,
-        "random": false,
-        "anim": {
-          "enable": false,
-          "speed": 1,
-          "opacity_min": 0.1,
-          "sync": false
-        }
-      },
-      "size": {
-        "value": 1,
-        "random": true,
-        "anim": {
-          "enable": false,
-          "speed": 5,
-          "size_min": 0.1,
-          "sync": false
-        }
-      },
-      "line_linked": {
-        "enable": true,
-        "distance": 150,
-        "color": "#4caf50",
-        "opacity": 0.0,
-        "width": 1
-      },
-      "move": {
-        "enable": true,
-        "speed": 1,
-        "direction": "top-right",
-        "random": false,
-        "straight": false,
-        "out_mode": "wrap",
-        "bounce": false,
-        "attract": {
-          "enable": false,
-          "rotateX": 600,
-          "rotateY": 1200
-        }
-      }
-    },
-    "interactivity": {
-      "detect_on": "canvas",
-      "events": {
-        "onhover": {
-          "enable": true,
-          "mode": "grab"
         },
-        "onclick": {
-          "enable": true,
-          "mode": "push"
-        },
-        "resize": true
-      },
-      "modes": {
-        "grab": {
-          "distance": 140,
-          "line_linked": {
-            "opacity": 1
-          }
-        },
-        "bubble": {
-          "distance": 400,
-          "size": 40,
-          "duration": 2,
-          "opacity": 8,
-          "speed": 3
-        },
-        "repulse": {
-          "distance": 200,
-          "duration": 0.4
-        },
-        "push": {
-          "particles_nb": 4
-        },
-        "remove": {
-          "particles_nb": 2
-        }
-      }
-    },
-    "retina_detect": true
-  });
+        "retina_detect": true
+    });
+}
 
 // ================================================
 // API ChatGPT

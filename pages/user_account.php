@@ -16,7 +16,7 @@
         <img src="style/images_profils/profil_defaut.webp" alt="Photo de profil">
     </div>
     <div class="profile-info">
-        <h2><span id="change_name" class="edit_profil material-symbols-outlined">edit</span><span id="name"><?php echo $_SESSION['name'] . "</span>&nbsp<span id='firstname'>" . $_SESSION['firstname']; ?></span><span id="change_firstname" class="edit_profil material-symbols-outlined">edit</span></h2>
+        <h2><span id="change_name" class="edit_profil material-symbols-outlined" onclick=chage_name()>edit</span><span id="name"><?php echo $_SESSION['name'] . "</span>&nbsp<span id='firstname'>" . $_SESSION['firstname']; ?></span><span id="change_firstname" class="edit_profil material-symbols-outlined" onclick=change_firstname()>edit</span></h2>
         
         <p><strong>Niveau :&nbsp</strong> <?php echo $_SESSION['niveau']; ?></p>
         <div class="xp-bar-container">
@@ -24,10 +24,10 @@
             </div>
         </div>
         
-        <p><strong>Email :&nbsp</strong> <span id="mail"><?php echo $_SESSION['email']; ?></span><span id="change_email" class="edit_profil material-symbols-outlined">edit</span></p>
+        <p><strong>Email :&nbsp</strong> <span id="mail"><?php echo $_SESSION['email']; ?></span><span id="change_email" class="edit_profil material-symbols-outlined" onclick=change_email()>edit</span></p>
         <p><strong>Pseudo :&nbsp</strong> <?php echo $_SESSION['pseudo']; ?></p>
         <p><strong>Date de naissance :&nbsp</strong> <?php echo $_SESSION['birthday']; ?></p>
-        <div id="change_mdp">Modifier le mot de passe</div>
+        <div id="change_mdp" onclick=change_mdp()>Modifier le mot de passe</div>
     </div>
 </div>
 
