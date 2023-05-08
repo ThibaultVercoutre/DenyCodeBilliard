@@ -1,0 +1,1 @@
+<?php echo '<button id="execute" onclick="runCode()">Exécuter le code</button>'; ?>

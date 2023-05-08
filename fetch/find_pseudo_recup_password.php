@@ -14,7 +14,7 @@ $q->execute([
 
 $user = $q->fetch();
 
-if($user){
+if($user != ''){
     $verification_token = bin2hex(random_bytes(16));
     $verification_url = "https://denycodebillard.com/recuperation/change_password.php?token=" . $verification_token;
 
@@ -26,6 +26,7 @@ if($user){
         'verification_token' => $verification_token
     ]);
 
+    $email = $user['email'];
     include '../includes/send_mail_recup.php';
 } else {
     echo "Pseudo non trouvé";

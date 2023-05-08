@@ -8,6 +8,11 @@ body{
     animation: gradient 10s ease infinite;
 }
 
+::-webkit-scrollbar{
+    width: 0px;
+}
+
+
 @keyframes gradient {
     0% {
       background-position: 0% 50%;
@@ -133,4 +138,31 @@ ul > li{
     .code{
         font-size: 10px;
     }
+}
+
+/* ======================================= */
+/* Code */
+/* ======================================= */   
+
+#my-editor-python {
+    display: flex;
+    height: 400px;
+}
+
+#execute{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#console{
+    display: flex;
+    margin: 5px
 }
