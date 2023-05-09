@@ -201,6 +201,136 @@ body.visible {
     z-index: 1;
 }
 
+#trophees {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: rgb(241, 249, 8);
+    background-color: #000000;
+    border: 2px solid rgb(241, 249, 8);
+    margin: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    left: 0;
+    position: absolute;
+    transform: translateX(0px) translateY(50px) scale(1);
+}
+
+#trophees:hover {
+    color: #000000;
+    border: 2px solid #000000;
+    -webkit-text-stroke: 1px #000000;
+    background-color: rgb(241, 249, 8);
+    animation: gradient 10s linear infinite reverse;
+}
+
+#ptrophees {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+  
+  /* Modal Content/Box */
+#trophees-content {
+    background-color: rgba(0,0,0,0.9);
+    margin: 5% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    color: white;
+    text-align: center;
+    width: 45%; /* Could be more or less, depending on screen size */
+}
+
+#trophees-content h2 {
+    margin: 0 0 35px 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    color: #dc8007;
+    text-shadow: 1px 1px 0px #eaf348;
+}
+  
+  /* The Close Button */
+#closetr {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+#closetr:hover,
+#closetr:focus {
+    color: rgb(224, 19, 19);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.trophy {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+  
+.trophy-icon {
+    font-size: 2rem;
+    margin-right: 10px;
+    color: gold;
+}
+  
+.trophy-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+  
+.trophy-name {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: left;
+}
+  
+.trophy-description {
+    color: #b3b3b3;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    text-align: left;
+}
+
+.trophy-icon.TropheeLocked {
+    color: gray;
+}
+
+#div-stars {
+    position: fixed;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    margin: 5px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 2;
+    transform: translateY(40px);
+    right: 5px;
+}
+
+#stars {
+    position: fixed;
+    right: 35px;
+}
+
 #theme {
     display: inline-block;
     font-size: 1.2rem;
@@ -455,6 +585,12 @@ input[type='text']:hover, textarea[type='text']:hover{
 
 .material-symbols-outlined{
    margin: 0.5rem;
+}
+
+/* ne pas changer scale : pour le trophee car trop petit de base */
+.material-icons {
+    margin: 0.5rem;
+    transform: scale(1.2);
 }
 
 #rankings canvas{
