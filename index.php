@@ -56,7 +56,7 @@ function get_xp_percentage() {
     <header id="hero">
         <div class="hero-content">
             <div id="header-h">
-                <h1 href="#" id="version">V1.2</h1>
+                <h1 href="#" id="version">V1.3</h1>
                 <?php if(!empty($_SESSION['id'])){ ?>
                     <p class="hexagon-text"><?php echo $_SESSION['niveau']; ?></p>
                     <div class="xp-bar-container">

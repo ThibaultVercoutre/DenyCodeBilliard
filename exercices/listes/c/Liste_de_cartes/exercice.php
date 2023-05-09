@@ -14,7 +14,7 @@ include '../../../includes/test_valide.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deny Code Billard - Liste de courses</title>
+    <title>Deny Code Billard - Liste de numeros</title>
     <link rel="icon" href="../../../../style/logo/DCB.png" />
     <link rel="stylesheet" href="../../../style/style.css">
     <script src="../../../script/script.js" defer></script>
@@ -25,17 +25,28 @@ include '../../../includes/test_valide.php';
     <script src="/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-    <div id="title">Liste de courses</div>
+    <div id="title">Liste de cartes</div>
     <div id="sujet">
-        <p>Créer une liste de course pour le jeune Deny qui veut apprendre le billiard. 
-            Il va devoir acheter une queue, un set de boules et un petit tamon pour frotter le bout de sa queue. 
-            Il faudra qu'il y ait :</p>
+        <p>Deny veut maintenant payer ses consommations au billard. Sauf qu'il a trop de carte. Le but est de créer un code répertoriant
+            ses 10 cartes différentes, et trouver la bonne. Voici toutes ses cartes :</p>
         <ul>
-            <li>une fonction qui demande à l'utilisateur sa liste de course (taper fin pour finir sa liste de course)</li>
-            <li>une fonction qui tri sa liste de course par ordre alphabétique</li>
-            <li>une fonction qui tri sa liste par la chaine de caractère la plus courte à la plus longue</li>
-            <li>une fonction qui demande s'il vient d'acheter une objet parmis les x de la liste (il devra taper 1 - 2 - 3 ... ou X pour choisir un objet, faire une petite présentation graphique) et s'arrête lorsqu'il n'y a plus d'objet dans la liste</li>
+            <li>Carte 1 : 1267890123456</li>
+            <li>Carte 2 : 1234567890123457</li>
+            <li>Carte 3 : 4567890123458</li>
+            <li>Carte 4 : 1234567123459</li>
+            <li>Carte 5 : 12345678901460</li>
+            <li>Carte 6 : 1234567890123468</li>
+            <li>Carte 7 : 1234567823462</li>
+            <li>Carte 8 : 1234567890123463</li>
+            <li>Carte 9 : 1234567812364</li>
+            <li>Carte 10 : 4567890123465</li>
         </ul>
+        <p>Il sait que sa carte à certaines propriétés, il sait que :</p>
+        <ul>
+            <li>La somme de ses nombre vaut 69</li>
+            <li>Lorsqu'il fait la racine de ce nombre, il obtient un nombre dont les 4 premiers chiffre derrière la virgule est un palindrome</li>
+            <li>Il contient 2 fois la suite 123</li>
+        </ul> 
     </div>
 
     <?php 

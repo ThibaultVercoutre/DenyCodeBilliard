@@ -147,7 +147,7 @@ ul > li{
 .editor {
     margin: 0px 5px 5px 5px;
     display: flex;
-    height: 400px;
+    min-height: 400px;
 }
 
 #execute{
@@ -167,8 +167,10 @@ ul > li{
     margin: 5px;
     padding: 10px;
     background-color: black;
-    height: 300px;
+    min-height: 140px;
     color: white;
+    border: 3px solid white;
+    border-radius: 5px;
 }
 
 #sect_execute{
