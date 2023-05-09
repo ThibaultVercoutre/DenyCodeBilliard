@@ -50,7 +50,7 @@ if($_SESSION['id'] != 0){
     if($result){
         include 'correction.php'; 
     }else{
-        include '../../../includes/python.php';
+        include '../../../includes/c.php';
         include '../../../includes/execute.php';
         echo '<pre id="console"></pre>';
     }

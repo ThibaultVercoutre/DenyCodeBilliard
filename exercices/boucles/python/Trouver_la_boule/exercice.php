@@ -5,13 +5,16 @@ session_start();
 include '../../../../includes/database.php';
 global $db;
 
-$q = $db->prepare("SELECT id FROM `validated_exercises` WHERE id_user = :user AND id_exercice = :exercise");
-$q->execute([              
-    'user' => $_SESSION['id'],
-    'exercise' => $_GET['exercice_id']
-]);
+if($_SESSION['id'] != 0){
+    $q = $db->prepare("SELECT id FROM `validated_exercises` WHERE id_user = :user AND id_exercice = :exercise");
+    $q->execute([              
+        'user' => $_SESSION['id'],
+        'exercise' => $_GET['exercice_id']
+    ]);
 
-$result = $q->fetchColumn();
+    $result = $q->fetchColumn();
+}
+
 
 ?>
 
@@ -46,11 +49,13 @@ $result = $q->fetchColumn();
 
     <?php 
     if($result){
+        echo $result;
         include 'correction.php'; 
     }else{
-        echo '<div id="my-editor"></div>';
+        echo $result;
+        include '../../../includes/python.php';
         include '../../../includes/execute.php';
-        echo '<pre id="console" style="background-color: black; color: white; height: 200px; width: 600px;"></pre>';
+        echo '<pre id="console"></pre>';
     }
     ?>
 </body>

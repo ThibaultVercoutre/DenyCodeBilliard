@@ -13,16 +13,56 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 });
 
-const editor = ace.edit("my-editor-python");
-editor.setTheme("ace/theme/monokai");
-editor.session.setMode("ace/mode/c_cpp");
-editor.setValue('print("Hello World")', -1);
+var editorPython;
+var editorC;
+
+function createEditors(editor){
+    switch(editor.id){
+        case "my-editor-python":
+            editorPython = ace.edit("my-editor-python");
+            editorPython.setTheme("ace/theme/monokai");
+            editorPython.session.setMode("ace/mode/python");
+            editorPython.setValue('print("Hello World !")', -1);
+            break;
+        case "my-editor-c":
+            editorC = ace.edit("my-editor-c");
+            editorC.setTheme("ace/theme/monokai");
+            editorC.session.setMode("ace/mode/c_cpp");
+            editorC.setValue('#include <stdio.h>\n\nint main(){\nprintf("%s", "Hello World !");\nreturn 0;\n}', -1);
+            break;
+        default: break;
+    }
+}
+
+createEditors(document.getElementsByClassName("editor")[0]);
 
 const consoleElement = document.getElementById("console");
 
+function findLanguage(edit){
+    switch(edit.id){
+        case "my-editor-python": return "python3";
+        case "my-editor-c": return "c";
+        default: return "rien";
+    }
+}
+
+function findEditor(edit){
+    switch(edit.id){
+        case "my-editor-python": return editorPython;
+        case "my-editor-c": return editorC;
+        default: return "rien";
+    }
+}
+
 async function runCode() {
+
+    document.getElementById("chargement_barre").style.animation = "loading 2.5s linear infinite";
+
+    languageEditor = findEditor(document.getElementsByClassName("editor")[0]);
+    language = findLanguage(document.getElementsByClassName("editor")[0]);
+
     consoleElement.textContent = "";
-    const code = editor.getValue();
+    const code = languageEditor.getValue();
     fetch("https://api.paiza.io/runners/create", {
     method: "POST",
     headers: {
@@ -30,7 +70,7 @@ async function runCode() {
     },
     body: JSON.stringify({
         source_code: code,
-        language: "python3",
+        language: language,
         api_key: "guest"
     })
     })
@@ -53,8 +93,11 @@ async function runCode() {
 
         await new Promise(resolve => setTimeout(resolve, 1000));
         }
+
+        document.getElementById("chargement_barre").style.animation = "none";
     })
     .catch(error => {
         console.error("Erreur :", error);
+        document.getElementById("chargement_barre").style.animation = "none";
     });
 }

@@ -1,3 +1,16 @@
+    <div id="title">Liste de numeros</div>
+    <div id="sujet">
+        <p>Deny a maintenant sa liste de course (simplement enregistré dans une liste au début de la fonction main). 
+            Il doit maintenant contacter les magasins par telephone pour savoir s'ils ont ces articles ou pas. 
+            Il faudra donc que pour chaque appel, il demande si les articles sont disponible ou non, ce qui fera que :</p>
+        <ul>
+            <li>Soit au moins un article n'est pas disponible et le numero est rangé dans une liste qui répertorie les magasins ne possédant pas les articles</li>
+            <li>Soit tout les articles sont disponible et le numéro est rangé dans une liste qui répertorie les magasins possédant les articles</li>
+        </ul>
+            <p>Tout les numéros sont renseigné par l'utilisateur dans une liste<p>
+            <p>A la fin, il faudra montrer le ratio des magasins possédant les articles par rapport à tout les magasins</p>
+    </div>
+
     <div class="accordion">
         <div class="accordion-header">Etape 1 : Définition de la fonction pour obtenir les numéros de téléphone des magasins :</div>
         <div class="accordion-content" id="etape_' . $i .'">

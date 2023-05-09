@@ -1,4 +1,3 @@
-
     <div class="accordion">
         <div class="accordion-header">Etape 1 : Demander à l'utilisateur sa liste de courses</div>
         <div class="accordion-content" id="etape_' . $i .'">
@@ -93,6 +92,4 @@
     </div>
 
 
-    <div id="code_final" class='code'>
-        
-    </div>
+    <div id="code_final" class='code'></div>
