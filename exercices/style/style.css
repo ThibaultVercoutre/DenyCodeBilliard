@@ -8,6 +8,11 @@ body{
     animation: gradient 10s ease infinite;
 }
 
+::-webkit-scrollbar{
+    width: 0px;
+}
+
+
 @keyframes gradient {
     0% {
       background-position: 0% 50%;
@@ -133,4 +138,77 @@ ul > li{
     .code{
         font-size: 10px;
     }
+}
+
+/* ======================================= */
+/* Code */
+/* ======================================= */   
+
+.editor {
+    margin: 0px 5px 5px 5px;
+    display: flex;
+    min-height: 400px;
+}
+
+#execute{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    padding: 5px;
+    background-color: #333;
+    color: white;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#console{
+    display: flex;
+    margin: 5px;
+    padding: 10px;
+    background-color: black;
+    min-height: 140px;
+    color: white;
+    border: 3px solid white;
+    border-radius: 5px;
+}
+
+#sect_execute{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+}
+#background_barre {
+    background-color: lightgray;
+    width: 100%;
+    height: 20px;
+    position: relative;
+    margin: 5px;
+}
+
+#chargement_barre {
+    background-color: dodgerblue;
+    width: 0;
+    height: 20px;
+    position: absolute;
+    /* animation: loading 3s linear forwards; */
+}
+
+@keyframes loading {
+    0% {
+      width: 0;
+    }
+    95% {
+      width: 100%;
+    }
+    100% {
+      width: 0;
+    }
+}
+
+.title_language{
+    background-color: #2F3129;
+    margin: 5px 5px 0px 5px;
+    width: 80px;
 }

@@ -28,7 +28,7 @@ try {
     $mail->send();
     echo "E-mail envoyé avec succès";
 } catch (Exception $e) {
-    echo "Echec de l'envoi de l'e-mail. Erreur Mailer: {$mail->ErrorInfo}";
+    echo "Echec de l'envoi de l'e-mail {$email}. Erreur Mailer: {$mail->ErrorInfo}";
 }
 
 ?>
