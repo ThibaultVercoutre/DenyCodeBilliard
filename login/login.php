@@ -112,6 +112,7 @@ function xpmax_final($xp, $xplvl){
                                         $_SESSION['xpfin'] = reste_division_entiere($_SESSION['xp'], 500);
                                         $_SESSION['xpmax'] = xpmax_final($_SESSION['xp'], 500);
                                         $_SESSION['theme'] = $user['theme'];
+                                        $_SESSION['etoiles'] = $user['etoiles'];
                                         header('Location: ../index.php');
                                     }
                                 }else{

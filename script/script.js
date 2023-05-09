@@ -92,6 +92,9 @@ navLinks.forEach((link) => {
 // });
 
 const Btheme = document.getElementById('theme');
+const Btrophees = document.getElementById('trophees');
+const Ptrophees = document.getElementById('ptrophees');
+const CloseTrophees = document.getElementById('closetr');
 const CSShero = document.getElementById("hero");
 const Sections = document.querySelectorAll(".content-section");
 const TableLeaderBoard = document.querySelectorAll(".user.posX div");
@@ -232,6 +235,20 @@ function miseajourBDDtheme(user) {
 Btheme.addEventListener('click', (e) => {
     changeTheme();
 });
+
+Btrophees.addEventListener('click', (e) => {
+    Ptrophees.style.display = "block";
+});
+
+CloseTrophees.onclick = function() {
+    Ptrophees.style.display = "none";
+}
+  
+window.onclick = function(event) {
+    if (event.target == Ptrophees) {
+      Ptrophees.style.display = "none";
+    }
+}
 
 Btheme.addEventListener("mouseover", function() {
     if (Btheme.innerHTML === '<span class="material-symbols-outlined">dark_mode</span>') {

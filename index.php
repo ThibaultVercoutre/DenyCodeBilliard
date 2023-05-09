@@ -15,6 +15,7 @@ $_SESSION['niveau'] = 0;
 $_SESSION['xpfin'] = 0; 
 $_SESSION['xpmax'] = 500;
 $_SESSION['theme'] = 0;
+$_SESSION['etoiles'] = 0;
 
 session_start();
 
@@ -35,11 +36,12 @@ function get_xp_percentage() {
     <title>Deny Code Billard</title>
     <meta name="description" content="La meta description de la page."/>
     <link rel="stylesheet" href="style/style.css">
-    <link rel="icon" href="style/logo/DCB.png" />
+    <link rel="icon" href="style/logo/DCB.png"/>
     <script src="script/script.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
@@ -56,7 +58,61 @@ function get_xp_percentage() {
     <header id="hero">
         <div class="hero-content">
             <div id="header-h">
-                <h1 href="#" id="version">V1.2</h1>
+                <div id="ptrophees" class="modal">
+                    <div id="trophees-content">
+                        <span id="closetr">&times;</span>
+                        <h2>Liste des trophées</h2>
+                        <?php
+                        $bdd = new PDO('mysql:host=localhost;dbname=denycodebillard;charset=utf8', 'root', '');
+
+                        // Requête SQL pour récupérer les trophées
+                        $requete = "SELECT * FROM trophees";
+                        $resultat = $bdd->query($requete);
+                        
+                        if(empty($_SESSION['id'])) {
+                            $id = array(0);
+                        } else {
+                            $id = array($_SESSION['id']);
+                        }
+                        $requete2 = "SELECT * FROM tropheesgagnes WHERE iduser = ?";
+                        // Préparation de la requête SQL
+                        $stmt = $bdd->prepare($requete2);
+                        
+                        // Exécution de la requête en passant la variable $_SESSION['id'] comme paramètre
+                        $stmt->execute($id);
+                        
+                        // Récupération des résultats
+                        $resultat2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                        // Boucle pour afficher chaque trophée
+                        while ($trophee = $resultat->fetch(PDO::FETCH_ASSOC)) {
+                            $trophyName = "???";
+                            $trophyDes = "...";
+                            $tropheeDebloque = false;
+                            foreach ($resultat2 as $trophee_gagne) {
+                                if ($trophee_gagne["idtrophee"] == $trophee["id"]) {
+                                    $trophyName = $trophee["name"];
+                                    $trophyDes = $trophee["description"];
+                                    $tropheeDebloque = true;
+                                    break;
+                                }
+                            }
+                            ?>
+                            <div class="trophy">
+                                <span class="material-icons trophy-icon <?php if (!$tropheeDebloque) echo 'TropheeLocked'; ?>">emoji_events</span>
+                                <div class="trophy-info">
+                                    <span class="trophy-name"><?= $trophee["id"] ?> - <?= $trophyName ?></span>
+                                    <span class="trophy-description"><?= $trophyDes ?></span>
+                                </div>
+                            </div>
+                            <?php
+                        }
+
+                        ?>
+                    </div>
+                </div>
+                <h1 href="#" id="version">V1.3</h1>
+                <a href="#" id="trophees"><span class="material-icons">emoji_events</span></a>
                 <?php if(!empty($_SESSION['id'])){ ?>
                     <p class="hexagon-text"><?php echo $_SESSION['niveau']; ?></p>
                     <div class="xp-bar-container">
@@ -70,6 +126,12 @@ function get_xp_percentage() {
                     <a href="login\login.php" id="sign">S'inscrire</a>
                 <?php }else{ ?>
                     <a href="login\logout.php" id="deconnexion"><span><?php echo $_SESSION['pseudo'] ?></span></a>
+                <?php } ?>
+                <?php if(!empty($_SESSION['id'])){ ?>
+                    <div id="div-stars">
+                        <p id="stars"><?php echo $_SESSION['etoiles']; ?></p>
+                        <span class="material-icons">star</span>
+                    </div>
                 <?php } ?>
             </div>
             <!-- <span class="material-symbols-outlined">dark_mode</span> -->
