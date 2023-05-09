@@ -127,7 +127,7 @@ function get_xp_percentage() {
                 <?php }else{ ?>
                     <a href="login\logout.php" id="deconnexion"><span><?php echo $_SESSION['pseudo'] ?></span></a>
                 <?php } ?>
-                <?php if(!empty($_SESSION['id'])){ ?>
+                <?php if(!empty($_SESSION['id']) && $_SESSION['id'] != 0){ ?>
                     <div id="div-stars">
                         <p id="stars"><?php echo $_SESSION['etoiles']; ?></p>
                         <span class="material-icons">star</span>
