@@ -50,7 +50,11 @@ function createEditors(editor, code){
             editorC = ace.edit("my-editor-c");
             editorC.setTheme("ace/theme/monokai");
             editorC.session.setMode("ace/mode/c_cpp");
-            editorC.setValue('#include <stdio.h>\n\nint main(){\nprintf("%s", "Hello World !");\nreturn 0;\n}', -1);
+            if(code){
+                editorC.setValue(code, -1);
+            }else{
+                editorC.setValue('#include <stdio.h>\n\nint main(){\n    printf("%s", "Hello World !");\n    return 0;\n}', -1);
+            }
             break;
         default: break;
     }
@@ -205,6 +209,8 @@ function reconstituteStrings(stringsPrint, variables) {
         });
         strings.push(string);
     });
+
+    console.log(strings);
 }
 
 function DenyFraude(code){ 
@@ -213,6 +219,24 @@ function DenyFraude(code){
     var variables = findVariable(code);
     reconstituteStrings(stringsPrint, variables);
     console.log(variables);
+
+    fetch('https://api.openai.com/v1/engines/gpt-3.5-turbo/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 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',
+        },
+        body: JSON.stringify({
+            prompt: "Translate the following English text to French: '{}'",
+            max_tokens: 60
+        }),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+
     return 0; 
 }
 
@@ -227,6 +251,57 @@ function SaveCode(code, language, exercice_id) {
         method: 'POST',
         body: params,
         credentials: 'include'
+    })
+}
+
+// recupérer noms des variables + noms des fonctions
+
+
+
+function SendCodeVerif(code, language){
+    if(language == 'python3'){
+        code = 'import ast\n\nclass AssignmentVisitor(ast.NodeVisitor):\n    def visit_Assign(self, node):\n        for target in node.targets:\n            if isinstance(target, ast.Name):\n                print(f"{target.id} : {ast.dump(node.value)}")\n        self.generic_visit(node)\n\ncode = """'
+                + code + '"""\n\ntree = ast.parse(code)\nAssignmentVisitor().visit(tree)';
+    }
+
+    console.log(code, language);
+
+    fetch("https://api.paiza.io/runners/create", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        source_code: code,
+        language: language,
+        api_key: "guest"
+    })
+    })
+    .then(response => response.json())
+    .then(async data => {
+        const statusCheckURL = `https://api.paiza.io/runners/get_status?id=${data.id}&api_key=guest`;
+
+        while (true) {
+        const statusResponse = await fetch(statusCheckURL);
+        const statusData = await statusResponse.json();
+
+        if (statusData.status === "completed") {
+            const detailsURL = `https://api.paiza.io/runners/get_details?id=${data.id}&api_key=guest`;
+            const detailsResponse = await fetch(detailsURL);
+            const detailsData = await detailsResponse.json();
+        
+            console.log(detailsData.stdout);
+            if (detailsData.build_stderr) {
+                console.log("Build Error: \n" + detailsData.build_stderr + "\n");
+            }
+            if (detailsData.stderr) {
+                console.log("Runtime Error: \n" + detailsData.stderr + "\n");
+            }
+            break;
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        }
     })
 }
 
@@ -263,9 +338,19 @@ async function runCode(exercice_id) {
             const detailsResponse = await fetch(detailsURL);
             const detailsData = await detailsResponse.json();
             
-            DenyFraude(code);
+            //DenyFraude(code);
             SaveCode(code, document.querySelector(".title_language").getAttribute("data"), exercice_id);
-            consoleElement.textContent += detailsData.stdout + "\n";
+            //SendCodeGPT(code, language);
+            text = "";
+            text += detailsData.stdout + "\n";
+            if (detailsData.build_stderr) {
+                text += "Build Error: \n" + detailsData.build_stderr + "\n";
+            }
+            if (detailsData.stderr) {
+                text += "Runtime Error: \n" + detailsData.stderr + "\n";
+            }
+
+            consoleElement.textContent = text;
             break;
         }
 
