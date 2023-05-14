@@ -1,1 +1,1 @@
-<?php echo '<div id="sect_execute"><button id="execute" onclick="runCode()">Exécuter le code</button><div id="background_barre"><div id="chargement_barre"></div></div></div>'; ?>
+<?php echo '<div id="sect_execute"><button data='.$_GET['exercice_id'].' id="execute" onclick="runCode('.$_GET['exercice_id'].')">Exécuter le code</button><div id="background_barre"><div id="chargement_barre"></div></div></div>'; ?>

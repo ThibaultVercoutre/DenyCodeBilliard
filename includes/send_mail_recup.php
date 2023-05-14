@@ -10,15 +10,15 @@ $mail = new PHPMailer(true);
 try {
     // Configurer le serveur SMTP
     $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
+    $mail->Host = 'ssl0.ovh.net';
     $mail->SMTPAuth = true;
-    $mail->Username = 'denycodebillard@gmail.com';
-    $mail->Password = 'nsreolnftmnxtnms';
+    $mail->Username = 'support@denycodebillard.com';
+    $mail->Password = 'm@PBL3@jTSDB!dA4';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 
     // Configurer l'e-mail
-    $mail->setFrom('denycodebillard@gmail.om', 'DenyCodeBillard&Company');
+    $mail->setFrom('support@denycodebillard.com', 'DenyCodeBillard&Company');
     $mail->addAddress($email);
     $mail->isHTML(true);
     $mail->Subject = 'Verification';
@@ -26,7 +26,7 @@ try {
     
     // Envoyer l'e-mail
     $mail->send();
-    echo "E-mail envoyé avec succès";
+    echo "E-mail envoyé avec succès. Verifiez vos spams";
 } catch (Exception $e) {
     echo "Echec de l'envoi de l'e-mail {$email}. Erreur Mailer: {$mail->ErrorInfo}";
 }
