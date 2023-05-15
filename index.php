@@ -63,11 +63,10 @@ function get_xp_percentage() {
                         <span id="closetr">&times;</span>
                         <h2>Liste des trophées</h2>
                         <?php
-                        $bdd = new PDO('mysql:host=localhost;dbname=denycodebillard;charset=utf8', 'root', '');
 
                         // Requête SQL pour récupérer les trophées
                         $requete = "SELECT * FROM trophees";
-                        $resultat = $bdd->query($requete);
+                        $resultat = $db->query($requete);
                         
                         if(empty($_SESSION['id'])) {
                             $id = array(0);
@@ -76,7 +75,7 @@ function get_xp_percentage() {
                         }
                         $requete2 = "SELECT * FROM tropheesgagnes WHERE iduser = ?";
                         // Préparation de la requête SQL
-                        $stmt = $bdd->prepare($requete2);
+                        $stmt = $db->prepare($requete2);
                         
                         // Exécution de la requête en passant la variable $_SESSION['id'] comme paramètre
                         $stmt->execute($id);

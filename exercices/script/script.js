@@ -254,17 +254,50 @@ function SaveCode(code, language, exercice_id) {
     })
 }
 
+// separer les fonctions
+
+function SeparateFunct(code, functions){
+    var lines = code.split('\n');
+    var functionLines = {};
+    var currentFunction = null;
+    var currentIndent = null;
+
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        for (var j = 0; j < functions.length; j++) {
+            var functionName = functions[j];
+            var regex = new RegExp('^\\s*def\\s+' + functionName + '\\s*\\(.*\\):');
+            var match = regex.exec(line);
+            if (match !== null) {
+                currentFunction = functionName;
+                currentIndent = line.match(/^(\s*)/)[0].length;
+                functionLines[currentFunction] = [];
+            }
+        }
+        if (currentFunction !== null && line.match(/^(\s*)/)[0].length >= currentIndent) {
+            functionLines[currentFunction].push(line);
+        } else {
+            currentFunction = null;
+        }
+    }
+    for (var functionName in functionLines) {
+        functionLines[functionName] = functionLines[functionName].join('\n');
+    }
+    console.log(functionLines);
+}
+
 // recupérer noms des variables + noms des fonctions
-
-
 
 function SendCodeVerif(code, language){
     if(language == 'python3'){
-        code = 'import ast\n\nclass AssignmentVisitor(ast.NodeVisitor):\n    def visit_Assign(self, node):\n        for target in node.targets:\n            if isinstance(target, ast.Name):\n                print(f"{target.id} : {ast.dump(node.value)}")\n        self.generic_visit(node)\n\ncode = """'
-                + code + '"""\n\ntree = ast.parse(code)\nAssignmentVisitor().visit(tree)';
+        code_test = 'import ast\n\n'
+            + 'class FunctionVisitor(ast.NodeVisitor):\n'
+            + '    def visit_FunctionDef(self, node):\n'
+            + '        print(f"{node.name}")\n'
+            + '        self.generic_visit(node)'
+            + '\n\ncode = """'
+            + code + '"""\n\ntree = ast.parse(code)\nFunctionVisitor().visit(tree)';
     }
-
-    console.log(code, language);
 
     fetch("https://api.paiza.io/runners/create", {
     method: "POST",
@@ -272,7 +305,7 @@ function SendCodeVerif(code, language){
         "Content-Type": "application/json"
     },
     body: JSON.stringify({
-        source_code: code,
+        source_code: code_test,
         language: language,
         api_key: "guest"
     })
@@ -291,6 +324,9 @@ function SendCodeVerif(code, language){
             const detailsData = await detailsResponse.json();
         
             console.log(detailsData.stdout);
+            if(!(detailsData.build_stderr || detailsData.stderr)){
+                SeparateFunct(code, detailsData.stdout.split("\n"));
+            }
             if (detailsData.build_stderr) {
                 console.log("Build Error: \n" + detailsData.build_stderr + "\n");
             }
@@ -340,7 +376,7 @@ async function runCode(exercice_id) {
             
             //DenyFraude(code);
             SaveCode(code, document.querySelector(".title_language").getAttribute("data"), exercice_id);
-            //SendCodeGPT(code, language);
+            //SendCodeVerif(code, language);
             text = "";
             text += detailsData.stdout + "\n";
             if (detailsData.build_stderr) {
