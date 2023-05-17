@@ -110,7 +110,7 @@ function get_xp_percentage() {
                         ?>
                     </div>
                 </div>
-                <h1 href="#" id="version">V1.3</h1>
+                <h1 href="#" id="version">V1.4</h1>
                 <a href="#" id="trophees"><span class="material-icons">emoji_events</span></a>
                 <?php if(!empty($_SESSION['id'])){ ?>
                     <p class="hexagon-text"><?php echo $_SESSION['niveau']; ?></p>
@@ -142,7 +142,10 @@ function get_xp_percentage() {
                 <a href="#" class="nav-link" data-target="rankings">Classements</a>
                 <a href="#" class="nav-link" data-target="leaderboard">LeaderBoard</a>
                 <a href="#" class="nav-link" data-target="exercise-of-the-week">Exercice de la semaine</a>
-                <?php if(!empty($_SESSION['id'])){?><a href="#" class="nav-link" data-target="user-account">Compte utilisateur</a><?php } ?>
+                <?php if(!empty($_SESSION['id'])){?>
+                    <a href="#" class="nav-link" data-target="user-account">Compte utilisateur</a>
+                    <a href="#" class="nav-link" data-target="user-chat">Chat</a>
+                <?php } ?>
                 <?php if(!empty($_SESSION['id']) && $_SESSION['admin'] == 1){?><a href="#" class="nav-link" data-target="admin-account">Compte admin</a><?php } ?>
             </div>
         </div>
@@ -192,6 +195,11 @@ function get_xp_percentage() {
     <section id="user-account" class="content-section">
         <?php include "pages/user_account.php"; ?>
     </section>
+
+    <section id="user-chat" class="content-section">
+        <?php include "pages/user_chat.php"; ?>
+    </section>
+
     <?php } ?>
 
     <?php if(!empty($_SESSION['admin']) && $_SESSION['admin'] == 1){?>
