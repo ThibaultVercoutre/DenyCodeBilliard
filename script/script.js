@@ -1,6 +1,8 @@
 // ================================================
-// Scrolling desactively
+// Scrolling dectively
 // ================================================  
+
+//const e = require("cors");
 
 // document.addEventListener('wheel', function (event) {
 //     event.preventDefault();
@@ -71,6 +73,18 @@ function handleClick(event) {
     }, 3000);
 }
 
+var display = {
+    'actualites': 'block',
+    'languages': 'block',
+    'concepts': 'block',
+    'rankings': 'block',
+    'leaderboard': 'block',
+    'exercise-of-the-week': 'block',
+    'user-account': 'block',
+    'user-chat': 'flex',
+    'admin-account': 'block',
+}
+
 navLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
         handleClick(e);
@@ -84,7 +98,7 @@ navLinks.forEach((link) => {
         }, 1300);
         setTimeout(function() {
             cacheSections();
-            document.getElementById(e.target.getAttribute('data-target')).style.display = 'block';
+            document.getElementById(e.target.getAttribute('data-target')).style.display = display[e.target.getAttribute('data-target')];
             scrollSection(window.innerHeight);
         }, 0);
     });
@@ -1102,6 +1116,76 @@ function envoie_mail(user) {
 };
 
 // ================================================
+// Amis
+// ================================================
+
+var search_friend = document.getElementById('input_search_friend');
+
+search_friend.addEventListener('keydown', function() {
+    pseudo = search_friend.value;
+    var params = new URLSearchParams();
+    params.append('pseudo', pseudo);
+
+    fetch('fetch/search_friend.php', {
+        method: 'POST',
+        body: params
+    }).then(response => response.json())
+    .then(response => {
+        console.log(response[0].pseudo, response);
+        document.getElementById('friends_result').innerHTML = '';
+        for (var i = 0; i < response.length; i++) {
+            document.getElementById('friends_result').innerHTML += '<div class="result_search_friend">' + response[i].pseudo + '<span data=' + response[i].pseudo + ' class="add_friend material-symbols-outlined"  onclick=add_friend("' + response[i].pseudo + '")>add</span></div>';
+        }
+    });
+});
+
+function add_friend(pseudo) {
+    var params = new URLSearchParams();
+    params.append('pseudo', pseudo);
+
+    fetch('fetch/add_friend.php', {
+        method: 'POST',
+        body: params,
+        credentials: 'include'
+    }).then(reponse => reponse.text())
+    .then(response => {
+        alert(response);
+    });
+};
+
+function accept_friend(pseudo) {
+    var params = new URLSearchParams();
+    params.append('pseudo', pseudo);
+
+    fetch('fetch/accept_friend.php', {
+        method: 'POST',
+        body: params,
+        credentials: 'include'
+    })
+
+    var invitation = document.querySelector('[data-invitation=' + pseudo + ']');
+    invitation.parentElement.removeChild(invitation);
+
+    var friends = document.querySelector('#listes_amis');
+    console.log(friends);
+    friends.innerHTML += "<div data-invitation =" + pseudo + " class='liste_ami'>" + pseudo + '</div>';
+};
+
+function refuse_friend(pseudo) {
+    var params = new URLSearchParams();
+    params.append('pseudo', pseudo);
+
+    fetch('fetch/refuse_friend.php', {
+        method: 'POST',
+        body: params,
+        credentials: 'include'
+    })
+
+    var invitation = document.querySelector('[data-invitation=' + pseudo + ']');
+    invitation.parentElement.removeChild(invitation);
+};
+
+// ================================================
 // Barre Xp Animée
 // ================================================
 
@@ -1219,6 +1303,157 @@ if(document.getElementById("particules")){
         "retina_detect": true
     });
 }
+
+// ================================================
+// Messages
+// ================================================
+
+var conversations = document.querySelectorAll(".conversation");
+var send_message = document.getElementById('input_send_message');
+
+function resetStyleConversations(){
+    conversations.forEach((conversation) => {
+        conversation.style.backgroundColor = 'rgba(0, 0, 0, 0.0)';
+    });
+}
+
+var id_conversation = 0;
+var pseudo_conversation = '';
+
+function afficheMessages(response, pseudo){
+    for(var i = 0; i < response.length; i++){
+        if(pseudo == response[i]["pseudo"]){
+            if(i > 0 && response[i-1]["pseudo"] == response[i]["pseudo"]){
+                document.getElementById('messages').innerHTML += '<p class="not_host"><span class="message">' 
+                                                                + response[i]["message"] + '</span></p>';
+            }else{
+                document.getElementById('messages').innerHTML += '<p class="not_host"><span class="date">' 
+                                                                + response[i]["sent_at"] + '</span><span class="pseudo">'
+                                                                + response[i]["pseudo"] + '</span><br /><span class="message">' 
+                                                                + response[i]["message"] + '</span></p>';
+            }
+        }else{
+            if(i > 0 && response[i-1]["pseudo"] == response[i]["pseudo"]){
+                document.getElementById('messages').innerHTML += '<p class="host"><span class="message">' 
+                                                                + response[i]["message"] + '</span></p>';
+            }else{
+                document.getElementById('messages').innerHTML += '<p class="host"><span class="pseudo">' 
+                                                                + response[i]["pseudo"] + '</span><span class="date">' 
+                                                                + response[i]["sent_at"] + '</span><br /><span class="message">' 
+                                                                + response[i]["message"] + '</span></p>';
+            }
+        }
+    }
+
+    var element = document.getElementById("messages");
+    element.scrollTop = element.scrollHeight;
+}
+
+conversations.forEach((conversation) => {
+    conversation.addEventListener('click', function() {
+        resetStyleConversations();
+        conversation.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+        document.getElementById('attente').style.display = 'none';
+        document.getElementById('non_attente').style.display = 'flex';
+
+        pseudo_conversation = conversation.getAttribute('data-conversation');
+
+        var params = new URLSearchParams();
+        params.append('pseudo', conversation.getAttribute('data-conversation'));
+
+        fetch('fetch/load_messages.php', {
+            method: 'POST',
+            body: params,
+            credentials: 'include'
+        }).then(response => response.json())
+        .then(response => {
+            id_conversation = response[1];
+            send_message.setAttribute('data', response[1]);
+            document.getElementById('messages').innerHTML = '';
+
+            afficheMessages(response[0], conversation.getAttribute('data-conversation'))
+        });
+    });
+});
+
+function majMessages(message){
+
+    let now = new Date();
+
+    let year = now.getFullYear();
+    let month = (now.getMonth() + 1).toString().padStart(2, "0"); // Les mois commencent à 0 en JS
+    let day = now.getDate().toString().padStart(2, "0");
+    let hours = now.getHours().toString().padStart(2, "0");
+    let minutes = now.getMinutes().toString().padStart(2, "0");
+    let seconds = now.getSeconds().toString().padStart(2, "0");
+
+    let formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+    document.getElementById('messages').innerHTML += '<p class="host"><span class="pseudo">' 
+                                                            + document.getElementById('pseudo_user').getAttribute("data") + '</span><span class="date">' 
+                                                            + formattedDate + '</span><br /><span class="message">' 
+                                                            + message + '</span></p>';
+
+    var element = document.getElementById("messages");
+    element.scrollTop = element.scrollHeight;
+}
+
+function envoieMessage(){
+    var message = document.getElementById('message').value;
+
+    if(message != '' && id_conversation != 0){
+        var params = new URLSearchParams();
+        params.append('message', message);
+        params.append('id_conversation', id_conversation);
+        params.append('pseudo', pseudo_conversation);
+
+
+        fetch('fetch/send_message.php', {
+            method: 'POST',
+            body: params,
+            credentials: 'include'
+        })
+
+        majMessages(message);
+    }
+}
+
+
+let input_message = document.getElementById('message');
+
+send_message.addEventListener('click', function(e) {
+    envoieMessage();
+    input_message.value = '';
+});
+
+input_message.addEventListener('keydown', function(event) {
+  if (event.key === "Enter") {
+    envoieMessage();
+    input_message.value = '';
+  }
+});
+
+function refreshConversation() {
+    var params = new URLSearchParams();
+    params.append('id_conversation', id_conversation);
+
+    if(id_conversation != 0){
+        fetch('fetch/maj_messages.php', {
+            method: 'POST',
+            body: params,
+            credentials: 'include'
+        }).then(response => response.json())
+        .then(response => {
+            if(document.querySelectorAll('#messages p').length != response.length){
+                document.getElementById('messages').innerHTML = '';
+                console.log('messages mis à jour');
+                afficheMessages(response, pseudo_conversation);
+            }
+        });
+    }
+}
+
+setInterval(refreshConversation, 1000);
 
 // ================================================
 // API ChatGPT

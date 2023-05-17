@@ -49,6 +49,7 @@ function xpmax_final($xp, $xplvl){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Connnectez-vous à Deny Code Billard">
     <title>Deny Code Billard - Connexion</title>
     <link rel="stylesheet" href="style/style_login.css">
     <link rel="icon" href="../style/logo/DCB.png" />

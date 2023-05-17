@@ -1,4 +1,4 @@
-<h1>V1.4 - Amélioration de l'editeur de code Denytor et correction de bugs</h1>
+<h1>V1.4 - Amélioration de l'editeur de code Denytor et correction de bugs (15 mai 2023)</h1>
 
 <p>Cette mise à jour n'ajoute pas de nouvelles fonctionnalités mais corrige des bugs et améliore l'editeur de code Denytor.
     Nous sommes en route pour la 2.0 qui débloquera de nouvelles fonctionnalités.</p>

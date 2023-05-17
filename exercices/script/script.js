@@ -376,7 +376,7 @@ async function runCode(exercice_id) {
             
             //DenyFraude(code);
             SaveCode(code, document.querySelector(".title_language").getAttribute("data"), exercice_id);
-            //SendCodeVerif(code, language);
+            SendCodeVerif(code.replace(/""".+?"""/gs, ''), language);
             text = "";
             text += detailsData.stdout + "\n";
             if (detailsData.build_stderr) {
