@@ -16,24 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
 var editorPython;
 var editorC;
 
-// def main():
-//     print("Hello World !")
-//     bite()
-
-// def bite():
-//     print("Hey")
-//     var = 0
-//     ma_bite = "petite"
-//     ma_bite = "horrible"
-//     msg = ma_bite + " " + var
-//     print(msg)
-//     print("1)" + ma_var +" " + var)
-//     print(var +" +  "+ var)
-//     print(ma_var+"+"+var+";")
-//     print(ma_var)
-
-// main()
-
 function createEditors(editor, code){
     switch(editor.id){
         case "my-editor-python":
@@ -213,31 +195,109 @@ function reconstituteStrings(stringsPrint, variables) {
     console.log(strings);
 }
 
-function DenyFraude(code){ 
-    var functions = findFunctionName(code);
-    var stringsPrint = splitStringPrint(findStringPrint(code));
-    var variables = findVariable(code);
-    reconstituteStrings(stringsPrint, variables);
-    console.log(variables);
+//INSERT INTO `functions_verification`(`id_exercice`, `function`, `start_variables`, `end_variables`) VALUES (8, 'test_numero', "['5','7','1','3'],['a']", "(['5', '1', '3', '7'], [])")
 
-    fetch('https://api.openai.com/v1/engines/gpt-3.5-turbo/completions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer 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',
-        },
-        body: JSON.stringify({
-            prompt: "Translate the following English text to French: '{}'",
-            max_tokens: 60
-        }),
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch((error) => {
-        console.error('Error:', error);
+function sendTest(verif, language){
+    return new Promise((resolve, reject) => {
+        //console.log(verif);
+        verification = 0;
+        fetch("https://api.paiza.io/runners/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                source_code: verif[0],
+                language: language,
+                api_key: "guest"
+            })
+            })
+            .then(data => data.json())
+            .then(async data => {
+                const statusCheckURL = `https://api.paiza.io/runners/get_status?id=${data.id}&api_key=guest`;
+
+                while (true) {
+                const statusResponse = await fetch(statusCheckURL);
+                const statusData = await statusResponse.json();
+
+                if (statusData.status === "completed") {
+                    const detailsURL = `https://api.paiza.io/runners/get_details?id=${data.id}&api_key=guest`;
+                    const detailsResponse = await fetch(detailsURL);
+                    const detailsData = await detailsResponse.json();
+                                    
+                                    
+                    if(!(detailsData.build_stderr || detailsData.stderr)){
+                        if(detailsData.stdout.replaceAll('\n', '') != verif[1]){
+                            console.log('false');
+                            resolve(false);
+                        }else{
+                            console.log('true');
+                            resolve(true);
+                        }
+                    }
+                    break;
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        });
     });
+}
 
-    return 0; 
+async function DenyFraude(functions_separed, language){ 
+    // var functions = findFunctionName(code);
+    // var stringsPrint = splitStringPrint(findStringPrint(code));
+    // var variables = findVariable(code);
+    // reconstituteStrings(stringsPrint, variables);
+    // console.log(variables);
+    
+    var test = [];
+    for(var function_separed in functions_separed) {
+        //console.log(function_separed);
+        if(function_separed != "main") {
+            params = new URLSearchParams();
+            params.append('functions', function_separed);
+            params.append('exercice_id', document.querySelector("#title").getAttribute("data"));
+
+            fetch('../../../../fetch/deny_fraude.php', {
+                method: 'POST',
+                body: params,
+                credentials: 'include'
+            }).then(response => response.json())
+            .then(async response => {
+                for(var i = 0; i < response[1].length; i++) {
+                    let newCode = functions_separed[response[0]]
+                    for(var funct in functions_separed) {
+                        if(newCode.includes(funct) && funct != 'main' && funct != response[0]){
+                            newCode = functions_separed[funct] + '\n\n' + newCode;
+                        }
+                    }
+                    newCode = `def main():\n    print(${response[0]}(${response[1][i]["start_variables"]}))\n\n` + newCode + '\nmain()';
+                    test.push([newCode, response[1][i]["end_variables"]]);
+                    if(test.length == 2*(response[1].length + 1)){
+                        var variable_test = true;
+                        for(var i = 0; i < test.length; i++) {
+                            const result = await sendTest(test[i], language);
+                            if(!result){
+                                variable_test = false;
+                            }
+                        }
+                        if(variable_test){
+                            alert("vous avez validé l'exerice !");
+                        }else{
+                            alert("vous n'avez pas validé l'exerice !");
+                        }
+                        document.getElementById("chargement_barre").style.animation = "none";
+                        document.getElementById("chargement_barre").style.backgroundColor = "dodgerblue";
+                    }
+                }
+                
+            });
+            
+        }
+    }
+    
+    return true; 
 }
 
 function SaveCode(code, language, exercice_id) {
@@ -283,12 +343,12 @@ function SeparateFunct(code, functions){
     for (var functionName in functionLines) {
         functionLines[functionName] = functionLines[functionName].join('\n');
     }
-    console.log(functionLines);
+    return functionLines;
 }
 
 // recupérer noms des variables + noms des fonctions
 
-function SendCodeVerif(code, language){
+function SendCodeVerif(code, language, mode){
     if(language == 'python3'){
         code_test = 'import ast\n\n'
             + 'class FunctionVisitor(ast.NodeVisitor):\n'
@@ -323,16 +383,27 @@ function SendCodeVerif(code, language){
             const detailsResponse = await fetch(detailsURL);
             const detailsData = await detailsResponse.json();
         
-            console.log(detailsData.stdout);
+            //console.log(detailsData.stdout);
             if(!(detailsData.build_stderr || detailsData.stderr)){
-                SeparateFunct(code, detailsData.stdout.split("\n"));
+                var functions_separed = SeparateFunct(code.replace('\nmain()',''), detailsData.stdout.split("\n"));
             }
-            if (detailsData.build_stderr) {
-                console.log("Build Error: \n" + detailsData.build_stderr + "\n");
+            //console.log(functions_separed);
+            if(mode == 1){
+                document.getElementById("chargement_barre").style.backgroundColor = "crimson";
+                document.getElementById("chargement_barre").style.animation = "loading 2.5s linear infinite";
+                DenyFraude(functions_separed, language).then(result => {
+                    
+                });
+            }else{
+                document.getElementById("chargement_barre").style.animation = "none";
             }
-            if (detailsData.stderr) {
-                console.log("Runtime Error: \n" + detailsData.stderr + "\n");
-            }
+
+            // if (detailsData.build_stderr) {
+            //     console.log("Build Error: \n" + detailsData.build_stderr + "\n");
+            // }
+            // if (detailsData.stderr) {
+            //     console.log("Runtime Error: \n" + detailsData.stderr + "\n");
+            // }
             break;
         }
 
@@ -341,7 +412,7 @@ function SendCodeVerif(code, language){
     })
 }
 
-async function runCode(exercice_id) {
+async function runCode(exercice_id, mode) {
 
     document.getElementById("chargement_barre").style.animation = "loading 2.5s linear infinite";
 
@@ -374,9 +445,8 @@ async function runCode(exercice_id) {
             const detailsResponse = await fetch(detailsURL);
             const detailsData = await detailsResponse.json();
             
-            //DenyFraude(code);
             SaveCode(code, document.querySelector(".title_language").getAttribute("data"), exercice_id);
-            SendCodeVerif(code.replace(/""".+?"""/gs, ''), language);
+            SendCodeVerif(code.replace(/""".+?"""/gs, ''), language, mode);
             text = "";
             text += detailsData.stdout + "\n";
             if (detailsData.build_stderr) {
@@ -393,7 +463,7 @@ async function runCode(exercice_id) {
         await new Promise(resolve => setTimeout(resolve, 1000));
         }
 
-        document.getElementById("chargement_barre").style.animation = "none";
+        //document.getElementById("chargement_barre").style.animation = "none";
     })
     .catch(error => {
         console.error("Erreur :", error);
