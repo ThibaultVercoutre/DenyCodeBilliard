@@ -110,7 +110,7 @@ function get_xp_percentage() {
                         ?>
                     </div>
                 </div>
-                <h1 href="#" id="version">V1.5</h1>
+                <a href="devs.php" id="version">V1.5</a>
                 <a href="#" id="trophees"><span class="material-icons">emoji_events</span></a>
                 <?php if(!empty($_SESSION['id'])){ ?>
                     <p class="hexagon-text"><?php echo $_SESSION['niveau']; ?></p>
