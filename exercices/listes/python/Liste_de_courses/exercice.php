@@ -28,13 +28,13 @@ include '../../../includes/test_valide.php';
     <div id="title">Liste de courses</div>
     <div id="sujet">
         <p>Créer une liste de course pour le jeune Deny qui veut apprendre le billiard. 
-            Il va devoir acheter une queue, un set de boules et un petit tamon pour frotter le bout de sa queue. 
+            Il va devoir acheter une queue, un set de boules et un petit tampon pour frotter le bout de sa queue. 
             Il faudra qu'il y ait :</p>
         <ul>
-            <li>une fonction qui demande à l'utilisateur sa liste de course (taper fin pour finir sa liste de course)</li>
-            <li>une fonction qui tri sa liste de course par ordre alphabétique</li>
-            <li>une fonction qui tri sa liste par la chaine de caractère la plus courte à la plus longue</li>
-            <li>une fonction qui demande s'il vient d'acheter une objet parmis les x de la liste (il devra taper 1 - 2 - 3 ... ou X pour choisir un objet, faire une petite présentation graphique) et s'arrête lorsqu'il n'y a plus d'objet dans la liste</li>
+            <li>une fonction qui créé la liste de course</li>
+            <li>une fonction qui tri sa liste de course par ordre alphabétique et retourne cette liste</li>
+            <li>une fonction qui tri sa liste par la chaine de caractère la plus courte à la plus longue et retourne cette liste</li>
+            <li>une fonction qui supprime les objets un a un et s'arrête lorsqu'il n'y a plus qu'un seul d'objet dans la liste, et retourne cette liste</li>
         </ul>
     </div>
 

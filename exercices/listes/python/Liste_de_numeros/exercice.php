@@ -25,7 +25,7 @@ include '../../../includes/test_valide.php';
     <script src="/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-    <div id="title">Liste de numeros</div>
+    <div id="title" data="<?php echo $_GET["exercice_id"]?>">Liste de numeros</div>
     <div id="sujet">
         <p>Deny a maintenant sa liste de course (simplement enregistré dans une liste au début de la fonction main). 
             Il doit maintenant contacter les magasins par telephone pour savoir s'ils ont ces articles ou pas. 
@@ -36,6 +36,12 @@ include '../../../includes/test_valide.php';
         </ul>
             <p>Tout les numéros sont renseigné par l'utilisateur dans une liste<p>
             <p>A la fin, il faudra montrer le ratio des magasins possédant les articles par rapport à tout les magasins</p>
+            <p>Il lui faudra donc les fonctions suivantes</p>
+        <ul>
+            <li>test_numero(numeros_magasins, articles) qui test les magasins</li>
+            <li>appel_magasin(numero, articles) qui retourne si l'article est disponible en magasin ou pas. Pour limiter le hasard, tout les numero se finissant avec un nombre impair de caractères ont tout les articles de disponible, sinon indisponible.</li>
+            <li>calcul_ratio(numeros_magasins, magasins_avec_articles) qui calcul le ratio du nombre de magasins avec les articles disponibles.</li>
+        </ul>
     </div>
 
     <?php 

@@ -3,7 +3,7 @@
 <div id="chat">
     <div id="liste_conversations">
         <?php
-            $req = $db->prepare('SELECT pseudo FROM users WHERE id IN (SELECT friend_id FROM friends WHERE user_id = :user)');
+            $req = $db->prepare('SELECT pseudo FROM users WHERE id IN (SELECT friend_id FROM friends WHERE user_id = :user AND status = 1)');
             $req->execute([
                 'user' => $_SESSION['id']
             ]);
