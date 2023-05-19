@@ -662,6 +662,63 @@ creer_exercice.addEventListener('click', () => {
 });
 };
 
+//=================================================
+// Creation vérification
+//=================================================
+
+var choix_language = document.getElementById('choix_language');
+var choix_notion = document.getElementById('choix_notion');
+var choix_exercice = document.getElementById('choix_exercice');
+
+function miseajourExercicesChoix(language, notion){
+    var params = new URLSearchParams();
+    params.append('language', language);
+    params.append('notion', notion);
+
+    fetch('fetch/liste_exercice_admin.php', {
+        method: 'POST',
+        body: params
+    }).then(response => response.json())
+    .then(response => {
+        choix_exercice.innerHTML = '';
+        for(let i = 0; i < response.length; i++){
+            choix_exercice.innerHTML += '<option value="'+response[i]["name"]+'">'+response[i]["name"]+'</option>';
+        }
+    });
+
+}
+
+choix_language.addEventListener('change', () => {
+    miseajourExercicesChoix(choix_language.value, choix_notion.value);
+});
+
+choix_notion.addEventListener('change', () => {
+    miseajourExercicesChoix(choix_language.value, choix_notion.value);
+});
+
+var creer_verif = document.getElementById('add_verif');
+
+creer_verif.addEventListener('click', () => {
+    var params = new URLSearchParams();
+    params.append('language', choix_language.value);
+    params.append('notion', choix_notion.value);
+    params.append('exercice', choix_exercice.value);
+    params.append('function', document.getElementById('name_function').value);
+    params.append('start_var', document.getElementById('start_var').value);
+    params.append('end_var', document.getElementById('end_var').value);
+
+
+    console.log('coucou');
+
+    // fetch('fetch/creation_verif.php', {
+    //     method: 'POST',
+    //     body: params
+    // }).then(response => response.text())
+    // .then(response => {
+    //     alert(response);
+    // });
+});
+
 // ================================================
 // Ajout Notion / Exercice
 // ================================================
