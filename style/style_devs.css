@@ -31,6 +31,7 @@ body{
 
 #thibault {
   box-shadow: inset 0px 0px 50px rgb(45, 171, 213);
+  transition: 0.3s;
   filter: opacity(1);
   background-size: cover;
   background-blend-mode: multiply;
@@ -55,6 +56,7 @@ body{
 
 #julien {
   box-shadow: inset 0px 0px 50px rgb(208, 13, 13);
+  transition: 0.3s;
   filter: opacity(1);
   background-size: cover;
   background-blend-mode: multiply;
