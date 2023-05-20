@@ -26,25 +26,23 @@ include '../../../includes/test_valide.php';
     <script src="/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-    <div id="title">Trouver la boule</div>
+    <div id="title" data="<?php echo $_GET["exercice_id"]?>">Trouver la boule</div>
     <div id="sujet">
         <p>Notre jeune Deny a besoin de trouver la boule blanche pour jouer au billard américain.
             Il va devoir alors regarder une par une les boules de son jeu de billard pour trouver la boule blanche.
-            Pour cela il aura une liste de boules de billard avec leur couleur et leur numéro. La boule blanche et la boule noire
-            auront 0 comme numéro. Il y aura donc 16 boules de billard dans la liste.
+            Pour cela il aura une liste de boules de billard avec leur numéro uniquement. La boule blanche aura 0 comme numéro. Il y aura donc 16 boules de billard dans la liste.
             Il y aura donc la fonction suivante :
         </p>
         <ul>
-            <li>Une fonction qui cherche la boule de couleur blanche</li>
+            <li>Une fonction trouver_la_boule_blanche(boules) qui cherche la boule de couleur blanche et renvoie sa position, si elle n'est pas trouvé la fonction retourne -1</li>
+            <li>Une fonction trouver_la_boule_noire(boules) qui cherche la boule de couleur noire et renvoie sa position, si elle n'est pas trouvé la fonction retourne -1</li>
         </ul>
     </div>
 
     <?php 
     if($result){
-        echo $result;
         include 'correction.php'; 
     }else{
-        echo $result;
         include '../../../includes/python.php';
         include '../../../includes/execute.php';
         echo '<pre id="console"></pre>';

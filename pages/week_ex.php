@@ -9,7 +9,7 @@
     <fieldset>
         <legend>Niveau 1</legend>
         <p>Deny se rend dans un bar pour jouer avec ses amis.
-            Pour pouvoir s'abrever, il dispose d'un billet de 20€. Il ne prend jamais de carte bancaire, par peur de se la faire voler.
+            Pour pouvoir s'abreuver, il dispose d'un billet de 20€. Il ne prend jamais de carte bancaire, par peur de se la faire voler.
             Il voudrait savoir quelle quantité de boisson au maximum (rentabilité maximum de quantité) il peut avoir avec son argent.
             Il souhaite aussi savoir la quantité minimum qu'il pourrait avoir (rentabilité minimum de quantité).
             Pour cela, il se renseigne auprès du barman pour avoir la liste des boissons :</p>

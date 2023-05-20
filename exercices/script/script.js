@@ -57,8 +57,9 @@ function getCodeSaved(language, exercice_id) {
     });
 }
 
-getCodeSaved(document.querySelector(".title_language").getAttribute("data"), document.querySelector("#execute").getAttribute("data"));
-
+if(document.querySelector("#execute") != null){
+    getCodeSaved(document.querySelector(".title_language").getAttribute("data"), document.querySelector("#execute").getAttribute("data"));
+}
 const consoleElement = document.getElementById("console");
 
 function findLanguage(edit){
@@ -191,15 +192,13 @@ function reconstituteStrings(stringsPrint, variables) {
         });
         strings.push(string);
     });
-
-    console.log(strings);
+    return strings;
 }
 
 //INSERT INTO `functions_verification`(`id_exercice`, `function`, `start_variables`, `end_variables`) VALUES (8, 'test_numero', "['5','7','1','3'],['a']", "(['5', '1', '3', '7'], [])")
 
 function sendTest(verif, language){
     return new Promise((resolve, reject) => {
-        //console.log(verif);
         verification = 0;
         fetch("https://api.paiza.io/runners/create", {
             method: "POST",
@@ -227,11 +226,12 @@ function sendTest(verif, language){
                                     
                                     
                     if(!(detailsData.build_stderr || detailsData.stderr)){
+                        console.log(detailsData.stdout.replaceAll('\n', ''), verif[1]);
                         if(detailsData.stdout.replaceAll('\n', '') != verif[1]){
-                            console.log('false');
+                            console.log("false");
                             resolve(false);
                         }else{
-                            console.log('true');
+                            console.log("true");
                             resolve(true);
                         }
                     }
@@ -244,6 +244,28 @@ function sendTest(verif, language){
     });
 }
 
+function validExercice(id_exo){
+    console.log(id_exo);
+    params = new URLSearchParams();
+    params.append('id_exo', id_exo);
+
+    fetch('../../../../fetch/valid_exercice.php', {
+        method: 'POST',
+        body: params,
+        credentials: 'include'
+    }).then(response => response.text())
+    .then(response => {
+        if(response == "success"){
+            alert('Exercice validé !');
+            window.scroll({
+                top: 0,
+                left: 0,
+            });
+            location.reload();
+        }
+    });
+}
+
 async function DenyFraude(functions_separed, language){ 
     // var functions = findFunctionName(code);
     // var stringsPrint = splitStringPrint(findStringPrint(code));
@@ -253,7 +275,6 @@ async function DenyFraude(functions_separed, language){
     
     var test = [];
     for(var function_separed in functions_separed) {
-        //console.log(function_separed);
         if(function_separed != "main") {
             params = new URLSearchParams();
             params.append('functions', function_separed);
@@ -274,7 +295,7 @@ async function DenyFraude(functions_separed, language){
                     }
                     newCode = `def main():\n    print(${response[0]}(${response[1][i]["start_variables"]}))\n\n` + newCode + '\nmain()';
                     test.push([newCode, response[1][i]["end_variables"]]);
-                    if(test.length == 2*(response[1].length + 1)){
+                    if(test.length == response[1].length*(Object.keys(functions_separed).length - 1)){
                         var variable_test = true;
                         for(var i = 0; i < test.length; i++) {
                             const result = await sendTest(test[i], language);
@@ -283,15 +304,20 @@ async function DenyFraude(functions_separed, language){
                             }
                         }
                         if(variable_test){
-                            alert("vous avez validé l'exerice !");
+                            console.log("vous avez validé l'exerice !");
+                            validExercice(document.querySelector("#title").getAttribute("data"));
+                            document.getElementById("chargement_barre").style.animation = "none";
+                            document.getElementById("chargement_barre").style.backgroundColor = "dodgerblue";
+                            return;
                         }else{
-                            alert("vous n'avez pas validé l'exerice !");
-                        }
-                        document.getElementById("chargement_barre").style.animation = "none";
-                        document.getElementById("chargement_barre").style.backgroundColor = "dodgerblue";
+                            console.log("vous n'avez pas validé l'exerice !");
+                            document.getElementById("chargement_barre").style.animation = "none";
+                            document.getElementById("chargement_barre").style.backgroundColor = "dodgerblue";
+                            return;
+                        }                        
                     }
                 }
-                
+                return;                
             });
             
         }
@@ -356,7 +382,7 @@ function SendCodeVerif(code, language, mode){
             + '        print(f"{node.name}")\n'
             + '        self.generic_visit(node)'
             + '\n\ncode = """'
-            + code + '"""\n\ntree = ast.parse(code)\nFunctionVisitor().visit(tree)';
+            + code.replace('\n"', '\\n"') + '"""\n\ntree = ast.parse(code)\nFunctionVisitor().visit(tree)';
     }
 
     fetch("https://api.paiza.io/runners/create", {
@@ -383,27 +409,20 @@ function SendCodeVerif(code, language, mode){
             const detailsResponse = await fetch(detailsURL);
             const detailsData = await detailsResponse.json();
         
-            //console.log(detailsData.stdout);
             if(!(detailsData.build_stderr || detailsData.stderr)){
                 var functions_separed = SeparateFunct(code.replace('\nmain()',''), detailsData.stdout.split("\n"));
+            }else{
+                document.getElementById("chargement_barre").style.animation = "none";
             }
-            //console.log(functions_separed);
             if(mode == 1){
                 document.getElementById("chargement_barre").style.backgroundColor = "crimson";
                 document.getElementById("chargement_barre").style.animation = "loading 2.5s linear infinite";
                 DenyFraude(functions_separed, language).then(result => {
-                    
                 });
             }else{
                 document.getElementById("chargement_barre").style.animation = "none";
             }
 
-            // if (detailsData.build_stderr) {
-            //     console.log("Build Error: \n" + detailsData.build_stderr + "\n");
-            // }
-            // if (detailsData.stderr) {
-            //     console.log("Runtime Error: \n" + detailsData.stderr + "\n");
-            // }
             break;
         }
 
@@ -463,7 +482,6 @@ async function runCode(exercice_id, mode) {
         await new Promise(resolve => setTimeout(resolve, 1000));
         }
 
-        //document.getElementById("chargement_barre").style.animation = "none";
     })
     .catch(error => {
         console.error("Erreur :", error);
