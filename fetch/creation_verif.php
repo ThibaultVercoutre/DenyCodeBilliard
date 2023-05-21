@@ -5,35 +5,36 @@ global $db;
 
 
 // ----------------------------------------------------------------
-// Creer exercice
+// Creer une vérification
 // ----------------------------------------------------------------
 
-$data = json_decode($_POST["données"]);
+$language = $_POST['language'];
+$notion = $_POST['notion'];
+$exercice = $_POST['exercice'];
+$function = $_POST['function'];
+$start_var = $_POST['start_var'];
+$end_var = $_POST['end_var'];
 
-$q = $db->prepare("SELECT id FROM `languages` WHERE name = :language");
+$q = $db->prepare("INSERT INTO `functions_verification`(`id_exercice`, `function`, `start_variables`, `end_variables`) 
+                    VALUES ((SELECT id from `exercices` 
+                                WHERE name = :exercice
+                                AND language = (SELECT id from `languages` 
+                                                WHERE name = :language)
+                                AND notion = (SELECT id from `notions` 
+                                                WHERE name = :notion)),
+                            :function,
+                            :start_var,
+                            :end_var)");
 $q->execute([
-    'language' => $data->language
+    'exercice' => $exercice,
+    'language' => $language,
+    'notion' => $notion,
+    'function' => $function,
+    'start_var' => $start_var,
+    'end_var' => $end_var
 ]);
-$language_id = $q->fetch()['id'];
+//$language_id = $q->fetch()['id'];
 
-$q = $db->prepare("SELECT id FROM `notions` WHERE name = :notion");
-$q->execute([
-    'notion' => $data->notion
-]);
-$notion_id = $q->fetch()['id'];
-
-$q = $db->prepare(" INSERT INTO `exercices`(`language`, `notion`, `name`, `sujet`, `correction`, `nb_etapes`) 
-                    VALUES (:language, :notion, :name, :sujet, :correction, :nb_etapes)");
-
-$q->execute([           
-    'language' => $language_id,
-    'notion' => $notion_id,
-    'name' => $data->titre,
-    'sujet' => "",
-    'correction' => "",
-    'nb_etapes' => 0
-]);
-
-echo 'Exercice créé';
+echo $language . $notion . $exercice . $function . $start_var . $end_var;
 
 ?>

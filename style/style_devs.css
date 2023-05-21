@@ -85,6 +85,7 @@ body{
   display: flex;
   align-items: center;
   flex-direction: column;
+  transition: 0.3s;
 }
 
 .image-container {
@@ -151,6 +152,7 @@ body{
 
 #titrethibault {
   font-size: 40px;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
@@ -164,6 +166,7 @@ body{
 #titrejulien {
   font-size: 40px;
   background-color: #8c0000;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;

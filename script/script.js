@@ -643,23 +643,27 @@ function notionsNotionArbo(){
 let creer_exercice = document.getElementById('create_exo');
 
 if(creer_exercice != null){
-creer_exercice.addEventListener('click', () => {
-    let données = {
-        "titre" : document.getElementById('exo_title').value,
-        "language" : document.getElementById('ajout_language').value,
-        "notion" : document.getElementById('ajout_notion').value
-    };
+    creer_exercice.addEventListener('click', () => {
+        let données = {
+            "titre" : document.getElementById('exo_title').value,
+            "language" : document.getElementById('ajout_language').value,
+            "notion" : document.getElementById('ajout_notion').value
+        };
 
-    document.getElementById('exo_title').value = '';
+        document.getElementById('exo_title').value = '';
 
-    var params = new URLSearchParams();
-    params.append('données', JSON.stringify(données));
+        var params = new URLSearchParams();
+        params.append('données', JSON.stringify(données));
 
-    fetch('fetch/envoie_new_exercice.php', {
-        method: 'POST',
-        body: params
-    }).then(response => response.text())
-});
+        fetch('fetch/envoie_new_exercice.php', {
+            method: 'POST',
+            body: params
+        }).then(response => response.text())
+        .then(result => {
+            console.log(result);
+        });
+
+    });
 };
 
 //=================================================
@@ -688,17 +692,21 @@ function miseajourExercicesChoix(language, notion){
 
 }
 
-choix_language.addEventListener('change', () => {
-    miseajourExercicesChoix(choix_language.value, choix_notion.value);
-});
+if(choix_language != null && choix_notion != null && choix_exercice != null){
+    choix_language.addEventListener('change', () => {
+        miseajourExercicesChoix(choix_language.value, choix_notion.value);
+    });
 
-choix_notion.addEventListener('change', () => {
-    miseajourExercicesChoix(choix_language.value, choix_notion.value);
-});
+    choix_notion.addEventListener('change', () => {
+        miseajourExercicesChoix(choix_language.value, choix_notion.value);
+    });
+
 
 var creer_verif = document.getElementById('add_verif');
 
 creer_verif.addEventListener('click', () => {
+    console.log(choix_language.value, choix_exercice.value);
+
     var params = new URLSearchParams();
     params.append('language', choix_language.value);
     params.append('notion', choix_notion.value);
@@ -707,18 +715,19 @@ creer_verif.addEventListener('click', () => {
     params.append('start_var', document.getElementById('start_var').value);
     params.append('end_var', document.getElementById('end_var').value);
 
+    console.log(params);
 
-    console.log('coucou');
-
-    // fetch('fetch/creation_verif.php', {
-    //     method: 'POST',
-    //     body: params
-    // }).then(response => response.text())
-    // .then(response => {
-    //     alert(response);
-    // });
+    fetch('fetch/creation_verif.php', {
+        method: 'POST',
+        body: params
+    }).then(response => response.text())
+    .then(response => {
+        document.getElementById('name_function').value = '';
+        document.getElementById('start_var').value = '';
+        document.getElementById('end_var').value = '';
+    });
 });
-
+}
 // ================================================
 // Ajout Notion / Exercice
 // ================================================
@@ -1178,6 +1187,7 @@ function envoie_mail(user) {
 
 var search_friend = document.getElementById('input_search_friend');
 
+if(search_friend != null) {
 search_friend.addEventListener('keydown', function() {
     pseudo = search_friend.value;
     var params = new URLSearchParams();
@@ -1195,7 +1205,7 @@ search_friend.addEventListener('keydown', function() {
         }
     });
 });
-
+}
 function add_friend(pseudo) {
     var params = new URLSearchParams();
     params.append('pseudo', pseudo);
@@ -1478,6 +1488,7 @@ function envoieMessage(){
 
 let input_message = document.getElementById('message');
 
+if(send_message != null && input_message != null){
 send_message.addEventListener('click', function(e) {
     envoieMessage();
     input_message.value = '';
@@ -1489,7 +1500,7 @@ input_message.addEventListener('keydown', function(event) {
     input_message.value = '';
   }
 });
-
+}
 function refreshConversation() {
     var params = new URLSearchParams();
     params.append('id_conversation', id_conversation);

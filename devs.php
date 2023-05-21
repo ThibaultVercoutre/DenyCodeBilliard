@@ -29,7 +29,7 @@ global $db;
                 <img src="style/images_devs/thibaultvercoutre.png" alt="Thibault Vercoutre">
               </div>
               <h1 class="name" id="titrethibault">Thibault Vercoutre</h1>
-              <p class="citations">Citation</p>
+              <p class="citations">Comme un surfeur glisse sur une vague au rythme de la musique, <br /> le codeur navigue dans les données au rythme de l'algorithmie</p>
             </section>
             <section class="title" id="julien">
               <div class="image-container" id="cimgjulien">
