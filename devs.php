@@ -3,6 +3,25 @@
 include 'includes/database.php';
 global $db;
 
+$_SESSION['id'] = 0;
+
+session_start();
+
+$iduser = $_SESSION['id'];
+$idtrophee = 19;
+
+$sql = 'INSERT INTO tropheesgagnes (iduser, idtrophee)
+        SELECT :iduser, :idtrophee
+        WHERE NOT EXISTS (
+            SELECT 1 FROM tropheesgagnes WHERE iduser = :iduser AND idtrophee = :idtrophee
+        )';
+
+$stmt = $db->prepare($sql);
+$stmt->bindParam(':iduser', $iduser);
+$stmt->bindParam(':idtrophee', $idtrophee);
+$stmt->execute();
+
+
 ?>
 
 <!DOCTYPE html>
